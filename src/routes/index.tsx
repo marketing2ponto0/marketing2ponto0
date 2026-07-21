@@ -1,256 +1,504 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   ArrowRight,
+  Award,
   BarChart3,
-  Bot,
+  Camera,
   Check,
-  Megaphone,
+  Code2,
+  Compass,
+  Instagram,
+  Layers,
+  Mail,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Printer,
   Rocket,
   Sparkles,
   Target,
   TrendingUp,
+  Users,
+  Zap,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Marketing 2.0 — Muito mais que uma agência" },
+      {
+        name: "description",
+        content:
+          "Agência especializada em mídias sociais e crescimento digital. Criatividade, dados e tráfego pago já incluso para resultados reais.",
+      },
+    ],
+  }),
   component: Index,
 });
 
-const services = [
+const WHATSAPP =
+  "https://wa.me/5511934503566?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es.";
+
+const stats = [
+  { num: "9+", label: "anos no mercado" },
+  { num: "+30", label: "clientes ativos" },
+  { num: "100k+", label: "leads captados" },
+  { num: "+500", label: "campanhas rodadas" },
+];
+
+const diferenciais = [
   {
     icon: Target,
-    title: "Estratégia de aquisição",
-    desc: "Diagnóstico completo, posicionamento e roadmap de canais orientado a receita.",
+    title: "Estratégia sob medida",
+    desc: "Nada de pacote engessado. Diagnosticamos seu negócio e desenhamos o plano certo.",
   },
   {
-    icon: Megaphone,
-    title: "Mídia paga performance",
-    desc: "Google, Meta, TikTok e LinkedIn com atribuição real e otimização diária.",
+    icon: Zap,
+    title: "Tráfego pago já incluso",
+    desc: "Google, Meta e TikTok gerenciados dentro do plano, sem taxa extra por canal.",
   },
   {
-    icon: Bot,
-    title: "IA aplicada ao marketing",
-    desc: "Automação de conteúdo, segmentação preditiva e agentes que operam 24/7.",
+    icon: Users,
+    title: "Squad dedicado",
+    desc: "Estrategista, social media, designer e mídia atuando como extensão do seu time.",
   },
   {
     icon: BarChart3,
-    title: "CRO & analytics",
-    desc: "Experimentos contínuos em landing pages, funis e checkout para destravar conversão.",
+    title: "Relatório que se entende",
+    desc: "Dashboard em tempo real e review mensal focado em receita, não em vaidade.",
   },
 ];
 
-const results = [
-  { kpi: "+312%", label: "ROAS médio em 90 dias" },
-  { kpi: "-47%", label: "Custo por aquisição" },
-  { kpi: "180+", label: "Marcas escaladas" },
-  { kpi: "R$ 84M", label: "Receita gerada em 2025" },
+const servicos = [
+  {
+    icon: Instagram,
+    title: "Gestão de Mídias Sociais",
+    desc: "Planejamento, conteúdo e comunidade em Instagram, TikTok, Facebook e LinkedIn.",
+  },
+  {
+    icon: Target,
+    title: "Tráfego Pago",
+    desc: "Campanhas em Meta Ads, Google Ads e TikTok Ads com foco em CAC e ROAS.",
+  },
+  {
+    icon: Sparkles,
+    title: "Criativos e Copywriting",
+    desc: "Reels, estáticos, carrosséis e copies que param o scroll e convertem.",
+  },
+  {
+    icon: Camera,
+    title: "Produção Audiovisual",
+    desc: "Fotos, vídeos e reels profissionais pela nossa UP Fotos e Vídeos.",
+  },
+  {
+    icon: Code2,
+    title: "Sites e Sistemas",
+    desc: "Landing pages, sites e sistemas sob medida pela Trinity Tecnologias.",
+  },
+  {
+    icon: Printer,
+    title: "Print e Comunicação Visual",
+    desc: "Papelaria, brindes e comunicação impressa pela A3H Print.",
+  },
 ];
 
-const process = [
+const processo = [
   {
     step: "01",
+    icon: Compass,
     title: "Diagnóstico",
-    desc: "Auditamos dados, funil e concorrência para achar as alavancas certas.",
+    desc: "Reunião com estrategista, análise de canais e concorrência.",
   },
   {
     step: "02",
-    title: "Blueprint",
-    desc: "Desenhamos um plano de 90 dias com metas, canais e responsáveis claros.",
+    icon: Layers,
+    title: "Planejamento",
+    desc: "Definimos posicionamento, metas, canais e calendário editorial.",
   },
   {
     step: "03",
+    icon: Rocket,
     title: "Execução",
-    desc: "Squad dedicado roda campanhas, criativos e experimentos toda semana.",
+    desc: "Produção de conteúdo, campanhas e otimização semanal.",
   },
   {
     step: "04",
-    title: "Escala",
-    desc: "Otimização com IA e review mensal para multiplicar o que funciona.",
+    icon: TrendingUp,
+    title: "Resultado",
+    desc: "Review mensal, aprendizados e escala do que funciona.",
   },
 ];
 
-const testimonials = [
+const depoimentos = [
   {
     quote:
-      "Em 6 meses saímos de R$ 200k para R$ 1,4M/mês em receita paga. O time do Marketing 2.0 virou parte da nossa operação.",
+      "Em menos de 6 meses triplicamos o volume de leads qualificados. O time da Marketing 2.0 virou parte da nossa operação.",
     name: "Carolina Mendes",
-    role: "CMO, Nuvem Retail",
+    role: "Diretora Comercial",
   },
   {
     quote:
-      "Finalmente uma agência que entrega relatório que o board entende. Reduziram nosso CAC em 40% no primeiro trimestre.",
+      "Saímos do 'postar por postar' para um plano com metas claras. Finalmente entendemos o que o marketing entrega.",
     name: "Rafael Torres",
-    role: "Head of Growth, Finora",
+    role: "Sócio-fundador",
   },
   {
     quote:
-      "A camada de IA que eles implementaram economiza mais de 60 horas por mês do meu time de conteúdo.",
+      "Atendimento próximo, criativos de altíssimo nível e resultado real em vendas. Recomendo de olhos fechados.",
     name: "Isabela Prado",
-    role: "Diretora, Casa Zaffé",
+    role: "CEO",
   },
 ];
 
-const plans = [
+const grupo = [
   {
-    name: "Ignite",
-    price: "R$ 6.900",
-    tag: "Para marcas iniciando tração",
-    features: [
-      "Até 2 canais de mídia paga",
-      "Gestão semanal + relatório",
-      "10 criativos por mês",
-      "Setup de tracking e GA4",
-    ],
+    name: "UP Fotos e Vídeos",
+    tag: "Produção audiovisual",
+    color: "from-pink-500/20 to-transparent",
+    icon: Camera,
   },
   {
-    name: "Scale",
-    price: "R$ 14.900",
-    tag: "Mais popular",
-    highlighted: true,
-    features: [
-      "Todos os canais de mídia paga",
-      "Squad dedicado + CRO",
-      "30 criativos + copy IA",
-      "Dashboard em tempo real",
-      "Sprints de experimento",
-    ],
+    name: "A3H Print",
+    tag: "Comunicação impressa",
+    color: "from-amber-500/20 to-transparent",
+    icon: Printer,
   },
   {
-    name: "Enterprise",
-    price: "Sob medida",
-    tag: "Operações complexas",
-    features: [
-      "Estratégia omnichannel",
-      "Agentes de IA sob medida",
-      "Data warehouse e atribuição",
-      "Workshops executivos",
-    ],
+    name: "Trinity Tecnologias",
+    tag: "Sites e sistemas",
+    color: "from-sky-500/20 to-transparent",
+    icon: Code2,
+  },
+  {
+    name: "Buskiache",
+    tag: "Guia comercial + app",
+    color: "from-emerald-500/20 to-transparent",
+    icon: MapPin,
   },
 ];
 
 function Index() {
+  const [sent, setSent] = useState(false);
+
   return (
     <main className="min-h-screen text-foreground">
-      {/* Nav */}
-      <header className="sticky top-0 z-40 border-b border-border/50 backdrop-blur-xl bg-background/60">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <a href="#top" className="flex items-center gap-2 font-display font-bold text-lg">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
+      {/* NAV */}
+      <header className="sticky top-0 z-40 border-b border-border/60 backdrop-blur-xl bg-ink/85">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+          <a href="#top" className="flex items-center gap-3">
+            <span className="grid h-11 w-11 place-items-center rounded-lg bg-gradient-to-br from-brd to-brd-dark text-cream font-display font-extrabold brand-shadow">
               M
             </span>
-            Marketing <span className="text-accent">2.0</span>
+            <span className="flex flex-col leading-tight">
+              <span className="font-display font-bold text-sm tracking-tight">
+                Marketing <span className="gold-text">2.0</span>
+              </span>
+              <span className="text-[10px] italic text-muted-foreground">
+                muito mais que uma agência
+              </span>
+            </span>
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
+            <a href="#diferencial" className="hover:text-foreground transition">Diferenciais</a>
             <a href="#servicos" className="hover:text-foreground transition">Serviços</a>
-            <a href="#resultados" className="hover:text-foreground transition">Resultados</a>
             <a href="#processo" className="hover:text-foreground transition">Processo</a>
-            <a href="#planos" className="hover:text-foreground transition">Planos</a>
+            <a href="#grupo" className="hover:text-foreground transition">Grupo</a>
+            <a href="#depoimentos" className="hover:text-foreground transition">Clientes</a>
           </nav>
           <a
             href="#contato"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90 transition"
+            className="inline-flex items-center gap-2 rounded-full bg-brd px-5 py-2.5 text-sm font-semibold text-cream hover:bg-brd-light transition"
           >
-            Falar com estrategista
+            Falar agora
             <ArrowRight className="h-4 w-4" />
           </a>
         </div>
       </header>
 
-      {/* Hero */}
+      {/* HERO */}
       <section id="top" className="relative overflow-hidden">
-        <div className="mx-auto max-w-7xl px-6 pt-20 pb-28 md:pt-32 md:pb-40">
-          <div className="mx-auto max-w-4xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs text-muted-foreground">
-              <Sparkles className="h-3.5 w-3.5 text-accent" />
-              Consultoria de marketing com IA no núcleo
+        <div className="mx-auto max-w-7xl px-6 pt-16 pb-24 md:pt-24 md:pb-32 grid lg:grid-cols-2 gap-14 items-center">
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-xs font-medium text-gold">
+              <Sparkles className="h-3.5 w-3.5" />
+              Agência especializada em mídias sociais
             </span>
-            <h1 className="mt-6 text-5xl md:text-7xl font-bold leading-[1.05]">
-              Crescimento <span className="gradient-text">previsível</span>
+            <h1 className="mt-6 font-display text-5xl md:text-7xl font-extrabold leading-[1.02]">
+              Muito mais
               <br />
-              para marcas modernas.
+              que uma
+              <br />
+              <span className="gradient-gold">agência!</span>
             </h1>
-            <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Estratégia, performance e IA em um único squad. Escalamos receita com método, criativos que convertem e dashboards que o CEO entende.
+            <p className="mt-6 text-lg text-muted-foreground max-w-xl">
+              Especializados em <b className="text-foreground">mídias sociais</b> e
+              crescimento digital. Criatividade, dados e{" "}
+              <b className="text-foreground">tráfego pago já incluso</b> para
+              resultados reais.
             </p>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+            <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#contato"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90 transition"
+                className="inline-flex items-center gap-2 rounded-full bg-brd px-6 py-3.5 text-sm font-semibold text-cream hover:bg-brd-light transition brand-shadow"
               >
-                Solicitar diagnóstico gratuito
+                Quero crescer agora
                 <ArrowRight className="h-4 w-4" />
               </a>
               <a
-                href="#resultados"
-                className="inline-flex items-center gap-2 rounded-full glass px-6 py-3 text-sm font-medium hover:bg-white/5 transition"
+                href={WHATSAPP}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3.5 text-sm font-semibold hover:bg-white/5 transition"
               >
-                Ver resultados
+                <MessageCircle className="h-4 w-4 text-gold" />
+                Falar no WhatsApp
               </a>
             </div>
-            <p className="mt-6 text-xs text-muted-foreground">
-              +180 marcas escaladas · Parceiro Google, Meta e HubSpot
-            </p>
+
+            <div className="mt-12 grid grid-cols-3 gap-6 max-w-md">
+              {stats.slice(0, 3).map((s) => (
+                <div key={s.label}>
+                  <div className="font-display text-3xl font-extrabold gradient-gold">
+                    {s.num}
+                  </div>
+                  <div className="mt-1 text-xs text-muted-foreground leading-tight">
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* KPI strip */}
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4">
-            {results.map((r) => (
-              <div key={r.label} className="glass rounded-2xl p-6 text-center">
-                <div className="font-display text-3xl md:text-4xl font-bold gradient-text">
-                  {r.kpi}
+          {/* Hero visual — performance card */}
+          <div className="relative">
+            <div className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-brd/40 via-transparent to-gold/20 blur-2xl" />
+            <div className="relative glass rounded-3xl p-6 md:p-8">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-xs text-muted-foreground">Performance</div>
+                  <div className="font-display font-bold">Últimos 30 dias</div>
                 </div>
-                <div className="mt-1 text-xs text-muted-foreground">{r.label}</div>
+                <span className="rounded-full bg-gold/15 text-gold text-[11px] font-semibold px-3 py-1">
+                  ao vivo
+                </span>
               </div>
-            ))}
+              <div className="mt-6 space-y-4">
+                {[
+                  { name: "Instagram", pct: 82, color: "#E1306C" },
+                  { name: "Facebook", pct: 64, color: "#1877F2" },
+                  { name: "TikTok", pct: 74, color: "#25F4EE" },
+                  { name: "Google Ads", pct: 91, color: "#C9A84C" },
+                ].map((c) => (
+                  <div key={c.name} className="flex items-center gap-3">
+                    <span
+                      className="h-2.5 w-2.5 rounded-full shrink-0"
+                      style={{ background: c.color }}
+                    />
+                    <span className="text-sm w-24 shrink-0">{c.name}</span>
+                    <div className="flex-1 h-2 rounded-full bg-white/5 overflow-hidden">
+                      <div
+                        className="h-full rounded-full"
+                        style={{ width: `${c.pct}%`, background: c.color }}
+                      />
+                    </div>
+                    <span className="text-xs font-mono text-muted-foreground w-10 text-right">
+                      {c.pct}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 pt-6 border-t border-border/60 grid grid-cols-3 gap-4 text-center">
+                <div>
+                  <div className="font-display font-bold text-lg">4.2x</div>
+                  <div className="text-[10px] text-muted-foreground uppercase tracking-wider">ROAS</div>
+                </div>
+                <div>
+                  <div className="font-display font-bold text-lg gold-text">-38%</div>
+                  <div className="text-[10px] text-muted-foreground uppercase tracking-wider">CPA</div>
+                </div>
+                <div>
+                  <div className="font-display font-bold text-lg">+186%</div>
+                  <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Leads</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Services */}
-      <section id="servicos" className="border-t border-border/50 py-24">
+      {/* DIFERENCIAL */}
+      <section id="diferencial" className="border-t border-border/60 py-24 bg-ink-2/40">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid lg:grid-cols-2 gap-14 items-start">
+            <div>
+              <span className="text-xs uppercase tracking-[0.2em] text-gold">
+                Nosso diferencial
+              </span>
+              <h2 className="mt-3 text-4xl md:text-5xl font-extrabold">
+                Diferente dos demais
+                <br />
+                que fazem <span className="gradient-gold">pacotes</span>
+              </h2>
+              <p className="mt-5 text-muted-foreground max-w-md">
+                Cada marca é única e merece uma estratégia própria. Aqui você
+                tem squad dedicado, tráfego pago incluso e clareza total do que
+                está sendo feito.
+              </p>
+              <a
+                href="#contato"
+                className="mt-8 inline-flex items-center gap-2 rounded-full bg-brd px-6 py-3 text-sm font-semibold text-cream hover:bg-brd-light transition"
+              >
+                Quero esse diferencial
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              {diferenciais.map((d) => (
+                <div
+                  key={d.title}
+                  className="glass rounded-2xl p-6 hover:border-gold/40 transition"
+                >
+                  <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                    <d.icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="mt-4 font-display text-lg font-bold">{d.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                    {d.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SERVIÇOS */}
+      <section id="servicos" className="border-t border-border/60 py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
-              <span className="text-xs uppercase tracking-widest text-accent">O que fazemos</span>
-              <h2 className="mt-3 text-4xl md:text-5xl font-bold max-w-xl">
-                Um squad completo, quatro frentes de crescimento.
+              <span className="text-xs uppercase tracking-[0.2em] text-gold">
+                O que entregamos
+              </span>
+              <h2 className="mt-3 text-4xl md:text-5xl font-extrabold max-w-xl">
+                Soluções completas
+                <br />
+                para sua <span className="gradient-gold">marca</span>
               </h2>
             </div>
             <p className="text-muted-foreground max-w-md">
-              Unimos estratégia sênior, mídia performance e automação com IA para que sua marca cresça sem depender de sorte.
+              Da estratégia à execução — mídias sociais, tráfego, criativos,
+              audiovisual, sites e print. Tudo sob o mesmo teto.
             </p>
           </div>
 
-          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {services.map((s) => (
+          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {servicos.map((s) => (
               <div
                 key={s.title}
-                className="group glass rounded-2xl p-6 hover:border-primary/40 transition"
+                className="group relative overflow-hidden rounded-2xl border border-border/60 bg-ink-2/60 p-7 hover:border-gold/40 transition"
               >
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-primary/15 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition">
+                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-ink transition">
                   <s.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-5 font-display text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                <h3 className="mt-5 font-display text-lg font-bold">{s.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  {s.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Results / social proof */}
-      <section id="resultados" className="border-t border-border/50 py-24">
+      {/* PROCESSO */}
+      <section id="processo" className="border-t border-border/60 py-24 bg-ink-2/40">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="max-w-2xl">
+            <span className="text-xs uppercase tracking-[0.2em] text-gold">Método</span>
+            <h2 className="mt-3 text-4xl md:text-5xl font-extrabold">
+              Do primeiro contato
+              <br />
+              ao <span className="gradient-gold">resultado</span>
+            </h2>
+          </div>
+
+          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {processo.map((p) => (
+              <div
+                key={p.step}
+                className="relative rounded-2xl border border-border/60 p-6 overflow-hidden"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="font-display text-5xl font-extrabold text-brd/40">
+                    {p.step}
+                  </div>
+                  <p.icon className="h-5 w-5 text-gold" />
+                </div>
+                <h3 className="mt-4 font-display text-lg font-bold">{p.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  {p.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GRUPO */}
+      <section id="grupo" className="border-t border-border/60 py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center max-w-2xl mx-auto">
-            <span className="text-xs uppercase tracking-widest text-accent">Cases</span>
-            <h2 className="mt-3 text-4xl md:text-5xl font-bold">
-              Marcas que já viraram a chave.
+            <span className="text-xs uppercase tracking-[0.2em] text-gold">
+              Grupo Marketing 2.0
+            </span>
+            <h2 className="mt-3 text-4xl md:text-5xl font-extrabold">
+              Um ecossistema <span className="gradient-gold">completo</span>
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              Quatro empresas que se conectam para entregar tudo que sua marca
+              precisa — do post ao sistema.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {grupo.map((g) => (
+              <div
+                key={g.name}
+                className={`relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br ${g.color} p-6 hover:border-gold/40 transition`}
+              >
+                <g.icon className="h-6 w-6 text-gold" />
+                <h3 className="mt-6 font-display text-lg font-bold">{g.name}</h3>
+                <p className="mt-1 text-xs text-muted-foreground uppercase tracking-wider">
+                  {g.tag}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* DEPOIMENTOS */}
+      <section id="depoimentos" className="border-t border-border/60 py-24 bg-ink-2/40">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="text-center max-w-2xl mx-auto">
+            <span className="text-xs uppercase tracking-[0.2em] text-gold">Clientes</span>
+            <h2 className="mt-3 text-4xl md:text-5xl font-extrabold">
+              O que dizem
+              <br />
+              <span className="gradient-gold">nossos clientes</span>
             </h2>
           </div>
 
           <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <figure key={t.name} className="glass rounded-2xl p-8 flex flex-col">
-                <TrendingUp className="h-6 w-6 text-accent" />
+            {depoimentos.map((t) => (
+              <figure
+                key={t.name}
+                className="glass rounded-2xl p-8 flex flex-col"
+              >
+                <Award className="h-6 w-6 text-gold" />
                 <blockquote className="mt-6 text-base leading-relaxed">
                   "{t.quote}"
                 </blockquote>
@@ -264,140 +512,174 @@ function Index() {
         </div>
       </section>
 
-      {/* Process */}
-      <section id="processo" className="border-t border-border/50 py-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="max-w-2xl">
-            <span className="text-xs uppercase tracking-widest text-accent">Método</span>
-            <h2 className="mt-3 text-4xl md:text-5xl font-bold">
-              Um processo em 4 etapas para destravar receita.
+      {/* CTA + CONTATO */}
+      <section id="contato" className="border-t border-border/60 py-24">
+        <div className="mx-auto max-w-6xl px-6 grid lg:grid-cols-2 gap-12 items-start">
+          <div>
+            <span className="text-xs uppercase tracking-[0.2em] text-gold">
+              Pronto para crescer?
+            </span>
+            <h2 className="mt-3 text-4xl md:text-5xl font-extrabold">
+              Vamos conversar
+              <br />
+              sobre o seu <span className="gradient-gold">negócio</span>
             </h2>
-          </div>
-
-          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {process.map((p) => (
-              <div key={p.step} className="rounded-2xl border border-border/60 p-6 relative overflow-hidden">
-                <div className="font-display text-5xl font-bold text-primary/40">{p.step}</div>
-                <h3 className="mt-4 font-display text-lg font-semibold">{p.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section id="planos" className="border-t border-border/50 py-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="text-center max-w-2xl mx-auto">
-            <span className="text-xs uppercase tracking-widest text-accent">Planos</span>
-            <h2 className="mt-3 text-4xl md:text-5xl font-bold">
-              Escolha o ritmo do seu crescimento.
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              Contratos mensais, sem multa. Comece por onde faz sentido para o seu momento.
+            <p className="mt-4 text-muted-foreground max-w-md">
+              Preencha o formulário ou fale com a gente direto no WhatsApp.
+              Respondemos em até 1 dia útil.
             </p>
-          </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {plans.map((p) => (
-              <div
-                key={p.name}
-                className={
-                  "rounded-2xl p-8 flex flex-col " +
-                  (p.highlighted
-                    ? "bg-gradient-to-b from-primary/25 to-primary/5 border border-primary/40 shadow-2xl shadow-primary/20"
-                    : "glass")
-                }
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="font-display text-xl font-semibold">{p.name}</h3>
-                  {p.highlighted && (
-                    <span className="rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground">
-                      Popular
-                    </span>
-                  )}
-                </div>
-                <p className="mt-2 text-sm text-muted-foreground">{p.tag}</p>
-                <div className="mt-6 font-display text-4xl font-bold">
-                  {p.price}
-                  {p.price.startsWith("R$") && (
-                    <span className="text-base font-normal text-muted-foreground">/mês</span>
-                  )}
-                </div>
-                <ul className="mt-6 space-y-3 text-sm">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex gap-2">
-                      <Check className="h-4 w-4 text-accent mt-0.5 shrink-0" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#contato"
-                  className={
-                    "mt-8 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition " +
-                    (p.highlighted
-                      ? "bg-primary text-primary-foreground hover:opacity-90"
-                      : "border border-border hover:bg-white/5")
-                  }
-                >
-                  Começar agora
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section id="contato" className="border-t border-border/50 py-24">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="glass rounded-3xl p-10 md:p-16 text-center relative overflow-hidden">
-            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/25 via-transparent to-accent/20" />
-            <Rocket className="mx-auto h-10 w-10 text-accent" />
-            <h2 className="mt-6 text-4xl md:text-5xl font-bold max-w-2xl mx-auto">
-              Pronto para escalar com método?
-            </h2>
-            <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-              Agende um diagnóstico gratuito de 30 minutos com um estrategista sênior. Você sai com 3 alavancas acionáveis, mesmo que não feche com a gente.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <div className="mt-8 space-y-4">
               <a
-                href="mailto:contato@marketing2.com.br"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:opacity-90 transition"
+                href={WHATSAPP}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-4 rounded-2xl border border-border/60 p-4 hover:border-gold/40 transition"
               >
-                Agendar diagnóstico
-                <ArrowRight className="h-4 w-4" />
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                  <MessageCircle className="h-5 w-5" />
+                </span>
+                <div>
+                  <div className="text-xs text-muted-foreground">WhatsApp</div>
+                  <div className="font-semibold">(11) 93450-3566</div>
+                </div>
               </a>
               <a
-                href="https://wa.me/5511999999999"
-                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium hover:bg-white/5 transition"
+                href="mailto:contato@marketing2ponto0.com.br"
+                className="flex items-center gap-4 rounded-2xl border border-border/60 p-4 hover:border-gold/40 transition"
               >
-                Falar no WhatsApp
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                  <Mail className="h-5 w-5" />
+                </span>
+                <div>
+                  <div className="text-xs text-muted-foreground">E-mail</div>
+                  <div className="font-semibold">contato@marketing2ponto0.com.br</div>
+                </div>
               </a>
+              <div className="flex items-center gap-4 rounded-2xl border border-border/60 p-4">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                  <Phone className="h-5 w-5" />
+                </span>
+                <div>
+                  <div className="text-xs text-muted-foreground">Atendimento</div>
+                  <div className="font-semibold">Seg a Sex · 9h às 18h</div>
+                </div>
+              </div>
             </div>
           </div>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setSent(true);
+            }}
+            className="glass rounded-2xl p-8 space-y-4"
+          >
+            {sent ? (
+              <div className="text-center py-10">
+                <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-gold/20 text-gold">
+                  <Check className="h-6 w-6" />
+                </div>
+                <h3 className="mt-4 font-display text-xl font-bold">
+                  Mensagem enviada!
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Entraremos em contato em breve.
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <label className="block">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      Nome
+                    </span>
+                    <input
+                      required
+                      className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
+                      placeholder="Seu nome"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      Empresa
+                    </span>
+                    <input
+                      className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
+                      placeholder="Sua empresa"
+                    />
+                  </label>
+                </div>
+                <label className="block">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    E-mail
+                  </span>
+                  <input
+                    type="email"
+                    required
+                    className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
+                    placeholder="seu@email.com"
+                  />
+                </label>
+                <label className="block">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    WhatsApp
+                  </span>
+                  <input
+                    className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
+                    placeholder="(00) 00000-0000"
+                  />
+                </label>
+                <label className="block">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    Como podemos ajudar?
+                  </span>
+                  <textarea
+                    rows={4}
+                    className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition resize-none"
+                    placeholder="Conte um pouco sobre seu negócio e objetivo..."
+                  />
+                </label>
+                <button
+                  type="submit"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-brd px-6 py-3.5 text-sm font-semibold text-cream hover:bg-brd-light transition brand-shadow"
+                >
+                  Enviar mensagem
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </>
+            )}
+          </form>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border/50 py-10">
+      {/* FOOTER */}
+      <footer className="border-t border-border/60 py-10">
         <div className="mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
-            <span className="grid h-6 w-6 place-items-center rounded-md bg-primary text-primary-foreground text-xs font-bold">
+            <span className="grid h-7 w-7 place-items-center rounded-md bg-brd text-cream text-xs font-bold">
               M
             </span>
             © {new Date().getFullYear()} Marketing 2.0. Todos os direitos reservados.
           </div>
           <div className="flex gap-6">
             <a href="#servicos" className="hover:text-foreground transition">Serviços</a>
-            <a href="#planos" className="hover:text-foreground transition">Planos</a>
+            <a href="#grupo" className="hover:text-foreground transition">Grupo</a>
             <a href="#contato" className="hover:text-foreground transition">Contato</a>
           </div>
         </div>
       </footer>
+
+      {/* WhatsApp float */}
+      <a
+        href={WHATSAPP}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Falar no WhatsApp"
+        className="fixed bottom-6 right-6 z-50 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-2xl shadow-[#25D366]/40 hover:scale-105 transition"
+      >
+        <MessageCircle className="h-6 w-6" />
+      </a>
     </main>
   );
 }
