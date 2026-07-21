@@ -12,9 +12,12 @@ import {
   Layers,
   Mail,
   MapPin,
+  Menu,
   MessageCircle,
   MessageSquare,
   Megaphone,
+  X,
+
   Palette,
   PenTool,
   Phone,
