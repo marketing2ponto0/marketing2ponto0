@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SiteHeader, SiteFooter, WhatsAppFloat } from "../components/site/chrome";
 
 function NotFoundComponent() {
   return (
@@ -77,17 +78,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Marketing 2.0 — Crescimento previsível para marcas modernas" },
+      { title: "Marketing 2.0 — Muito mais que uma agência" },
       {
         name: "description",
         content:
-          "Marketing 2.0 é a consultoria que combina estratégia, performance e IA para escalar receita com clareza e método.",
+          "Agência especializada em mídias sociais e crescimento digital. Criatividade, dados e tráfego pago já incluso para resultados reais.",
       },
-      { property: "og:title", content: "Marketing 2.0 — Crescimento previsível" },
+      { property: "og:title", content: "Marketing 2.0 — Muito mais que uma agência" },
       {
         property: "og:description",
         content:
-          "Estratégia, performance e IA para escalar receita com clareza e método.",
+          "Estratégia, performance e conteúdo diário para escalar sua marca.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -128,8 +129,14 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="min-h-screen flex flex-col text-foreground">
+        <SiteHeader />
+        <div className="flex-1">
+          <Outlet />
+        </div>
+        <SiteFooter />
+        <WhatsAppFloat />
+      </div>
     </QueryClientProvider>
   );
 }
