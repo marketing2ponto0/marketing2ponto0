@@ -12,9 +12,12 @@ import {
   Layers,
   Mail,
   MapPin,
+  Menu,
   MessageCircle,
   MessageSquare,
   Megaphone,
+  X,
+
   Palette,
   PenTool,
   Phone,
@@ -243,6 +246,8 @@ const servicoOptions = [
 
 function Index() {
   const [sent, setSent] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
 
   return (
     <main className="min-h-screen text-foreground">
@@ -271,13 +276,56 @@ function Index() {
           </nav>
           <a
             href="#contato"
-            className="inline-flex items-center gap-2 rounded-full bg-brd px-5 py-2.5 text-sm font-semibold text-cream hover:bg-brd-light transition"
+            className="hidden md:inline-flex items-center gap-2 rounded-full bg-brd px-5 py-2.5 text-sm font-semibold text-cream hover:bg-brd-light transition"
           >
             Falar agora
             <ArrowRight className="h-4 w-4" />
           </a>
+          <button
+            type="button"
+            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+            className="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border/60 text-foreground hover:bg-ink-2/60 transition"
+          >
+            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
+
+        {/* Mobile drawer */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-border/60 bg-ink/95 backdrop-blur-xl">
+            <nav className="mx-auto max-w-7xl px-6 py-4 flex flex-col gap-1 text-sm">
+              {[
+                ["#diferencial", "Diferenciais"],
+                ["#servicos", "Serviços"],
+                ["#processo", "Processo"],
+                ["#grupo", "Grupo"],
+                ["#depoimentos", "Clientes"],
+                ["#contato", "Contato"],
+              ].map(([href, label]) => (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={() => setMenuOpen(false)}
+                  className="rounded-lg px-3 py-3 text-muted-foreground hover:bg-ink-2/60 hover:text-foreground transition"
+                >
+                  {label}
+                </a>
+              ))}
+              <a
+                href="#contato"
+                onClick={() => setMenuOpen(false)}
+                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-brd px-5 py-3 text-sm font-semibold text-cream hover:bg-brd-light transition"
+              >
+                Falar agora
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </nav>
+          </div>
+        )}
       </header>
+
 
       {/* HERO */}
       <section id="top" className="relative overflow-hidden">
