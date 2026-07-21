@@ -246,6 +246,8 @@ const servicoOptions = [
 
 function Index() {
   const [sent, setSent] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
 
   return (
     <main className="min-h-screen text-foreground">
