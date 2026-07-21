@@ -1,10 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Award, Sparkles } from "lucide-react";
 import {
   WhatsAppIcon,
   WHATSAPP,
   stats,
   clientLogos,
+  diferenciais,
+  servicos,
+  processo,
+  grupo,
+  depoimentos,
   CtaBand,
 } from "../components/site/shared";
 
@@ -26,6 +31,53 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
+
+function SectionHeader({
+  eyebrow,
+  title,
+  highlight,
+  description,
+}: {
+  eyebrow: string;
+  title: string;
+  highlight?: string;
+  description?: string;
+}) {
+  return (
+    <div className="mx-auto max-w-3xl text-center">
+      <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-xs font-medium text-gold">
+        <Sparkles className="h-3.5 w-3.5" />
+        {eyebrow}
+      </span>
+      <h2 className="mt-6 font-display text-3xl md:text-5xl font-extrabold leading-[1.05]">
+        {title}
+        {highlight ? (
+          <>
+            {" "}
+            <span className="gradient-gold">{highlight}</span>
+          </>
+        ) : null}
+      </h2>
+      {description ? (
+        <p className="mt-5 text-lg text-muted-foreground">{description}</p>
+      ) : null}
+    </div>
+  );
+}
+
+function SeeMore({ to, label }: { to: string; label: string }) {
+  return (
+    <div className="mt-10 text-center">
+      <Link
+        to={to}
+        className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/5 px-6 py-3 text-sm font-semibold text-gold hover:bg-gold hover:text-ink transition"
+      >
+        {label}
+        <ArrowRight className="h-4 w-4" />
+      </Link>
+    </div>
+  );
+}
 
 function Index() {
   return (
@@ -84,7 +136,6 @@ function Index() {
             </div>
           </div>
 
-          {/* Hero visual */}
           <div className="relative">
             <div className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-brd/40 via-transparent to-gold/20 blur-2xl" />
             <div className="relative glass rounded-3xl p-6 md:p-8">
@@ -163,6 +214,166 @@ function Index() {
           </div>
         </div>
       </div>
+
+      {/* DIFERENCIAIS */}
+      <section className="py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeader
+            eyebrow="Nosso maior diferencial"
+            title="Diferente dos demais que fazem"
+            highlight="pacotes"
+            description="Foco em movimentação e engajamento diário, com ADS incluso e conexões reais com o público."
+          />
+          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {diferenciais.map((d) => (
+              <Link
+                key={d.title}
+                to="/diferenciais"
+                className="glass rounded-2xl p-6 hover:border-gold/40 transition block"
+              >
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                  <d.icon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-4 font-display text-base font-bold">{d.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  {d.desc}
+                </p>
+              </Link>
+            ))}
+          </div>
+          <SeeMore to="/diferenciais" label="Ver todos os diferenciais" />
+        </div>
+      </section>
+
+      {/* SERVIÇOS */}
+      <section className="py-20 md:py-24 bg-ink-2/30 border-y border-border/60">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeader
+            eyebrow="O que entregamos"
+            title="Soluções completas para sua"
+            highlight="marca"
+            description="Do planejamento estratégico à execução diária: tudo o que sua marca precisa em um só lugar."
+          />
+          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {servicos.map((s) => (
+              <Link
+                key={s.title}
+                to="/servicos"
+                className="group relative overflow-hidden rounded-2xl border border-border/60 bg-ink-2/60 p-7 hover:border-gold/40 transition flex flex-col"
+              >
+                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-ink transition">
+                  <s.icon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-5 font-display text-lg font-bold">{s.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">
+                  {s.desc}
+                </p>
+                <span className="mt-5 self-start rounded-full border border-gold/30 bg-gold/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-gold">
+                  {s.badge}
+                </span>
+              </Link>
+            ))}
+          </div>
+          <SeeMore to="/servicos" label="Ver todos os serviços" />
+        </div>
+      </section>
+
+      {/* PROCESSO */}
+      <section className="py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeader
+            eyebrow="Como trabalhamos"
+            title="Do primeiro contato ao"
+            highlight="resultado"
+            description="Um método claro em quatro etapas para transformar sua presença digital."
+          />
+          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {processo.map((p) => (
+              <Link
+                key={p.step}
+                to="/processo"
+                className="relative rounded-2xl border border-border/60 p-6 overflow-hidden hover:border-gold/40 transition block"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="font-display text-5xl font-extrabold text-white">
+                    {p.step}
+                  </div>
+                  <p.icon className="h-5 w-5 text-gold" />
+                </div>
+                <h3 className="mt-4 font-display text-lg font-bold">{p.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  {p.desc}
+                </p>
+              </Link>
+            ))}
+          </div>
+          <SeeMore to="/processo" label="Conhecer o processo" />
+        </div>
+      </section>
+
+      {/* GRUPO */}
+      <section className="py-20 md:py-24 bg-ink-2/30 border-y border-border/60">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeader
+            eyebrow="Grupo Marketing 2.0"
+            title="Um ecossistema"
+            highlight="completo"
+            description="Quatro empresas que se conectam para entregar tudo que sua marca precisa — do post ao sistema."
+          />
+          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {grupo.map((g) => (
+              <Link
+                key={g.name}
+                to="/grupo"
+                className={`relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br ${g.color} p-6 hover:border-gold/40 transition block`}
+              >
+                <g.icon className="h-6 w-6 text-gold" />
+                <h3 className="mt-6 font-display text-lg font-bold">{g.name}</h3>
+                <p className="mt-1 text-xs text-muted-foreground uppercase tracking-wider">
+                  {g.tag}
+                </p>
+              </Link>
+            ))}
+          </div>
+          <SeeMore to="/grupo" label="Conhecer o grupo" />
+        </div>
+      </section>
+
+      {/* DEPOIMENTOS */}
+      <section className="py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeader
+            eyebrow="Quem já cresceu com a gente"
+            title="O que dizem"
+            highlight="nossos clientes"
+          />
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            {depoimentos.map((t) => (
+              <Link
+                key={t.name}
+                to="/depoimentos"
+                className="glass rounded-2xl p-8 flex flex-col hover:border-gold/40 transition"
+              >
+                <Award className="h-6 w-6 text-gold" />
+                <div className="mt-4 text-gold text-sm tracking-widest">★★★★★</div>
+                <blockquote className="mt-4 text-base leading-relaxed flex-1">
+                  "{t.quote}"
+                </blockquote>
+                <div className="mt-6 pt-6 border-t border-border/60 flex items-center gap-3">
+                  <div className="grid h-11 w-11 place-items-center rounded-full border border-gold/30 bg-gold/5 text-gold font-display font-bold text-sm">
+                    {t.initials}
+                  </div>
+                  <div>
+                    <div className="font-semibold">{t.name}</div>
+                    <div className="text-xs text-muted-foreground">{t.role}</div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <SeeMore to="/depoimentos" label="Ver todos os depoimentos" />
+        </div>
+      </section>
 
       <CtaBand />
     </main>
