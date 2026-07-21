@@ -653,7 +653,7 @@ function Index() {
                 className="flex items-center gap-4 rounded-2xl border border-border/60 p-4 hover:border-gold/40 transition"
               >
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
-                  <MessageCircle className="h-5 w-5" />
+                  <WhatsAppIcon className="h-5 w-5" />
                 </span>
                 <div>
                   <div className="text-xs text-muted-foreground">WhatsApp</div>
