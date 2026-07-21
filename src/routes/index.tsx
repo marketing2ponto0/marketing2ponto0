@@ -42,8 +42,30 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const WHATSAPP_NUMBER = "5511934503566";
+const CONTACT_EMAIL = "contato@marketing2ponto0.com.br";
 const WHATSAPP =
   "https://wa.me/5511934503566?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es.";
+
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 32 32"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        fill="#25D366"
+        d="M16.003 0C7.166 0 .01 7.156.01 15.993c0 2.82.74 5.575 2.146 8.003L0 32l8.2-2.148a15.94 15.94 0 0 0 7.803 1.99h.007c8.836 0 15.993-7.157 15.993-15.994 0-4.273-1.664-8.29-4.688-11.313A15.87 15.87 0 0 0 16.003 0Z"
+      />
+      <path
+        fill="#FFFFFF"
+        d="M23.44 19.02c-.4-.2-2.37-1.17-2.74-1.3-.37-.13-.64-.2-.9.2-.27.4-1.03 1.3-1.26 1.56-.23.27-.47.3-.87.1-.4-.2-1.69-.62-3.22-1.98-1.19-1.06-1.99-2.37-2.22-2.77-.23-.4-.02-.62.18-.82.18-.18.4-.47.6-.7.2-.23.27-.4.4-.67.13-.27.07-.5-.03-.7-.1-.2-.9-2.17-1.23-2.97-.32-.78-.65-.67-.9-.68l-.77-.01c-.27 0-.7.1-1.07.5-.37.4-1.4 1.37-1.4 3.34 0 1.97 1.43 3.87 1.63 4.14.2.27 2.82 4.3 6.83 6.03 2.38.94 3.32 1.02 4.51.86.73-.1 2.24-.92 2.55-1.8.32-.9.32-1.66.22-1.82-.1-.17-.37-.27-.77-.47Z"
+      />
+    </svg>
+  );
+}
 
 const stats = [
   { num: "9+", label: "anos no mercado" },
@@ -292,7 +314,7 @@ function Index() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3.5 text-sm font-semibold hover:bg-white/5 transition"
               >
-                <MessageCircle className="h-4 w-4 text-gold" />
+                <WhatsAppIcon className="h-4 w-4" />
                 Falar no WhatsApp
               </a>
             </div>
@@ -631,7 +653,7 @@ function Index() {
                 className="flex items-center gap-4 rounded-2xl border border-border/60 p-4 hover:border-gold/40 transition"
               >
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
-                  <MessageCircle className="h-5 w-5" />
+                  <WhatsAppIcon className="h-5 w-5" />
                 </span>
                 <div>
                   <div className="text-xs text-muted-foreground">WhatsApp</div>
@@ -674,6 +696,37 @@ function Index() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
+              const fd = new FormData(e.currentTarget);
+              const nome = String(fd.get("nome") || "").trim();
+              const empresa = String(fd.get("empresa") || "").trim();
+              const email = String(fd.get("email") || "").trim();
+              const whatsapp = String(fd.get("whatsapp") || "").trim();
+              const servico = String(fd.get("servico") || "").trim();
+              const mensagem = String(fd.get("mensagem") || "").trim();
+
+              const linhas = [
+                `Nome: ${nome}`,
+                empresa && `Empresa: ${empresa}`,
+                `E-mail: ${email}`,
+                whatsapp && `WhatsApp: ${whatsapp}`,
+                servico && `Serviço: ${servico}`,
+                mensagem && `Mensagem: ${mensagem}`,
+              ].filter(Boolean) as string[];
+
+              const corpo = linhas.join("\n");
+              const assunto = `Novo contato pelo site${servico ? ` — ${servico}` : ""}`;
+
+              // Abre WhatsApp com a mensagem pré-preenchida
+              const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                `Olá! Sou ${nome || "um novo contato"} e vim pelo site.\n\n${corpo}`,
+              )}`;
+              window.open(waUrl, "_blank", "noopener,noreferrer");
+
+              // Encaminha por e-mail
+              window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+                assunto,
+              )}&body=${encodeURIComponent(corpo)}`;
+
               setSent(true);
             }}
             className="glass rounded-2xl p-8 space-y-4"
@@ -687,7 +740,7 @@ function Index() {
                   Mensagem enviada!
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Falaremos em breve.
+                  Abrimos seu WhatsApp e e-mail para concluir o envio. Falaremos em breve.
                 </p>
               </div>
             ) : (
@@ -698,6 +751,7 @@ function Index() {
                       Nome *
                     </span>
                     <input
+                      name="nome"
                       required
                       className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
                       placeholder="Seu nome"
@@ -708,6 +762,7 @@ function Index() {
                       Empresa
                     </span>
                     <input
+                      name="empresa"
                       className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
                       placeholder="Sua empresa"
                     />
@@ -719,6 +774,7 @@ function Index() {
                       E-mail *
                     </span>
                     <input
+                      name="email"
                       type="email"
                       required
                       className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
@@ -730,6 +786,7 @@ function Index() {
                       WhatsApp
                     </span>
                     <input
+                      name="whatsapp"
                       className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
                       placeholder="(11) 9 XXXX-XXXX"
                     />
@@ -740,6 +797,7 @@ function Index() {
                     Serviço
                   </span>
                   <select
+                    name="servico"
                     defaultValue=""
                     className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
                   >
@@ -754,6 +812,7 @@ function Index() {
                     Mensagem
                   </span>
                   <textarea
+                    name="mensagem"
                     rows={4}
                     className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition resize-none"
                     placeholder="Conte sobre seu negócio..."
@@ -766,6 +825,9 @@ function Index() {
                   Enviar mensagem
                   <ArrowRight className="h-4 w-4" />
                 </button>
+                <p className="text-[11px] text-muted-foreground text-center">
+                  Ao enviar, abrimos automaticamente o WhatsApp e o e-mail para {CONTACT_EMAIL}.
+                </p>
               </>
             )}
           </form>
@@ -795,9 +857,9 @@ function Index() {
         target="_blank"
         rel="noreferrer"
         aria-label="Falar no WhatsApp"
-        className="fixed bottom-6 right-6 z-50 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-2xl shadow-[#25D366]/40 hover:scale-105 transition"
+        className="fixed bottom-6 right-6 z-50 grid h-14 w-14 place-items-center rounded-full bg-white shadow-2xl shadow-[#25D366]/40 hover:scale-105 transition"
       >
-        <MessageCircle className="h-6 w-6" />
+        <WhatsAppIcon className="h-10 w-10" />
       </a>
     </main>
   );
