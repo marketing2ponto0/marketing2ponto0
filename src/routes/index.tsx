@@ -314,7 +314,7 @@ function Index() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3.5 text-sm font-semibold hover:bg-white/5 transition"
               >
-                <MessageCircle className="h-4 w-4 text-gold" />
+                <WhatsAppIcon className="h-4 w-4" />
                 Falar no WhatsApp
               </a>
             </div>
