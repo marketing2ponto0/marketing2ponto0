@@ -17,7 +17,7 @@ import {
   Rocket,
   Search,
   Sparkles,
-  Target,
+  
   TrendingUp,
   Video,
 } from "lucide-react";
