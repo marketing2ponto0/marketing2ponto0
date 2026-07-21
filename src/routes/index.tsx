@@ -696,6 +696,37 @@ function Index() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
+              const fd = new FormData(e.currentTarget);
+              const nome = String(fd.get("nome") || "").trim();
+              const empresa = String(fd.get("empresa") || "").trim();
+              const email = String(fd.get("email") || "").trim();
+              const whatsapp = String(fd.get("whatsapp") || "").trim();
+              const servico = String(fd.get("servico") || "").trim();
+              const mensagem = String(fd.get("mensagem") || "").trim();
+
+              const linhas = [
+                `Nome: ${nome}`,
+                empresa && `Empresa: ${empresa}`,
+                `E-mail: ${email}`,
+                whatsapp && `WhatsApp: ${whatsapp}`,
+                servico && `Serviço: ${servico}`,
+                mensagem && `Mensagem: ${mensagem}`,
+              ].filter(Boolean) as string[];
+
+              const corpo = linhas.join("\n");
+              const assunto = `Novo contato pelo site${servico ? ` — ${servico}` : ""}`;
+
+              // Abre WhatsApp com a mensagem pré-preenchida
+              const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                `Olá! Sou ${nome || "um novo contato"} e vim pelo site.\n\n${corpo}`,
+              )}`;
+              window.open(waUrl, "_blank", "noopener,noreferrer");
+
+              // Encaminha por e-mail
+              window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+                assunto,
+              )}&body=${encodeURIComponent(corpo)}`;
+
               setSent(true);
             }}
             className="glass rounded-2xl p-8 space-y-4"
@@ -709,7 +740,7 @@ function Index() {
                   Mensagem enviada!
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Falaremos em breve.
+                  Abrimos seu WhatsApp e e-mail para concluir o envio. Falaremos em breve.
                 </p>
               </div>
             ) : (
@@ -720,6 +751,7 @@ function Index() {
                       Nome *
                     </span>
                     <input
+                      name="nome"
                       required
                       className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
                       placeholder="Seu nome"
@@ -730,6 +762,7 @@ function Index() {
                       Empresa
                     </span>
                     <input
+                      name="empresa"
                       className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
                       placeholder="Sua empresa"
                     />
@@ -741,6 +774,7 @@ function Index() {
                       E-mail *
                     </span>
                     <input
+                      name="email"
                       type="email"
                       required
                       className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
@@ -752,6 +786,7 @@ function Index() {
                       WhatsApp
                     </span>
                     <input
+                      name="whatsapp"
                       className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
                       placeholder="(11) 9 XXXX-XXXX"
                     />
@@ -762,6 +797,7 @@ function Index() {
                     Serviço
                   </span>
                   <select
+                    name="servico"
                     defaultValue=""
                     className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
                   >
@@ -776,6 +812,7 @@ function Index() {
                     Mensagem
                   </span>
                   <textarea
+                    name="mensagem"
                     rows={4}
                     className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition resize-none"
                     placeholder="Conte sobre seu negócio..."
@@ -788,6 +825,9 @@ function Index() {
                   Enviar mensagem
                   <ArrowRight className="h-4 w-4" />
                 </button>
+                <p className="text-[11px] text-muted-foreground text-center">
+                  Ao enviar, abrimos automaticamente o WhatsApp e o e-mail para {CONTACT_EMAIL}.
+                </p>
               </>
             )}
           </form>
