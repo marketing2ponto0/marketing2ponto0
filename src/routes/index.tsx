@@ -524,7 +524,7 @@ function Index() {
                 className="relative rounded-2xl border border-border/60 p-6 overflow-hidden"
               >
                 <div className="flex items-start justify-between">
-                  <div className="font-display text-5xl font-extrabold text-brd/40">
+                  <div className="font-display text-5xl font-extrabold text-white">
                     {p.step}
                   </div>
                   <p.icon className="h-5 w-5 text-gold" />
