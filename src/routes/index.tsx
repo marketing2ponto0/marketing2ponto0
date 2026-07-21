@@ -13,14 +13,19 @@ import {
   Mail,
   MapPin,
   MessageCircle,
+  MessageSquare,
+  Megaphone,
+  Palette,
+  PenTool,
   Phone,
   Printer,
+  Repeat,
   Rocket,
+  Search,
   Sparkles,
   Target,
   TrendingUp,
-  Users,
-  Zap,
+  Video,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -44,62 +49,86 @@ const stats = [
   { num: "9+", label: "anos no mercado" },
   { num: "+30", label: "clientes ativos" },
   { num: "100k+", label: "leads captados" },
-  { num: "+500", label: "campanhas rodadas" },
+];
+
+const clientLogos = [
+  "Construmax",
+  "RealFit",
+  "Clínica Verdi",
+  "GrãoCafé",
+  "TecnoLog",
+  "Moda Haus",
 ];
 
 const diferenciais = [
   {
-    icon: Target,
-    title: "Estratégia sob medida",
-    desc: "Nada de pacote engessado. Diagnosticamos seu negócio e desenhamos o plano certo.",
-  },
-  {
-    icon: Zap,
-    title: "Tráfego pago já incluso",
-    desc: "Google, Meta e TikTok gerenciados dentro do plano, sem taxa extra por canal.",
-  },
-  {
-    icon: Users,
-    title: "Squad dedicado",
-    desc: "Estrategista, social media, designer e mídia atuando como extensão do seu time.",
-  },
-  {
     icon: BarChart3,
-    title: "Relatório que se entende",
-    desc: "Dashboard em tempo real e review mensal focado em receita, não em vaidade.",
+    title: "Estratégia para criação de conteúdo",
+    desc: "Planejamento editorial personalizado para cada marca e público-alvo.",
+  },
+  {
+    icon: Megaphone,
+    title: "Tráfego pago (ADS) já incluso",
+    desc: "Google, Meta e TikTok Ads integrados — sem custo extra.",
+  },
+  {
+    icon: Repeat,
+    title: "Movimentação diária",
+    desc: "Presença ativa e interações todos os dias da semana.",
+  },
+  {
+    icon: PenTool,
+    title: "Legendas com metodologia própria",
+    desc: "Copywriting que prende o leitor e converte seguidores em clientes.",
+  },
+  {
+    icon: MessageSquare,
+    title: "Interagir via Direct",
+    desc: "Gestão ativa de mensagens para fortalecer relacionamento.",
+  },
+  {
+    icon: Search,
+    title: "Análise de concorrência e tendências",
+    desc: "Monitoramos o mercado para manter sua marca à frente.",
   },
 ];
 
 const servicos = [
   {
     icon: Instagram,
-    title: "Gestão de Mídias Sociais",
-    desc: "Planejamento, conteúdo e comunidade em Instagram, TikTok, Facebook e LinkedIn.",
+    title: "Gestão de Redes Sociais",
+    desc: "Instagram, Facebook, TikTok, Threads e LinkedIn. Conteúdo e movimentação diária para crescer de verdade.",
+    badge: "Core service",
   },
   {
-    icon: Target,
-    title: "Tráfego Pago",
-    desc: "Campanhas em Meta Ads, Google Ads e TikTok Ads com foco em CAC e ROAS.",
+    icon: Megaphone,
+    title: "Tráfego Pago (ADS)",
+    desc: "Campanhas de alta performance no Google, Meta e TikTok. Já incluso no pacote — sem cobrar à parte.",
+    badge: "Incluso",
   },
   {
-    icon: Sparkles,
-    title: "Criativos e Copywriting",
-    desc: "Reels, estáticos, carrosséis e copies que param o scroll e convertem.",
+    icon: Video,
+    title: "Posts, Stories e Vídeos",
+    desc: "Criação visual profissional: posts para feed, stories dinâmicos e vídeos para reels e TikTok.",
+    badge: "Criação visual",
   },
   {
-    icon: Camera,
-    title: "Produção Audiovisual",
-    desc: "Fotos, vídeos e reels profissionais pela nossa UP Fotos e Vídeos.",
+    icon: Palette,
+    title: "Criação de Logos e Mascotes",
+    desc: "Identidade visual com personalidade, logos, mascotes e peças para todos os canais.",
+    badge: "Branding",
   },
   {
-    icon: Code2,
-    title: "Sites e Sistemas",
-    desc: "Landing pages, sites e sistemas sob medida pela Trinity Tecnologias.",
+    icon: PenTool,
+    title: "Copywriting Estratégico",
+    desc: "Legendas com metodologia que prende o leitor e converte seguidores em clientes reais.",
+    badge: "Conteúdo",
   },
   {
-    icon: Printer,
-    title: "Print e Comunicação Visual",
-    desc: "Papelaria, brindes e comunicação impressa pela A3H Print.",
+    icon: TrendingUp,
+    title: "Análise e Relatórios",
+    desc: "Relatórios mensais com métricas reais: alcance, engajamento, leads e ROI.",
+    badge: "Inteligência",
   },
 ];
 
@@ -108,46 +137,49 @@ const processo = [
     step: "01",
     icon: Compass,
     title: "Diagnóstico",
-    desc: "Reunião com estrategista, análise de canais e concorrência.",
+    desc: "Analisamos sua presença digital, concorrentes e oportunidades do mercado.",
   },
   {
     step: "02",
     icon: Layers,
-    title: "Planejamento",
-    desc: "Definimos posicionamento, metas, canais e calendário editorial.",
+    title: "Estratégia",
+    desc: "Plano personalizado com canais, frequência, linha editorial e metas claras.",
   },
   {
     step: "03",
     icon: Rocket,
     title: "Execução",
-    desc: "Produção de conteúdo, campanhas e otimização semanal.",
+    desc: "Criamos, publicamos e interagimos diariamente. ADS ativo desde o 1º mês.",
   },
   {
     step: "04",
     icon: TrendingUp,
-    title: "Resultado",
-    desc: "Review mensal, aprendizados e escala do que funciona.",
+    title: "Otimização",
+    desc: "Monitoramos dados em tempo real e ajustamos para maximizar resultados.",
   },
 ];
 
 const depoimentos = [
   {
     quote:
-      "Em menos de 6 meses triplicamos o volume de leads qualificados. O time da Marketing 2.0 virou parte da nossa operação.",
-    name: "Carolina Mendes",
-    role: "Diretora Comercial",
+      "Em menos de 3 meses triplicamos a captação de alunos. A equipe move as redes todos os dias e os resultados são muito claros. Recomendo de olhos fechados.",
+    name: "Marcos Ferreira",
+    role: "Sócio — RealFit Academia",
+    initials: "MF",
   },
   {
     quote:
-      "Saímos do 'postar por postar' para um plano com metas claras. Finalmente entendemos o que o marketing entrega.",
-    name: "Rafael Torres",
-    role: "Sócio-fundador",
+      "O diferencial é a movimentação diária. Antes sumia depois de postar. Agora meu perfil está sempre ativo e clientes chegam pelo Instagram todo dia.",
+    name: "Dra. Ana Verdi",
+    role: "Diretora — Clínica Verdi",
+    initials: "AV",
   },
   {
     quote:
-      "Atendimento próximo, criativos de altíssimo nível e resultado real em vendas. Recomendo de olhos fechados.",
-    name: "Isabela Prado",
-    role: "CEO",
+      "O tráfego pago incluso foi decisivo. Pagamos um valor justo e o anúncio já veio junto. Em 6 meses o retorno foi de 7x. Resultado real, sem enrolação.",
+    name: "Rafael Costa",
+    role: "CEO — TecnoLog",
+    initials: "RC",
   },
 ];
 
@@ -176,6 +208,15 @@ const grupo = [
     color: "from-emerald-500/20 to-transparent",
     icon: MapPin,
   },
+];
+
+const servicoOptions = [
+  "Gestão de Redes Sociais",
+  "Tráfego Pago (ADS)",
+  "Criação de Conteúdo",
+  "Branding & Logo",
+  "Pacote completo",
+  "Quero orientação",
 ];
 
 function Index() {
@@ -257,7 +298,7 @@ function Index() {
             </div>
 
             <div className="mt-12 grid grid-cols-3 gap-6 max-w-md">
-              {stats.slice(0, 3).map((s) => (
+              {stats.map((s) => (
                 <div key={s.label}>
                   <div className="font-display text-3xl font-extrabold gradient-gold">
                     {s.num}
@@ -286,9 +327,9 @@ function Index() {
               <div className="mt-6 space-y-4">
                 {[
                   { name: "Instagram", pct: 82, color: "#E1306C" },
-                  { name: "Facebook", pct: 64, color: "#1877F2" },
-                  { name: "TikTok", pct: 74, color: "#25F4EE" },
-                  { name: "Google Ads", pct: 91, color: "#C9A84C" },
+                  { name: "Facebook", pct: 54, color: "#1877F2" },
+                  { name: "TikTok", pct: 67, color: "#FF0050" },
+                  { name: "LinkedIn", pct: 38, color: "#C9A84C" },
                 ].map((c) => (
                   <div key={c.name} className="flex items-center gap-3">
                     <span
@@ -310,30 +351,53 @@ function Index() {
               </div>
               <div className="mt-6 pt-6 border-t border-border/60 grid grid-cols-3 gap-4 text-center">
                 <div>
-                  <div className="font-display font-bold text-lg">4.2x</div>
-                  <div className="text-[10px] text-muted-foreground uppercase tracking-wider">ROAS</div>
+                  <div className="font-display font-bold text-lg">247k</div>
+                  <div className="text-[10px] text-muted-foreground uppercase tracking-wider">alcance total</div>
                 </div>
                 <div>
-                  <div className="font-display font-bold text-lg gold-text">-38%</div>
-                  <div className="text-[10px] text-muted-foreground uppercase tracking-wider">CPA</div>
+                  <div className="font-display font-bold text-lg gold-text">8,4%</div>
+                  <div className="text-[10px] text-muted-foreground uppercase tracking-wider">engajamento</div>
                 </div>
                 <div>
-                  <div className="font-display font-bold text-lg">+186%</div>
-                  <div className="text-[10px] text-muted-foreground uppercase tracking-wider">Leads</div>
+                  <div className="font-display font-bold text-lg">1,2k</div>
+                  <div className="text-[10px] text-muted-foreground uppercase tracking-wider">seguidores</div>
                 </div>
               </div>
+            </div>
+            <div className="absolute -bottom-4 -left-4 rounded-2xl bg-brd px-4 py-3 brand-shadow">
+              <div className="font-display text-xl font-extrabold text-cream">+34,7%</div>
+              <div className="text-[10px] text-cream/80 uppercase tracking-wider">conversão este mês</div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* CLIENT LOGO STRIP */}
+      <div className="border-y border-border/60 bg-ink-2/40 py-8">
+        <div className="mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center gap-6 md:gap-10">
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground shrink-0">
+            Marcas que crescem com a Marketing 2.0
+          </p>
+          <div className="flex flex-wrap justify-center md:justify-start gap-x-8 gap-y-3">
+            {clientLogos.map((l) => (
+              <span
+                key={l}
+                className="font-display text-base font-bold text-muted-foreground/70 hover:text-gold transition"
+              >
+                {l}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* DIFERENCIAL */}
-      <section id="diferencial" className="border-t border-border/60 py-24 bg-ink-2/40">
+      <section id="diferencial" className="border-b border-border/60 py-24 bg-ink-2/40">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid lg:grid-cols-2 gap-14 items-start">
-            <div>
+            <div className="lg:sticky lg:top-24">
               <span className="text-xs uppercase tracking-[0.2em] text-gold">
-                Nosso diferencial
+                Nosso maior diferencial
               </span>
               <h2 className="mt-3 text-4xl md:text-5xl font-extrabold">
                 Diferente dos demais
@@ -341,9 +405,13 @@ function Index() {
                 que fazem <span className="gradient-gold">pacotes</span>
               </h2>
               <p className="mt-5 text-muted-foreground max-w-md">
-                Cada marca é única e merece uma estratégia própria. Aqui você
-                tem squad dedicado, tráfego pago incluso e clareza total do que
-                está sendo feito.
+                Diferente dos demais que fazem pacotes por publicações,{" "}
+                <b className="text-foreground">nós focamos na movimentação e engajamento</b>,
+                movimentando diariamente e várias vezes por dia.
+              </p>
+              <p className="mt-4 text-muted-foreground max-w-md">
+                Especializados em mídias sociais, focados em ampliar a presença online das marcas e criar{" "}
+                <b className="text-foreground">conexões reais com seus públicos</b>.
               </p>
               <a
                 href="#contato"
@@ -363,7 +431,7 @@ function Index() {
                   <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
                     <d.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="mt-4 font-display text-lg font-bold">{d.title}</h3>
+                  <h3 className="mt-4 font-display text-base font-bold">{d.title}</h3>
                   <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                     {d.desc}
                   </p>
@@ -375,7 +443,7 @@ function Index() {
       </section>
 
       {/* SERVIÇOS */}
-      <section id="servicos" className="border-t border-border/60 py-24">
+      <section id="servicos" className="border-b border-border/60 py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
@@ -388,9 +456,8 @@ function Index() {
                 para sua <span className="gradient-gold">marca</span>
               </h2>
             </div>
-            <p className="text-muted-foreground max-w-md">
-              Da estratégia à execução — mídias sociais, tráfego, criativos,
-              audiovisual, sites e print. Tudo sob o mesmo teto.
+            <p className="text-muted-foreground max-w-xs md:text-right">
+              Do planejamento ao resultado.
             </p>
           </div>
 
@@ -398,15 +465,18 @@ function Index() {
             {servicos.map((s) => (
               <div
                 key={s.title}
-                className="group relative overflow-hidden rounded-2xl border border-border/60 bg-ink-2/60 p-7 hover:border-gold/40 transition"
+                className="group relative overflow-hidden rounded-2xl border border-border/60 bg-ink-2/60 p-7 hover:border-gold/40 transition flex flex-col"
               >
                 <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-ink transition">
                   <s.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-5 font-display text-lg font-bold">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">
                   {s.desc}
                 </p>
+                <span className="mt-5 self-start rounded-full border border-gold/30 bg-gold/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-gold">
+                  {s.badge}
+                </span>
               </div>
             ))}
           </div>
@@ -414,10 +484,10 @@ function Index() {
       </section>
 
       {/* PROCESSO */}
-      <section id="processo" className="border-t border-border/60 py-24 bg-ink-2/40">
+      <section id="processo" className="border-b border-border/60 py-24 bg-ink-2/40">
         <div className="mx-auto max-w-7xl px-6">
           <div className="max-w-2xl">
-            <span className="text-xs uppercase tracking-[0.2em] text-gold">Método</span>
+            <span className="text-xs uppercase tracking-[0.2em] text-gold">Como trabalhamos</span>
             <h2 className="mt-3 text-4xl md:text-5xl font-extrabold">
               Do primeiro contato
               <br />
@@ -448,7 +518,7 @@ function Index() {
       </section>
 
       {/* GRUPO */}
-      <section id="grupo" className="border-t border-border/60 py-24">
+      <section id="grupo" className="border-b border-border/60 py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center max-w-2xl mx-auto">
             <span className="text-xs uppercase tracking-[0.2em] text-gold">
@@ -481,10 +551,10 @@ function Index() {
       </section>
 
       {/* DEPOIMENTOS */}
-      <section id="depoimentos" className="border-t border-border/60 py-24 bg-ink-2/40">
+      <section id="depoimentos" className="border-b border-border/60 py-24 bg-ink-2/40">
         <div className="mx-auto max-w-7xl px-6">
           <div className="text-center max-w-2xl mx-auto">
-            <span className="text-xs uppercase tracking-[0.2em] text-gold">Clientes</span>
+            <span className="text-xs uppercase tracking-[0.2em] text-gold">Quem já cresceu com a gente</span>
             <h2 className="mt-3 text-4xl md:text-5xl font-extrabold">
               O que dizem
               <br />
@@ -499,12 +569,18 @@ function Index() {
                 className="glass rounded-2xl p-8 flex flex-col"
               >
                 <Award className="h-6 w-6 text-gold" />
-                <blockquote className="mt-6 text-base leading-relaxed">
+                <div className="mt-4 text-gold text-sm tracking-widest">★★★★★</div>
+                <blockquote className="mt-4 text-base leading-relaxed flex-1">
                   "{t.quote}"
                 </blockquote>
-                <figcaption className="mt-6 pt-6 border-t border-border/60">
-                  <div className="font-semibold">{t.name}</div>
-                  <div className="text-sm text-muted-foreground">{t.role}</div>
+                <figcaption className="mt-6 pt-6 border-t border-border/60 flex items-center gap-3">
+                  <div className="grid h-11 w-11 place-items-center rounded-full border border-gold/30 bg-gold/5 text-gold font-display font-bold text-sm">
+                    {t.initials}
+                  </div>
+                  <div>
+                    <div className="font-semibold">{t.name}</div>
+                    <div className="text-xs text-muted-foreground">{t.role}</div>
+                  </div>
                 </figcaption>
               </figure>
             ))}
@@ -512,12 +588,31 @@ function Index() {
         </div>
       </section>
 
+      {/* CTA BAND */}
+      <section className="border-b border-border/60 py-16 bg-gradient-to-br from-brd via-brd-dark to-ink">
+        <div className="mx-auto max-w-7xl px-6 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+          <div>
+            <div className="text-xs uppercase tracking-[0.2em] text-gold">Pronto para crescer?</div>
+            <h2 className="mt-3 font-display text-3xl md:text-4xl font-extrabold text-cream max-w-2xl">
+              <span className="gradient-gold">Transforme suas redes</span> em canais de crescimento real
+            </h2>
+          </div>
+          <a
+            href="#contato"
+            className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm font-semibold text-brd hover:bg-gold hover:text-ink transition brand-shadow shrink-0"
+          >
+            Quero uma proposta gratuita
+            <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </section>
+
       {/* CTA + CONTATO */}
-      <section id="contato" className="border-t border-border/60 py-24">
+      <section id="contato" className="border-b border-border/60 py-24">
         <div className="mx-auto max-w-6xl px-6 grid lg:grid-cols-2 gap-12 items-start">
           <div>
             <span className="text-xs uppercase tracking-[0.2em] text-gold">
-              Pronto para crescer?
+              Fale com a gente
             </span>
             <h2 className="mt-3 text-4xl md:text-5xl font-extrabold">
               Vamos conversar
@@ -525,8 +620,7 @@ function Index() {
               sobre o seu <span className="gradient-gold">negócio</span>
             </h2>
             <p className="mt-4 text-muted-foreground max-w-md">
-              Preencha o formulário ou fale com a gente direto no WhatsApp.
-              Respondemos em até 1 dia útil.
+              Preencha o formulário e um especialista entrará em contato em até 24h com uma análise inicial gratuita.
             </p>
 
             <div className="mt-8 space-y-4">
@@ -541,7 +635,7 @@ function Index() {
                 </span>
                 <div>
                   <div className="text-xs text-muted-foreground">WhatsApp</div>
-                  <div className="font-semibold">(11) 93450-3566</div>
+                  <div className="font-semibold">(11) 9.3450-3566</div>
                 </div>
               </a>
               <a
@@ -556,6 +650,15 @@ function Index() {
                   <div className="font-semibold">contato@marketing2ponto0.com.br</div>
                 </div>
               </a>
+              <div className="flex items-center gap-4 rounded-2xl border border-border/60 p-4">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                  <Instagram className="h-5 w-5" />
+                </span>
+                <div>
+                  <div className="text-xs text-muted-foreground">Redes sociais</div>
+                  <div className="font-semibold">@marketing2ponto0</div>
+                </div>
+              </div>
               <div className="flex items-center gap-4 rounded-2xl border border-border/60 p-4">
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
                   <Phone className="h-5 w-5" />
@@ -584,7 +687,7 @@ function Index() {
                   Mensagem enviada!
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Entraremos em contato em breve.
+                  Falaremos em breve.
                 </p>
               </div>
             ) : (
@@ -592,7 +695,7 @@ function Index() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <label className="block">
                     <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                      Nome
+                      Nome *
                     </span>
                     <input
                       required
@@ -610,34 +713,50 @@ function Index() {
                     />
                   </label>
                 </div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <label className="block">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      E-mail *
+                    </span>
+                    <input
+                      type="email"
+                      required
+                      className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
+                      placeholder="seu@email.com"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      WhatsApp
+                    </span>
+                    <input
+                      className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
+                      placeholder="(11) 9 XXXX-XXXX"
+                    />
+                  </label>
+                </div>
                 <label className="block">
                   <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    E-mail
+                    Serviço
                   </span>
-                  <input
-                    type="email"
-                    required
+                  <select
+                    defaultValue=""
                     className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
-                    placeholder="seu@email.com"
-                  />
+                  >
+                    <option value="" disabled>Selecione...</option>
+                    {servicoOptions.map((o) => (
+                      <option key={o} value={o}>{o}</option>
+                    ))}
+                  </select>
                 </label>
                 <label className="block">
                   <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    WhatsApp
-                  </span>
-                  <input
-                    className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
-                    placeholder="(00) 00000-0000"
-                  />
-                </label>
-                <label className="block">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    Como podemos ajudar?
+                    Mensagem
                   </span>
                   <textarea
                     rows={4}
                     className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition resize-none"
-                    placeholder="Conte um pouco sobre seu negócio e objetivo..."
+                    placeholder="Conte sobre seu negócio..."
                   />
                 </label>
                 <button
@@ -654,7 +773,7 @@ function Index() {
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-border/60 py-10">
+      <footer className="py-10">
         <div className="mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <span className="grid h-7 w-7 place-items-center rounded-md bg-brd text-cream text-xs font-bold">
