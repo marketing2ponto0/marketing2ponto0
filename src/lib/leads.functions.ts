@@ -1,7 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-import type { Database } from "@/integrations/supabase/types";
 
 const leadSchema = z.object({
   nome: z.string().trim().min(1).max(120),
@@ -15,23 +13,9 @@ const leadSchema = z.object({
 export const submitLead = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => leadSchema.parse(input))
   .handler(async ({ data }) => {
-    const url = process.env.SUPABASE_URL!;
-    const key = process.env.SUPABASE_PUBLISHABLE_KEY!;
-    const supabase = createClient<Database>(url, key, {
-      auth: { persistSession: false, autoRefreshToken: false, storage: undefined },
-      global: {
-        fetch: (input, init) => {
-          const h = new Headers(init?.headers);
-          if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) {
-            h.delete("Authorization");
-          }
-          h.set("apikey", key);
-          return fetch(input, { ...init, headers: h });
-        },
-      },
-    });
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const { data: inserted, error } = await supabase
+    const { data: inserted, error } = await supabaseAdmin
       .from("leads")
       .insert({
         nome: data.nome,
