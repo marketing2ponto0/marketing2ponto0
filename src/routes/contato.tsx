@@ -102,8 +102,10 @@ function ContatoPage() {
           </div>
 
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
+              if (submitting) return;
+
               const fd = new FormData(e.currentTarget);
               const nome = String(fd.get("nome") || "").trim();
               const empresa = String(fd.get("empresa") || "").trim();
@@ -111,6 +113,21 @@ function ContatoPage() {
               const whatsapp = String(fd.get("whatsapp") || "").trim();
               const servico = String(fd.get("servico") || "").trim();
               const mensagem = String(fd.get("mensagem") || "").trim();
+
+              setErrorMsg(null);
+              setSubmitting(true);
+              try {
+                await send({
+                  data: { nome, empresa, email, whatsapp, servico, mensagem },
+                });
+              } catch (err) {
+                console.error(err);
+                setErrorMsg(
+                  "Não conseguimos registrar seu contato agora. Você pode falar direto pelo WhatsApp.",
+                );
+                setSubmitting(false);
+                return;
+              }
 
               const linhas = [
                 `Nome: ${nome}`,
@@ -122,17 +139,12 @@ function ContatoPage() {
               ].filter(Boolean) as string[];
 
               const corpo = linhas.join("\n");
-              const assunto = `Novo contato pelo site${servico ? ` — ${servico}` : ""}`;
-
               const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
                 `Olá! Sou ${nome || "um novo contato"} e vim pelo site.\n\n${corpo}`,
               )}`;
               window.open(waUrl, "_blank", "noopener,noreferrer");
 
-              window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-                assunto,
-              )}&body=${encodeURIComponent(corpo)}`;
-
+              setSubmitting(false);
               setSent(true);
             }}
             className="glass rounded-2xl p-8 space-y-4"
