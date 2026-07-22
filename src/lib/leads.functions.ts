@@ -46,5 +46,45 @@ export const submitLead = createServerFn({ method: "POST" })
       throw new Error("Não foi possível registrar seu contato. Tente novamente.");
     }
 
+    // Notificação por e-mail via Web3Forms (não bloqueia o retorno)
+    const w3fKey = process.env.WEB3FORMS_ACCESS_KEY;
+    if (w3fKey) {
+      try {
+        const subject = `Novo lead do site${data.servico ? ` — ${data.servico}` : ""}`;
+        const linhas = [
+          `Nome: ${data.nome}`,
+          data.empresa ? `Empresa: ${data.empresa}` : null,
+          `E-mail: ${data.email}`,
+          data.whatsapp ? `WhatsApp: ${data.whatsapp}` : null,
+          data.servico ? `Serviço: ${data.servico}` : null,
+          data.mensagem ? `\nMensagem:\n${data.mensagem}` : null,
+        ].filter(Boolean).join("\n");
+
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: w3fKey,
+            subject,
+            from_name: "Site Marketing 2.0",
+            email: data.email,
+            replyto: data.email,
+            message: linhas,
+            nome: data.nome,
+            empresa: data.empresa || "",
+            whatsapp: data.whatsapp || "",
+            servico: data.servico || "",
+          }),
+        });
+        if (!res.ok) {
+          const body = await res.text();
+          console.error("[submitLead] web3forms error", res.status, body);
+        }
+      } catch (e) {
+        console.error("[submitLead] web3forms exception", e);
+      }
+    }
+
     return { ok: true };
   });
+
