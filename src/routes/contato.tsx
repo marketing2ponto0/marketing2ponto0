@@ -158,7 +158,7 @@ function ContatoPage() {
                   Mensagem enviada!
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Abrimos seu WhatsApp e e-mail para concluir o envio. Falaremos em breve.
+                  Recebemos seu contato e já abrimos o WhatsApp para agilizar a conversa. Falaremos em breve.
                 </p>
               </div>
             ) : (
