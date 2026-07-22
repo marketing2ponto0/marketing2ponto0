@@ -236,15 +236,28 @@ function ContatoPage() {
                     placeholder="Conte sobre seu negócio..."
                   />
                 </label>
+                {errorMsg ? (
+                  <p className="text-sm text-red-400 text-center">{errorMsg}</p>
+                ) : null}
                 <button
                   type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-brd px-6 py-3.5 text-sm font-semibold text-cream hover:bg-brd-light transition brand-shadow"
+                  disabled={submitting}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-brd px-6 py-3.5 text-sm font-semibold text-cream hover:bg-brd-light transition brand-shadow disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  Enviar mensagem
-                  <ArrowRight className="h-4 w-4" />
+                  {submitting ? (
+                    <>
+                      Enviando...
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      Enviar mensagem
+                      <ArrowRight className="h-4 w-4" />
+                    </>
+                  )}
                 </button>
                 <p className="text-[11px] text-muted-foreground text-center">
-                  Ao enviar, abrimos automaticamente o WhatsApp e o e-mail para {CONTACT_EMAIL}.
+                  Seu contato é registrado com segurança e abrimos o WhatsApp para agilizar.
                 </p>
               </>
             )}
