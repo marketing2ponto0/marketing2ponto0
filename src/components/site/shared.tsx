@@ -155,17 +155,18 @@ export function PageHeader({
 
 export function CtaBand() {
   return (
-    <section className="border-y border-border/60 py-16 bg-gradient-to-br from-brd via-brd-dark to-ink">
-      <div className="mx-auto max-w-7xl px-6 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+    <section className="relative overflow-hidden border-y border-border/60 py-16 bg-gradient-to-br from-brd-dark via-brd to-brd-dark">
+      <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_top_right,rgba(201,168,76,0.4),transparent_60%)]" />
+      <div className="relative mx-auto max-w-7xl px-6 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         <div>
-          <div className="text-xs uppercase tracking-[0.2em] text-gold">Pronto para crescer?</div>
-          <h2 className="mt-3 font-display text-3xl md:text-4xl font-extrabold text-cream max-w-2xl">
+          <div className="text-xs uppercase tracking-[0.2em] text-gold-soft">Pronto para crescer?</div>
+          <h2 className="mt-3 font-display text-3xl md:text-4xl font-extrabold text-white max-w-2xl leading-tight">
             <span className="gradient-gold">Transforme suas redes</span> em canais de crescimento real
           </h2>
         </div>
         <Link
           to="/contato"
-          className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm font-semibold text-brd hover:bg-gold hover:text-foreground transition brand-shadow shrink-0"
+          className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3.5 text-sm font-semibold text-foreground hover:bg-gold-soft transition shadow-lg shrink-0"
         >
           Quero uma proposta gratuita
           <ArrowRight className="h-4 w-4" />
