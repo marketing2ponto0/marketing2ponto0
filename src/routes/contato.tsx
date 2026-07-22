@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, Check, Instagram, Mail, Phone } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { ArrowRight, Check, Instagram, Loader2, Mail, Phone } from "lucide-react";
 import {
   WhatsAppIcon,
   WHATSAPP,
@@ -8,6 +9,7 @@ import {
   CONTACT_EMAIL,
   servicoOptions,
 } from "../components/site/shared";
+import { submitLead } from "@/lib/leads.functions";
 
 export const Route = createFileRoute("/contato")({
   head: () => ({
