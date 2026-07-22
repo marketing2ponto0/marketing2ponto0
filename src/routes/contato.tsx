@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, Check, Instagram, Mail, Phone } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { ArrowRight, Check, Instagram, Loader2, Mail, Phone } from "lucide-react";
 import {
   WhatsAppIcon,
   WHATSAPP,
@@ -8,6 +9,7 @@ import {
   CONTACT_EMAIL,
   servicoOptions,
 } from "../components/site/shared";
+import { submitLead } from "@/lib/leads.functions";
 
 export const Route = createFileRoute("/contato")({
   head: () => ({
@@ -30,6 +32,9 @@ export const Route = createFileRoute("/contato")({
 
 function ContatoPage() {
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const send = useServerFn(submitLead);
 
   return (
     <main>
@@ -97,8 +102,10 @@ function ContatoPage() {
           </div>
 
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
+              if (submitting) return;
+
               const fd = new FormData(e.currentTarget);
               const nome = String(fd.get("nome") || "").trim();
               const empresa = String(fd.get("empresa") || "").trim();
@@ -106,6 +113,21 @@ function ContatoPage() {
               const whatsapp = String(fd.get("whatsapp") || "").trim();
               const servico = String(fd.get("servico") || "").trim();
               const mensagem = String(fd.get("mensagem") || "").trim();
+
+              setErrorMsg(null);
+              setSubmitting(true);
+              try {
+                await send({
+                  data: { nome, empresa, email, whatsapp, servico, mensagem },
+                });
+              } catch (err) {
+                console.error(err);
+                setErrorMsg(
+                  "Não conseguimos registrar seu contato agora. Você pode falar direto pelo WhatsApp.",
+                );
+                setSubmitting(false);
+                return;
+              }
 
               const linhas = [
                 `Nome: ${nome}`,
@@ -117,17 +139,12 @@ function ContatoPage() {
               ].filter(Boolean) as string[];
 
               const corpo = linhas.join("\n");
-              const assunto = `Novo contato pelo site${servico ? ` — ${servico}` : ""}`;
-
               const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
                 `Olá! Sou ${nome || "um novo contato"} e vim pelo site.\n\n${corpo}`,
               )}`;
               window.open(waUrl, "_blank", "noopener,noreferrer");
 
-              window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-                assunto,
-              )}&body=${encodeURIComponent(corpo)}`;
-
+              setSubmitting(false);
               setSent(true);
             }}
             className="glass rounded-2xl p-8 space-y-4"
@@ -141,7 +158,7 @@ function ContatoPage() {
                   Mensagem enviada!
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Abrimos seu WhatsApp e e-mail para concluir o envio. Falaremos em breve.
+                  Recebemos seu contato e já abrimos o WhatsApp para agilizar a conversa. Falaremos em breve.
                 </p>
               </div>
             ) : (
@@ -219,15 +236,28 @@ function ContatoPage() {
                     placeholder="Conte sobre seu negócio..."
                   />
                 </label>
+                {errorMsg ? (
+                  <p className="text-sm text-red-400 text-center">{errorMsg}</p>
+                ) : null}
                 <button
                   type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-brd px-6 py-3.5 text-sm font-semibold text-cream hover:bg-brd-light transition brand-shadow"
+                  disabled={submitting}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-brd px-6 py-3.5 text-sm font-semibold text-cream hover:bg-brd-light transition brand-shadow disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  Enviar mensagem
-                  <ArrowRight className="h-4 w-4" />
+                  {submitting ? (
+                    <>
+                      Enviando...
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      Enviar mensagem
+                      <ArrowRight className="h-4 w-4" />
+                    </>
+                  )}
                 </button>
                 <p className="text-[11px] text-muted-foreground text-center">
-                  Ao enviar, abrimos automaticamente o WhatsApp e o e-mail para {CONTACT_EMAIL}.
+                  Seu contato é registrado com segurança e abrimos o WhatsApp para agilizar.
                 </p>
               </>
             )}
