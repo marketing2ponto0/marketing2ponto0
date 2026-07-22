@@ -13,8 +13,8 @@ export const Route = createFileRoute("/portfolio")({
   component: PortfolioPage,
 });
 
-const CANVA_EMBED = "https://www.canva.com/design/DAGwd8sMd7Y/view?embed";
-const CANVA_LINK = "https://canva.link/kwoefphkt3uzu8l";
+const CANVA_EMBED = "https://www.canva.com/design/DAGsgeq47Fc/view?embed";
+const CANVA_LINK = "https://www.canva.com/design/DAGsgeq47Fc/view";
 
 function PortfolioPage() {
   return (
@@ -25,7 +25,7 @@ function PortfolioPage() {
         highlight="cases e resultados"
         description="Apresentação interativa com projetos, entregas e números do Grupo Marketing 2.0."
       />
-      <div className="mt-10 overflow-hidden rounded-3xl border border-black/10 bg-white/40 shadow-2xl">
+      <div className="mt-10 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-2xl">
         <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
           <iframe
             src={CANVA_EMBED}
@@ -44,7 +44,7 @@ function PortfolioPage() {
           rel="noreferrer"
           className="inline-flex items-center gap-2 rounded-full border border-black/20 px-6 py-3 text-sm font-semibold text-black hover:bg-black/10 transition"
         >
-          Abrir apresentação em tela cheia
+          Abrir em tela cheia
         </a>
       </div>
     </div>
