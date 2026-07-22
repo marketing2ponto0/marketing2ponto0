@@ -14,7 +14,7 @@ export const Route = createFileRoute("/portfolio")({
 });
 
 const CANVA_EMBED = "https://www.canva.com/design/DAGsgeq47Fc/FHH2KFpMwLUZYUOXV65gXw/view?embed";
-const CANVA_LINK = "https://www.canva.com/design/DAGsgeq47Fc/FHH2KFpMwLUZYUOXV65gXw/view";
+const CANVA_LINK = "https://canva.link/kwoefphkt3uzu8l";
 
 function PortfolioPage() {
   return (
@@ -35,6 +35,25 @@ function PortfolioPage() {
             loading="lazy"
             className="absolute inset-0 h-full w-full border-0"
           />
+          <div className="absolute inset-0 flex items-center justify-center bg-white px-6 text-center">
+            <div className="max-w-xl">
+              <p className="text-xs font-bold uppercase tracking-[0.28em] text-[var(--gold)]">Portfólio Canva</p>
+              <h2 className="mt-3 text-2xl font-black text-[var(--brd)] md:text-4xl">
+                O Canva bloqueou a incorporação desta apresentação
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-black/70">
+                O link atual abre em modo de edição/privado para iframe. Para aparecer completo aqui, preciso do código público de incorporação do Canva.
+              </p>
+              <a
+                href={CANVA_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-6 inline-flex items-center justify-center rounded-full bg-[var(--gold)] px-6 py-3 text-sm font-extrabold text-black transition hover:bg-[var(--brd)] hover:text-white"
+              >
+                Abrir portfólio no Canva
+              </a>
+            </div>
+          </div>
         </div>
       </div>
       <div className="mt-6 text-center">
