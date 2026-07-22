@@ -115,7 +115,7 @@ function Index() {
                 href={WHATSAPP}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3.5 text-sm font-semibold hover:bg-white/5 transition"
+                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3.5 text-sm font-semibold hover:bg-black/5 transition"
               >
                 <WhatsAppIcon className="h-4 w-4" />
                 Falar no WhatsApp
@@ -161,7 +161,7 @@ function Index() {
                       style={{ background: c.color }}
                     />
                     <span className="text-sm w-24 shrink-0">{c.name}</span>
-                    <div className="flex-1 h-2 rounded-full bg-white/5 overflow-hidden">
+                    <div className="flex-1 h-2 rounded-full bg-black/5 overflow-hidden">
                       <div
                         className="h-full rounded-full"
                         style={{ width: `${c.pct}%`, background: c.color }}
@@ -295,7 +295,7 @@ function Index() {
                 className="relative rounded-2xl border border-border/60 p-6 overflow-hidden hover:border-gold/40 transition block"
               >
                 <div className="flex items-start justify-between">
-                  <div className="font-display text-5xl font-extrabold text-white">
+                  <div className="font-display text-5xl font-extrabold text-black">
                     {p.step}
                   </div>
                   <p.icon className="h-5 w-5 text-gold" />

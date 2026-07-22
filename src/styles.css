@@ -50,31 +50,31 @@
   --brd-light: #9E2A3F;
   --gold: #C9A84C;
   --gold-soft: #E2C06E;
-  --ink: #0C0A09;
-  --ink-2: #141010;
-  --ink-3: #1E1818;
-  --cream: #F8F5F0;
+  --ink: #F8F5F0;
+  --ink-2: #F1ECE4;
+  --ink-3: #E8E1D5;
+  --cream: #0C0A09;
 
-  --background: #0C0A09;
-  --foreground: #F8F5F0;
-  --surface: #141010;
-  --card: #1E1818;
-  --card-foreground: #F8F5F0;
-  --popover: #1E1818;
-  --popover-foreground: #F8F5F0;
+  --background: #FFFFFF;
+  --foreground: #0C0A09;
+  --surface: #F8F5F0;
+  --card: #FFFFFF;
+  --card-foreground: #0C0A09;
+  --popover: #FFFFFF;
+  --popover-foreground: #0C0A09;
   --primary: #7B1C2E;
-  --primary-foreground: #F8F5F0;
-  --secondary: #1E1818;
-  --secondary-foreground: #F8F5F0;
-  --muted: #1E1818;
-  --muted-foreground: rgba(248, 245, 240, 0.55);
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1ECE4;
+  --secondary-foreground: #0C0A09;
+  --muted: #F1ECE4;
+  --muted-foreground: rgba(12, 10, 9, 0.6);
   --accent: #C9A84C;
   --accent-foreground: #0C0A09;
   --destructive: #B91C1C;
-  --destructive-foreground: #F8F5F0;
-  --border: rgba(248, 245, 240, 0.08);
-  --input: rgba(248, 245, 240, 0.12);
-  --ring: #C9A84C;
+  --destructive-foreground: #FFFFFF;
+  --border: rgba(12, 10, 9, 0.1);
+  --input: rgba(12, 10, 9, 0.14);
+  --ring: #7B1C2E;
 }
 
 @layer base {
@@ -90,8 +90,8 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     background-image:
-      radial-gradient(ellipse 70% 50% at 10% -10%, rgba(123, 28, 46, 0.35), transparent 60%),
-      radial-gradient(ellipse 60% 40% at 100% 10%, rgba(201, 168, 76, 0.12), transparent 60%);
+      radial-gradient(ellipse 70% 50% at 10% -10%, rgba(123, 28, 46, 0.10), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 100% 10%, rgba(201, 168, 76, 0.10), transparent 60%);
     background-attachment: fixed;
   }
   h1, h2, h3, h4 {
@@ -101,14 +101,16 @@
   }
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-thumb { background: var(--brd); border-radius: 3px; }
-  ::-webkit-scrollbar-track { background: var(--ink); }
+  ::-webkit-scrollbar-track { background: var(--ink-2); }
 }
 
+
 @utility glass {
-  background: linear-gradient(180deg, rgba(248, 245, 240, 0.04), rgba(248, 245, 240, 0.01));
-  border: 1px solid rgba(248, 245, 240, 0.08);
+  background: linear-gradient(180deg, rgba(12, 10, 9, 0.04), rgba(12, 10, 9, 0.01));
+  border: 1px solid rgba(12, 10, 9, 0.08);
   backdrop-filter: blur(12px);
 }
+
 
 @utility gold-text {
   color: var(--gold);
