@@ -116,7 +116,9 @@ export const NAV_LINKS = [
   { to: "/processo", label: "Processo" },
   { to: "/grupo", label: "Grupo" },
   { to: "/depoimentos", label: "Clientes" },
+  { to: "/portfolio", label: "Portfólio" },
 ] as const;
+
 
 export function PageHeader({
   eyebrow,
