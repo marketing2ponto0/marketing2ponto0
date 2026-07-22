@@ -107,9 +107,10 @@ export function WhatsAppFloat() {
       target="_blank"
       rel="noreferrer"
       aria-label="Falar no WhatsApp"
-      className="fixed bottom-6 right-6 z-50 grid h-14 w-14 place-items-center rounded-full bg-white shadow-2xl shadow-[#25D366]/40 hover:scale-105 transition"
+      className="fixed bottom-6 right-6 z-50 hover:scale-105 transition"
     >
-      <WhatsAppIcon className="h-10 w-10" />
+      <WhatsAppIcon className="h-14 w-14" />
+
     </a>
   );
 }
