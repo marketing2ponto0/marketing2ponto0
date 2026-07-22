@@ -26,12 +26,12 @@ export const Route = createFileRoute("/_authenticated/admin")({
     ],
   }),
   errorComponent: ({ error }) => (
-    <div className="mx-auto max-w-3xl px-4 py-16 text-center text-white">
+    <div className="mx-auto max-w-3xl px-4 py-16 text-center text-black">
       <h1 className="text-2xl font-bold">Erro</h1>
-      <p className="mt-3 text-white/70">{error.message}</p>
+      <p className="mt-3 text-black/70">{error.message}</p>
     </div>
   ),
-  notFoundComponent: () => <div className="p-8 text-white">Não encontrado.</div>,
+  notFoundComponent: () => <div className="p-8 text-black">Não encontrado.</div>,
   component: AdminPage,
 });
 
@@ -52,17 +52,17 @@ function AdminPage() {
   }
 
   if (isAdmin === null) {
-    return <div className="p-8 text-white/60">Carregando...</div>;
+    return <div className="p-8 text-black/60">Carregando...</div>;
   }
   if (!isAdmin) {
     return (
-      <div className="mx-auto max-w-2xl px-4 py-16 text-center text-white">
+      <div className="mx-auto max-w-2xl px-4 py-16 text-center text-black">
         <AlertTriangle className="mx-auto h-10 w-10 text-amber-400" />
         <h1 className="mt-4 text-2xl font-bold">Acesso restrito</h1>
-        <p className="mt-2 text-white/70">
+        <p className="mt-2 text-black/70">
           Sua conta não tem permissão de administrador. Entre com o e-mail autorizado.
         </p>
-        <button onClick={signOut} className="mt-6 rounded-lg border border-white/20 px-4 py-2 text-sm hover:bg-white/10">
+        <button onClick={signOut} className="mt-6 rounded-lg border border-black/20 px-4 py-2 text-sm hover:bg-black/10">
           Sair
         </button>
       </div>
@@ -78,24 +78,24 @@ function AdminPage() {
   ];
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 text-white">
+    <div className="mx-auto max-w-6xl px-4 py-10 text-black">
       <div className="mb-6 flex items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Painel Admin</h1>
-          <p className="mt-1 text-sm text-white/60">Gerencie leads e conteúdo do site.</p>
+          <p className="mt-1 text-sm text-black/60">Gerencie leads e conteúdo do site.</p>
         </div>
-        <button onClick={signOut} className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm hover:bg-white/10">
+        <button onClick={signOut} className="inline-flex items-center gap-2 rounded-lg border border-black/15 bg-black/5 px-3 py-2 text-sm hover:bg-black/10">
           <LogOut className="h-4 w-4" /> Sair
         </button>
       </div>
 
-      <div className="mb-8 flex flex-wrap gap-2 border-b border-white/10">
+      <div className="mb-8 flex flex-wrap gap-2 border-b border-black/10">
         {tabs.map((t) => (
           <button
             key={t.key}
             onClick={() => setTab(t.key)}
             className={`px-4 py-2 text-sm font-medium transition ${
-              tab === t.key ? "border-b-2 border-white text-white" : "text-white/60 hover:text-white"
+              tab === t.key ? "border-b-2 border-black text-black" : "text-black/60 hover:text-black"
             }`}
           >
             {t.label}
@@ -131,13 +131,13 @@ function LeadsTab() {
   }
   useEffect(() => { refresh(); }, []);
 
-  if (loading || !data) return <p className="text-white/60">Carregando leads...</p>;
+  if (loading || !data) return <p className="text-black/60">Carregando leads...</p>;
   const hasFailures = data.failedCount > 0;
 
   return (
     <div>
       <div className="mb-4 flex justify-end">
-        <button onClick={refresh} className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm hover:bg-white/10">
+        <button onClick={refresh} className="inline-flex items-center gap-2 rounded-lg border border-black/15 bg-black/5 px-3 py-2 text-sm hover:bg-black/10">
           <RefreshCw className="h-4 w-4" /> Atualizar
         </button>
       </div>
@@ -165,9 +165,9 @@ function LeadsTab() {
         <Stat label="Falharam" value={data.failedCount} tone="danger" />
       </div>
 
-      <div className="overflow-x-auto rounded-xl border border-white/10">
+      <div className="overflow-x-auto rounded-xl border border-black/10">
         <table className="w-full text-sm">
-          <thead className="bg-white/5 text-left text-xs uppercase tracking-wide text-white/60">
+          <thead className="bg-black/5 text-left text-xs uppercase tracking-wide text-black/60">
             <tr>
               <th className="px-4 py-3">Data</th>
               <th className="px-4 py-3">Nome</th>
@@ -176,22 +176,22 @@ function LeadsTab() {
               <th className="px-4 py-3">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5">
+          <tbody className="divide-y divide-black/5">
             {data.leads.map((l) => {
               const attempts = l.email_notification_attempts ?? 0;
               const failed = !l.email_notified && attempts >= data.maxAttempts;
               return (
                 <tr key={l.id} className="align-top">
-                  <td className="px-4 py-3 text-white/70">{formatDate(l.created_at)}</td>
+                  <td className="px-4 py-3 text-black/70">{formatDate(l.created_at)}</td>
                   <td className="px-4 py-3">
                     <div className="font-medium">{l.nome}</div>
-                    {l.empresa && <div className="text-white/50">{l.empresa}</div>}
+                    {l.empresa && <div className="text-black/50">{l.empresa}</div>}
                   </td>
                   <td className="px-4 py-3">
                     <div>{l.email}</div>
-                    {l.whatsapp && <div className="text-white/50">{l.whatsapp}</div>}
+                    {l.whatsapp && <div className="text-black/50">{l.whatsapp}</div>}
                   </td>
-                  <td className="px-4 py-3 text-white/70">{l.servico || "—"}</td>
+                  <td className="px-4 py-3 text-black/70">{l.servico || "—"}</td>
                   <td className="px-4 py-3">
                     {l.email_notified ? (
                       <Badge tone="success"><CheckCircle2 className="h-3 w-3" /> Notificado</Badge>
@@ -236,11 +236,11 @@ function TextsTab() {
     } finally { setSaving(null); }
   }
 
-  if (loading) return <p className="text-white/60">Carregando textos...</p>;
+  if (loading) return <p className="text-black/60">Carregando textos...</p>;
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-white/60">Edite qualquer campo e clique em salvar. Estes textos ficam disponíveis para a home ler do banco.</p>
+      <p className="text-sm text-black/60">Edite qualquer campo e clique em salvar. Estes textos ficam disponíveis para a home ler do banco.</p>
       {message && <div className="rounded-md bg-emerald-500/15 px-3 py-2 text-sm text-emerald-200">{message}</div>}
       {items.map((t) => (
         <TextRow key={t.key} initial={t} onSave={save} saving={saving === t.key} />
@@ -252,13 +252,13 @@ function TextsTab() {
 function TextRow({ initial, onSave, saving }: { initial: { key: string; value: string }; onSave: (k: string, v: string) => void; saving: boolean }) {
   const [value, setValue] = useState(initial.value);
   return (
-    <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+    <div className="rounded-lg border border-black/10 bg-black/5 p-4">
       <div className="mb-2 flex items-center justify-between">
-        <label className="text-xs uppercase tracking-wide text-white/60">{initial.key}</label>
+        <label className="text-xs uppercase tracking-wide text-black/60">{initial.key}</label>
         <button
           onClick={() => onSave(initial.key, value)}
           disabled={saving || value === initial.value}
-          className="inline-flex items-center gap-1 rounded-md bg-white px-3 py-1 text-xs font-semibold text-black disabled:opacity-50"
+          className="inline-flex items-center gap-1 rounded-md bg-black px-3 py-1 text-xs font-semibold text-white disabled:opacity-50"
         >
           <Save className="h-3 w-3" /> {saving ? "Salvando..." : "Salvar"}
         </button>
@@ -267,7 +267,7 @@ function TextRow({ initial, onSave, saving }: { initial: { key: string; value: s
         value={value}
         onChange={(e) => setValue(e.target.value)}
         rows={value.length > 80 ? 3 : 1}
-        className="w-full rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white focus:border-white/40 focus:outline-none"
+        className="w-full rounded-md border border-black/10 bg-white/30 px-3 py-2 text-sm text-black focus:border-black/40 focus:outline-none"
       />
     </div>
   );
@@ -310,13 +310,13 @@ function ServicesTab() {
     refresh();
   }
 
-  if (loading) return <p className="text-white/60">Carregando...</p>;
+  if (loading) return <p className="text-black/60">Carregando...</p>;
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <p className="text-sm text-white/60">Gerencie os serviços exibidos no site.</p>
-        <button onClick={addNew} className="inline-flex items-center gap-1 rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-black">
+        <p className="text-sm text-black/60">Gerencie os serviços exibidos no site.</p>
+        <button onClick={addNew} className="inline-flex items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white">
           <Plus className="h-4 w-4" /> Adicionar
         </button>
       </div>
@@ -331,7 +331,7 @@ function ServicesTab() {
 function ServiceCard({ initial, onSave, onRemove }: { initial: ServiceRow; onSave: (s: ServiceRow) => void; onRemove: (id?: string) => void }) {
   const [s, setS] = useState<ServiceRow>(initial);
   return (
-    <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+    <div className="rounded-lg border border-black/10 bg-black/5 p-4">
       <div className="grid gap-3 md:grid-cols-2">
         <Field label="Título"><input value={s.title} onChange={(e) => setS({ ...s, title: e.target.value })} className={inputCls} /></Field>
         <Field label="Badge"><input value={s.badge ?? ""} onChange={(e) => setS({ ...s, badge: e.target.value })} className={inputCls} /></Field>
@@ -342,14 +342,14 @@ function ServiceCard({ initial, onSave, onRemove }: { initial: ServiceRow; onSav
         </div>
       </div>
       <div className="mt-3 flex items-center justify-between">
-        <label className="inline-flex items-center gap-2 text-sm text-white/70">
+        <label className="inline-flex items-center gap-2 text-sm text-black/70">
           <input type="checkbox" checked={s.active} onChange={(e) => setS({ ...s, active: e.target.checked })} /> Ativo
         </label>
         <div className="flex gap-2">
           <button onClick={() => onRemove(s.id)} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 px-3 py-1.5 text-sm text-red-300 hover:bg-red-500/10">
             <Trash2 className="h-4 w-4" /> Remover
           </button>
-          <button onClick={() => onSave(s)} className="inline-flex items-center gap-1 rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-black">
+          <button onClick={() => onSave(s)} className="inline-flex items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white">
             <Save className="h-4 w-4" /> Salvar
           </button>
         </div>
@@ -391,13 +391,13 @@ function TestimonialsTab() {
     refresh();
   }
 
-  if (loading) return <p className="text-white/60">Carregando...</p>;
+  if (loading) return <p className="text-black/60">Carregando...</p>;
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <p className="text-sm text-white/60">Depoimentos exibidos no site.</p>
-        <button onClick={addNew} className="inline-flex items-center gap-1 rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-black">
+        <p className="text-sm text-black/60">Depoimentos exibidos no site.</p>
+        <button onClick={addNew} className="inline-flex items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white">
           <Plus className="h-4 w-4" /> Adicionar
         </button>
       </div>
@@ -412,7 +412,7 @@ function TestimonialsTab() {
 function TestimonialCard({ initial, onSave, onRemove }: { initial: TestimonialRow; onSave: (t: TestimonialRow) => void; onRemove: (id?: string) => void }) {
   const [t, setT] = useState<TestimonialRow>(initial);
   return (
-    <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+    <div className="rounded-lg border border-black/10 bg-black/5 p-4">
       <div className="grid gap-3 md:grid-cols-2">
         <Field label="Nome"><input value={t.name} onChange={(e) => setT({ ...t, name: e.target.value })} className={inputCls} /></Field>
         <Field label="Cargo / Empresa"><input value={t.role ?? ""} onChange={(e) => setT({ ...t, role: e.target.value })} className={inputCls} /></Field>
@@ -423,14 +423,14 @@ function TestimonialCard({ initial, onSave, onRemove }: { initial: TestimonialRo
         </div>
       </div>
       <div className="mt-3 flex items-center justify-between">
-        <label className="inline-flex items-center gap-2 text-sm text-white/70">
+        <label className="inline-flex items-center gap-2 text-sm text-black/70">
           <input type="checkbox" checked={t.active} onChange={(e) => setT({ ...t, active: e.target.checked })} /> Ativo
         </label>
         <div className="flex gap-2">
           <button onClick={() => onRemove(t.id)} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 px-3 py-1.5 text-sm text-red-300 hover:bg-red-500/10">
             <Trash2 className="h-4 w-4" /> Remover
           </button>
-          <button onClick={() => onSave(t)} className="inline-flex items-center gap-1 rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-black">
+          <button onClick={() => onSave(t)} className="inline-flex items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white">
             <Save className="h-4 w-4" /> Salvar
           </button>
         </div>
@@ -472,13 +472,13 @@ function LogosTab() {
     refresh();
   }
 
-  if (loading) return <p className="text-white/60">Carregando...</p>;
+  if (loading) return <p className="text-black/60">Carregando...</p>;
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <p className="text-sm text-white/60">Logos de clientes na faixa do site.</p>
-        <button onClick={addNew} className="inline-flex items-center gap-1 rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-black">
+        <p className="text-sm text-black/60">Logos de clientes na faixa do site.</p>
+        <button onClick={addNew} className="inline-flex items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white">
           <Plus className="h-4 w-4" /> Adicionar
         </button>
       </div>
@@ -493,21 +493,21 @@ function LogosTab() {
 function LogoCard({ initial, onSave, onRemove }: { initial: LogoRow; onSave: (l: LogoRow) => void; onRemove: (id?: string) => void }) {
   const [l, setL] = useState<LogoRow>(initial);
   return (
-    <div className="rounded-lg border border-white/10 bg-white/5 p-4">
+    <div className="rounded-lg border border-black/10 bg-black/5 p-4">
       <div className="grid gap-3 md:grid-cols-3">
         <Field label="Nome"><input value={l.name} onChange={(e) => setL({ ...l, name: e.target.value })} className={inputCls} /></Field>
         <div className="md:col-span-2"><Field label="URL da imagem"><input value={l.image_url ?? ""} onChange={(e) => setL({ ...l, image_url: e.target.value })} className={inputCls} placeholder="https://..." /></Field></div>
         <Field label="Ordem"><input type="number" value={l.order_index} onChange={(e) => setL({ ...l, order_index: parseInt(e.target.value) || 0 })} className={inputCls} /></Field>
       </div>
       <div className="mt-3 flex items-center justify-between">
-        <label className="inline-flex items-center gap-2 text-sm text-white/70">
+        <label className="inline-flex items-center gap-2 text-sm text-black/70">
           <input type="checkbox" checked={l.active} onChange={(e) => setL({ ...l, active: e.target.checked })} /> Ativo
         </label>
         <div className="flex gap-2">
           <button onClick={() => onRemove(l.id)} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 px-3 py-1.5 text-sm text-red-300 hover:bg-red-500/10">
             <Trash2 className="h-4 w-4" /> Remover
           </button>
-          <button onClick={() => onSave(l)} className="inline-flex items-center gap-1 rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-black">
+          <button onClick={() => onSave(l)} className="inline-flex items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white">
             <Save className="h-4 w-4" /> Salvar
           </button>
         </div>
@@ -517,12 +517,12 @@ function LogoCard({ initial, onSave, onRemove }: { initial: LogoRow; onSave: (l:
 }
 
 /* ---------------- UI helpers ---------------- */
-const inputCls = "w-full rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white focus:border-white/40 focus:outline-none";
+const inputCls = "w-full rounded-md border border-black/10 bg-white/30 px-3 py-2 text-sm text-black focus:border-black/40 focus:outline-none";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-xs uppercase tracking-wide text-white/60">{label}</span>
+      <span className="mb-1 block text-xs uppercase tracking-wide text-black/60">{label}</span>
       {children}
     </label>
   );
@@ -530,7 +530,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 function Stat({ label, value, tone }: { label: string; value: number; tone: "neutral" | "success" | "warning" | "danger" }) {
   const tones: Record<typeof tone, string> = {
-    neutral: "border-white/10 bg-white/5 text-white",
+    neutral: "border-black/10 bg-black/5 text-black",
     success: "border-emerald-500/30 bg-emerald-500/10 text-emerald-100",
     warning: "border-amber-500/30 bg-amber-500/10 text-amber-100",
     danger: "border-red-500/30 bg-red-500/10 text-red-100",
