@@ -119,7 +119,8 @@ export const submitLead = createServerFn({ method: "POST" })
         }
       }
 
-      const { error: updErr } = await supabase
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const { error: updErr } = await supabaseAdmin
         .from("leads")
         .update({
           email_notification_attempts: attempts,
@@ -131,6 +132,7 @@ export const submitLead = createServerFn({ method: "POST" })
       if (updErr) {
         console.error("[submitLead] update notification status error", updErr);
       }
+
     }
 
     return { ok: true };
