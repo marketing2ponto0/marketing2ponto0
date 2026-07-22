@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ServicosRouteImport } from './routes/servicos'
 import { Route as ProcessoRouteImport } from './routes/processo'
+import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as GrupoRouteImport } from './routes/grupo'
 import { Route as DiferenciaisRouteImport } from './routes/diferenciais'
 import { Route as DepoimentosRouteImport } from './routes/depoimentos'
@@ -28,6 +29,11 @@ const ServicosRoute = ServicosRouteImport.update({
 const ProcessoRoute = ProcessoRouteImport.update({
   id: '/processo',
   path: '/processo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfolioRoute = PortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GrupoRoute = GrupoRouteImport.update({
@@ -77,6 +83,7 @@ export interface FileRoutesByFullPath {
   '/depoimentos': typeof DepoimentosRoute
   '/diferenciais': typeof DiferenciaisRoute
   '/grupo': typeof GrupoRoute
+  '/portfolio': typeof PortfolioRoute
   '/processo': typeof ProcessoRoute
   '/servicos': typeof ServicosRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -88,6 +95,7 @@ export interface FileRoutesByTo {
   '/depoimentos': typeof DepoimentosRoute
   '/diferenciais': typeof DiferenciaisRoute
   '/grupo': typeof GrupoRoute
+  '/portfolio': typeof PortfolioRoute
   '/processo': typeof ProcessoRoute
   '/servicos': typeof ServicosRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -101,6 +109,7 @@ export interface FileRoutesById {
   '/depoimentos': typeof DepoimentosRoute
   '/diferenciais': typeof DiferenciaisRoute
   '/grupo': typeof GrupoRoute
+  '/portfolio': typeof PortfolioRoute
   '/processo': typeof ProcessoRoute
   '/servicos': typeof ServicosRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/depoimentos'
     | '/diferenciais'
     | '/grupo'
+    | '/portfolio'
     | '/processo'
     | '/servicos'
     | '/admin'
@@ -125,6 +135,7 @@ export interface FileRouteTypes {
     | '/depoimentos'
     | '/diferenciais'
     | '/grupo'
+    | '/portfolio'
     | '/processo'
     | '/servicos'
     | '/admin'
@@ -137,6 +148,7 @@ export interface FileRouteTypes {
     | '/depoimentos'
     | '/diferenciais'
     | '/grupo'
+    | '/portfolio'
     | '/processo'
     | '/servicos'
     | '/_authenticated/admin'
@@ -150,6 +162,7 @@ export interface RootRouteChildren {
   DepoimentosRoute: typeof DepoimentosRoute
   DiferenciaisRoute: typeof DiferenciaisRoute
   GrupoRoute: typeof GrupoRoute
+  PortfolioRoute: typeof PortfolioRoute
   ProcessoRoute: typeof ProcessoRoute
   ServicosRoute: typeof ServicosRoute
 }
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/processo'
       fullPath: '/processo'
       preLoaderRoute: typeof ProcessoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolio': {
+      id: '/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/grupo': {
@@ -248,6 +268,7 @@ const rootRouteChildren: RootRouteChildren = {
   DepoimentosRoute: DepoimentosRoute,
   DiferenciaisRoute: DiferenciaisRoute,
   GrupoRoute: GrupoRoute,
+  PortfolioRoute: PortfolioRoute,
   ProcessoRoute: ProcessoRoute,
   ServicosRoute: ServicosRoute,
 }
