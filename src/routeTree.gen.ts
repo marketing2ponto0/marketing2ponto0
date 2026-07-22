@@ -15,6 +15,7 @@ import { Route as GrupoRouteImport } from './routes/grupo'
 import { Route as DiferenciaisRouteImport } from './routes/diferenciais'
 import { Route as DepoimentosRouteImport } from './routes/depoimentos'
 import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ServicosRoute = ServicosRouteImport.update({
@@ -47,6 +48,11 @@ const ContatoRoute = ContatoRouteImport.update({
   path: '/contato',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -55,6 +61,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/contato': typeof ContatoRoute
   '/depoimentos': typeof DepoimentosRoute
   '/diferenciais': typeof DiferenciaisRoute
@@ -64,6 +71,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/contato': typeof ContatoRoute
   '/depoimentos': typeof DepoimentosRoute
   '/diferenciais': typeof DiferenciaisRoute
@@ -74,6 +82,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/contato': typeof ContatoRoute
   '/depoimentos': typeof DepoimentosRoute
   '/diferenciais': typeof DiferenciaisRoute
@@ -85,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/contato'
     | '/depoimentos'
     | '/diferenciais'
@@ -94,6 +104,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/contato'
     | '/depoimentos'
     | '/diferenciais'
@@ -103,6 +114,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/contato'
     | '/depoimentos'
     | '/diferenciais'
@@ -113,6 +125,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   ContatoRoute: typeof ContatoRoute
   DepoimentosRoute: typeof DepoimentosRoute
   DiferenciaisRoute: typeof DiferenciaisRoute
@@ -165,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContatoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -177,6 +197,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   ContatoRoute: ContatoRoute,
   DepoimentosRoute: DepoimentosRoute,
   DiferenciaisRoute: DiferenciaisRoute,
@@ -187,3 +208,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
