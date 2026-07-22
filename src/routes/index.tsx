@@ -70,7 +70,7 @@ function SeeMore({ to, label }: { to: string; label: string }) {
     <div className="mt-10 text-center">
       <Link
         to={to}
-        className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/5 px-6 py-3 text-sm font-semibold text-gold hover:bg-gold hover:text-ink transition"
+        className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/5 px-6 py-3 text-sm font-semibold text-gold hover:bg-gold hover:text-foreground transition"
       >
         {label}
         <ArrowRight className="h-4 w-4" />
@@ -261,7 +261,7 @@ function Index() {
                 to="/servicos"
                 className="group relative overflow-hidden rounded-2xl border border-border/60 bg-ink-2/60 p-7 hover:border-gold/40 transition flex flex-col"
               >
-                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-ink transition">
+                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <s.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-5 font-display text-lg font-bold">{s.title}</h3>

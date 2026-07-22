@@ -165,7 +165,7 @@ export function CtaBand() {
         </div>
         <Link
           to="/contato"
-          className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm font-semibold text-brd hover:bg-gold hover:text-ink transition brand-shadow shrink-0"
+          className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm font-semibold text-brd hover:bg-gold hover:text-foreground transition brand-shadow shrink-0"
         >
           Quero uma proposta gratuita
           <ArrowRight className="h-4 w-4" />
