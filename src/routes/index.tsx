@@ -187,10 +187,12 @@ function Index() {
                   <div className="text-[10px] text-muted-foreground uppercase tracking-wider">seguidores</div>
                 </div>
               </div>
-            </div>
-            <div className="absolute -bottom-4 -left-4 rounded-2xl bg-brd px-4 py-3 brand-shadow">
-              <div className="font-display text-xl font-extrabold text-cream">+34,7%</div>
-              <div className="text-[10px] text-cream/80 uppercase tracking-wider">conversão este mês</div>
+              <div className="mt-6 flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-brd-dark to-brd px-5 py-4 brand-shadow">
+                <div className="text-[10px] text-cream/80 uppercase tracking-wider font-semibold">
+                  Conversão este mês
+                </div>
+                <div className="font-display text-2xl font-extrabold text-cream">+34,7%</div>
+              </div>
             </div>
           </div>
         </div>
