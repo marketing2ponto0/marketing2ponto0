@@ -150,21 +150,20 @@ function ContatoPage() {
                 for (let i = 0; i < MAX; i++) {
                   attempts = i + 1;
                   try {
+                    const fd = new FormData();
+                    fd.append("access_key", leadResult.web3formsKey);
+                    fd.append("subject", `Novo lead do site${servico ? ` — ${servico}` : ""}`);
+                    fd.append("from_name", "Site Marketing 2.0");
+                    fd.append("email", email);
+                    fd.append("replyto", email);
+                    fd.append("message", linhasEmail);
+                    fd.append("nome", nome);
+                    fd.append("empresa", empresa);
+                    fd.append("whatsapp", whatsapp);
+                    fd.append("servico", servico);
                     const res = await fetch("https://api.web3forms.com/submit", {
                       method: "POST",
-                      headers: { "Content-Type": "application/json", Accept: "application/json" },
-                      body: JSON.stringify({
-                        access_key: leadResult.web3formsKey,
-                        subject: `Novo lead do site${servico ? ` — ${servico}` : ""}`,
-                        from_name: "Site Marketing 2.0",
-                        email,
-                        replyto: email,
-                        message: linhasEmail,
-                        nome,
-                        empresa,
-                        whatsapp,
-                        servico,
-                      }),
+                      body: fd,
                     });
                     const json = await res.json().catch(() => ({}));
                     if (res.ok && json?.success) {
