@@ -9,7 +9,7 @@ import {
   CONTACT_EMAIL,
   servicoOptions,
 } from "../components/site/shared";
-import { submitLead } from "@/lib/leads.functions";
+import { submitLead, recordLeadNotification } from "@/lib/leads.functions";
 
 export const Route = createFileRoute("/contato")({
   head: () => ({
@@ -35,6 +35,7 @@ function ContatoPage() {
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const send = useServerFn(submitLead);
+  const recordNotif = useServerFn(recordLeadNotification);
 
   return (
     <main>
@@ -116,8 +117,9 @@ function ContatoPage() {
 
               setErrorMsg(null);
               setSubmitting(true);
+              let leadResult: { leadId: string; web3formsKey: string | null } | null = null;
               try {
-                await send({
+                leadResult = await send({
                   data: { nome, empresa, email, whatsapp, servico, mensagem },
                 });
               } catch (err) {
@@ -128,6 +130,60 @@ function ContatoPage() {
                 setSubmitting(false);
                 return;
               }
+
+              // Web3Forms exige envio pelo navegador no plano free
+              if (leadResult?.web3formsKey && leadResult.leadId) {
+                const linhasEmail = [
+                  `Nome: ${nome}`,
+                  empresa ? `Empresa: ${empresa}` : null,
+                  `E-mail: ${email}`,
+                  whatsapp ? `WhatsApp: ${whatsapp}` : null,
+                  servico ? `Serviço: ${servico}` : null,
+                  mensagem ? `\nMensagem:\n${mensagem}` : null,
+                ]
+                  .filter(Boolean)
+                  .join("\n");
+                const MAX = 3;
+                let attempts = 0;
+                let notified = false;
+                let lastError: string | null = null;
+                for (let i = 0; i < MAX; i++) {
+                  attempts = i + 1;
+                  try {
+                    const fd = new FormData();
+                    fd.append("access_key", leadResult.web3formsKey);
+                    fd.append("subject", `Novo lead do site${servico ? ` — ${servico}` : ""}`);
+                    fd.append("from_name", "Site Marketing 2.0");
+                    fd.append("email", email);
+                    fd.append("replyto", email);
+                    fd.append("message", linhasEmail);
+                    fd.append("nome", nome);
+                    fd.append("empresa", empresa);
+                    fd.append("whatsapp", whatsapp);
+                    fd.append("servico", servico);
+                    const res = await fetch("https://api.web3forms.com/submit", {
+                      method: "POST",
+                      body: fd,
+                    });
+                    const json = await res.json().catch(() => ({}));
+                    if (res.ok && json?.success) {
+                      notified = true;
+                      lastError = null;
+                      break;
+                    }
+                    lastError = `HTTP ${res.status}: ${json?.message ?? "falha"}`;
+                  } catch (err) {
+                    lastError = err instanceof Error ? err.message : String(err);
+                  }
+                  if (i < MAX - 1) {
+                    await new Promise((r) => setTimeout(r, 500 * Math.pow(3, i)));
+                  }
+                }
+                recordNotif({
+                  data: { leadId: leadResult.leadId, attempts, notified, lastError },
+                }).catch(() => {});
+              }
+
 
               const linhas = [
                 `Nome: ${nome}`,
