@@ -32,6 +32,9 @@ export const Route = createFileRoute("/contato")({
 
 function ContatoPage() {
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const send = useServerFn(submitLead);
 
   return (
     <main>
