@@ -13,8 +13,8 @@ export const Route = createFileRoute("/portfolio")({
   component: PortfolioPage,
 });
 
-const CANVA_EMBED = "https://www.canva.com/design/DAGsgeq47Fc/view?embed";
-const CANVA_LINK = "https://www.canva.com/design/DAGsgeq47Fc/view";
+const CANVA_EMBED = "https://www.canva.com/design/DAGsgeq47Fc/FHH2KFpMwLUZYUOXV65gXw/view?embed";
+const CANVA_LINK = "https://www.canva.com/design/DAGsgeq47Fc/FHH2KFpMwLUZYUOXV65gXw/view";
 
 function PortfolioPage() {
   return (
