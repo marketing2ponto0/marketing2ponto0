@@ -182,7 +182,10 @@ function PortfolioPage() {
       </div>
 
       {full && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4">
+        <div
+          ref={overlayRef}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4"
+        >
           {index === VIDEO_SLIDE_INDEX ? (
             <div className="max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-2xl bg-[var(--brd)]">
               <VideoGallery />
@@ -197,12 +200,14 @@ function PortfolioPage() {
 
           <button
             type="button"
-            onClick={() => setFull(false)}
-            aria-label="Fechar tela cheia"
-            className="absolute right-5 top-5 rounded-full bg-white/15 p-3 text-white transition hover:bg-[var(--gold)] hover:text-black"
+            onClick={closeFull}
+            aria-label="Sair da tela cheia (Esc)"
+            title="Sair da tela cheia (Esc)"
+            className="absolute right-5 top-5 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-3 text-xs font-bold text-white transition hover:bg-[var(--gold)] hover:text-black"
           >
-            <X className="h-5 w-5" />
+            <X className="h-5 w-5" /> Sair
           </button>
+
           <button
             type="button"
             onClick={() => go(-1)}
