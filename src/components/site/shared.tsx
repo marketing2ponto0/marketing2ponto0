@@ -63,6 +63,27 @@ export const clientLogos = [
   "Moda Haus",
 ];
 
+export const mvv = [
+  {
+    icon: Target,
+    label: "Missão",
+    title: "Gerar crescimento real",
+    desc: "Levar estratégia, criatividade e dados para marcas que querem resultados concretos nas redes sociais — não apenas presença.",
+  },
+  {
+    icon: Eye,
+    label: "Visão",
+    title: "Referência em performance",
+    desc: "Ser reconhecida como a agência que une conteúdo de alto nível e tráfego pago com transparência total nos números.",
+  },
+  {
+    icon: Heart,
+    label: "Valores",
+    title: "Verdade, ritmo e parceria",
+    desc: "Movimentação diária, comunicação honesta, relatórios claros e envolvimento genuíno com o negócio de cada cliente.",
+  },
+];
+
 export const diferenciais = [
   { icon: BarChart3, title: "Estratégia para criação de conteúdo", desc: "Planejamento editorial personalizado para cada marca e público-alvo." },
   { icon: Megaphone, title: "Tráfego pago (ADS) já incluso", desc: "Google, Meta e TikTok Ads integrados — sem custo extra." },
