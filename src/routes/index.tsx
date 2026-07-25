@@ -5,6 +5,7 @@ import {
   WHATSAPP,
   stats,
   clientLogos,
+  mvv,
   diferenciais,
   servicos,
   processo,
