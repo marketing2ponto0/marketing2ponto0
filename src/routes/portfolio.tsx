@@ -52,6 +52,7 @@ export const Route = createFileRoute("/portfolio")({
 function PortfolioPage() {
   const [index, setIndex] = useState(0);
   const [full, setFull] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const total = SLIDES.length;
 
   const go = useCallback(
@@ -59,15 +60,37 @@ function PortfolioPage() {
     [total],
   );
 
+  const openFull = useCallback(() => setFull(true), []);
+
+  const closeFull = useCallback(() => {
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    setFull(false);
+  }, []);
+
+  // Entra em tela cheia nativa quando o overlay abre
+  useEffect(() => {
+    if (!full) return;
+    const el = overlayRef.current;
+    if (el && !document.fullscreenElement) {
+      el.requestFullscreen?.().catch(() => {});
+    }
+    const onFsChange = () => {
+      if (!document.fullscreenElement) setFull(false);
+    };
+    document.addEventListener("fullscreenchange", onFsChange);
+    return () => document.removeEventListener("fullscreenchange", onFsChange);
+  }, [full]);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight") go(1);
       if (e.key === "ArrowLeft") go(-1);
-      if (e.key === "Escape") setFull(false);
+      if (e.key === "Escape") closeFull();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go]);
+  }, [go, closeFull]);
+
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">
