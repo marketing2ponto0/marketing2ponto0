@@ -159,11 +159,18 @@ function PortfolioPage() {
 
       {full && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4">
-          <img
-            src={SLIDES[index]}
-            alt={`Portfólio Marketing 2.0 — página ${index + 1} de ${total}`}
-            className="max-h-[92vh] w-auto max-w-full"
-          />
+          {index === VIDEO_SLIDE_INDEX ? (
+            <div className="max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-2xl bg-[var(--brd)]">
+              <VideoGallery />
+            </div>
+          ) : (
+            <img
+              src={SLIDES[index]}
+              alt={`Portfólio Marketing 2.0 — página ${index + 1} de ${total}`}
+              className="max-h-[92vh] w-auto max-w-full"
+            />
+          )}
+
           <button
             type="button"
             onClick={() => setFull(false)}
