@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Download, Maximize2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download, Maximize2, Minimize2, X } from "lucide-react";
 import { PageHeader } from "@/components/site/shared";
 import { VideoGallery } from "@/components/site/portfolio-videos";
 import { VIDEO_SLIDE_INDEX } from "@/lib/portfolio-videos";
@@ -224,9 +224,22 @@ function PortfolioPage() {
           >
             <ChevronRight className="h-6 w-6" />
           </button>
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-white/15 px-4 py-2 text-xs font-bold text-white">
-            {index + 1} / {total}
+          <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full bg-white/15 px-4 py-2 text-xs font-bold text-white">
+            <span>
+              {index + 1} / {total}
+            </span>
+            <span className="h-4 w-px bg-white/30" />
+            <button
+              type="button"
+              onClick={closeFull}
+              aria-label="Sair da tela cheia (Esc)"
+              title="Sair da tela cheia (Esc)"
+              className="inline-flex items-center gap-1 transition hover:text-[var(--gold)]"
+            >
+              <Minimize2 className="h-4 w-4" /> Sair
+            </button>
           </div>
+
         </div>
       )}
     </div>
