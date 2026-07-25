@@ -73,7 +73,7 @@ function PortfolioPage() {
         eyebrow="Portfólio"
         title="Nossos"
         highlight="cases e resultados"
-        description="Apresentação completa do Grupo Marketing 2.0 — projetos, entregas e números."
+        description="Conheça parte do nosso trabalho."
       />
 
       <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_260px]">
