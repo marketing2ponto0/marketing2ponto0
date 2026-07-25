@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Download, Maximize2, X } from "lucide-react";
 import { PageHeader } from "@/components/site/shared";
 import { VideoGallery } from "@/components/site/portfolio-videos";
