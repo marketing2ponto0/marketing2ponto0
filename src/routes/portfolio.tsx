@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Download, Maximize2, X } from "lucide-react";
 import { PageHeader } from "@/components/site/shared";
+import { VideoGallery } from "@/components/site/portfolio-videos";
+import { VIDEO_SLIDE_INDEX } from "@/lib/portfolio-videos";
 
 import s01 from "@/assets/portfolio/slide-01.jpg.asset.json";
 import s02 from "@/assets/portfolio/slide-02.jpg.asset.json";
