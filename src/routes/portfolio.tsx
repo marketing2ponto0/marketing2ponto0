@@ -81,12 +81,19 @@ function PortfolioPage() {
       <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_260px]">
         {/* Visualizador */}
         <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-[var(--brd)] shadow-2xl">
-          <img
-            src={SLIDES[index]}
-            alt={`Portfólio Marketing 2.0 — página ${index + 1} de ${total}`}
-            className="mx-auto block max-h-[78vh] w-auto max-w-full"
-            loading={index === 0 ? "eager" : "lazy"}
-          />
+          {index === VIDEO_SLIDE_INDEX ? (
+            <div className="min-h-[420px]">
+              <VideoGallery />
+            </div>
+          ) : (
+            <img
+              src={SLIDES[index]}
+              alt={`Portfólio Marketing 2.0 — página ${index + 1} de ${total}`}
+              className="mx-auto block max-h-[78vh] w-auto max-w-full"
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+          )}
+
 
           <button
             type="button"
