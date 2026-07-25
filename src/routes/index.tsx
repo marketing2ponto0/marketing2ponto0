@@ -5,6 +5,7 @@ import {
   WHATSAPP,
   stats,
   clientLogos,
+  mvv,
   diferenciais,
   servicos,
   processo,
@@ -217,7 +218,36 @@ function Index() {
         </div>
       </div>
 
+      {/* MISSÃO, VISÃO E VALORES */}
+      <section className="py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeader
+            eyebrow="Quem somos"
+            title="Missão, visão e"
+            highlight="valores"
+            description="Os princípios que guiam cada estratégia, cada post e cada resultado que entregamos."
+          />
+          <div className="mt-14 grid gap-4 md:grid-cols-3">
+            {mvv.map((m) => (
+              <div key={m.label} className="glass rounded-2xl p-7">
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                  <m.icon className="h-5 w-5" />
+                </div>
+                <div className="mt-5 text-xs uppercase tracking-[0.2em] text-gold">
+                  {m.label}
+                </div>
+                <h3 className="mt-2 font-display text-lg font-bold">{m.title}</h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                  {m.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* DIFERENCIAIS */}
+
       <section className="py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeader
