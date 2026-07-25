@@ -141,12 +141,13 @@ function PortfolioPage() {
             </span>
             <button
               type="button"
-              onClick={() => setFull(true)}
+              onClick={openFull}
               aria-label="Ver em tela cheia"
               className="transition hover:text-[var(--gold)]"
             >
               <Maximize2 className="h-4 w-4" />
             </button>
+
           </div>
         </div>
 
