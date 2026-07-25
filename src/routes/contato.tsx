@@ -61,7 +61,7 @@ function ContatoPage() {
                 rel="noreferrer"
                 className="flex items-center gap-4 rounded-2xl border border-border/60 p-4 hover:border-gold/40 transition"
               >
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
                   <WhatsAppIcon className="h-5 w-5" />
                 </span>
                 <div>
@@ -73,7 +73,7 @@ function ContatoPage() {
                 href={`mailto:${CONTACT_EMAIL}`}
                 className="flex items-center gap-4 rounded-2xl border border-border/60 p-4 hover:border-gold/40 transition"
               >
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
                   <Mail className="h-5 w-5" />
                 </span>
                 <div>
@@ -82,7 +82,7 @@ function ContatoPage() {
                 </div>
               </a>
               <div className="flex items-center gap-4 rounded-2xl border border-border/60 p-4">
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
                   <Instagram className="h-5 w-5" />
                 </span>
                 <div>
@@ -91,7 +91,7 @@ function ContatoPage() {
                 </div>
               </div>
               <div className="flex items-center gap-4 rounded-2xl border border-border/60 p-4">
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
                   <Phone className="h-5 w-5" />
                 </span>
                 <div>

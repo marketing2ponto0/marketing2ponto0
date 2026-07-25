@@ -230,7 +230,7 @@ function Index() {
           <div className="mt-14 grid gap-4 md:grid-cols-3">
             {mvv.map((m) => (
               <div key={m.label} className="glass rounded-2xl p-7">
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
                   <m.icon className="h-5 w-5" />
                 </div>
                 <div className="mt-5 text-xs uppercase tracking-[0.2em] text-gold">
@@ -263,7 +263,7 @@ function Index() {
                 to="/diferenciais"
                 className="glass rounded-2xl p-6 hover:border-gold/40 transition block"
               >
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
                   <d.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-4 font-display text-base font-bold">{d.title}</h3>

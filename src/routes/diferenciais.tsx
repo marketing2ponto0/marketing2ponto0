@@ -39,7 +39,7 @@ function DiferenciaisPage() {
                 key={d.title}
                 className="glass rounded-2xl p-6 hover:border-gold/40 transition"
               >
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd/25 text-gold">
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
                   <d.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-4 font-display text-base font-bold">{d.title}</h3>
