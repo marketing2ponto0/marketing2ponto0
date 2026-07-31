@@ -77,37 +77,35 @@ export const clientLogos = [
   "Moda Haus",
 ];
 
+export const quemSomos = {
+  title: "O Motor de Crescimento do Seu Negócio",
+  desc: "Há uma década, a Marketing 2.0 transforma marcas em líderes de mercado. Unimos inteligência estratégica, inovação contínua e execução de alta performance para entregar o que realmente importa: crescimento previsível, posicionamento forte e escala para o seu negócio.\n\nCuidamos da sua presença digital e física com a responsabilidade e a precisão de quem domina o ecossistema de vendas e comunicação, gerando valor real para sua empresa, seus clientes e sua equipe.",
+  bullets: [
+    "Atendimento personalizado e próximo.",
+    "Estratégias baseadas em dados e performance.",
+    "Equipe criativa e apaixonada por resultados.",
+    "Transparência em cada etapa do processo.",
+  ],
+};
+
 export const mvv = [
-  {
-    icon: Users,
-    label: "Quem Somos",
-    title: "O Motor de Crescimento do Seu Negócio",
-    desc: "Há uma década, a Marketing 2.0 transforma marcas em líderes de mercado. Unimos inteligência estratégica, inovação contínua e execução de alta performance para entregar o que realmente importa: crescimento previsível, posicionamento forte e escala para o seu negócio.\n\nCuidamos da sua presença digital e física com a responsabilidade e a precisão de quem domina o ecossistema de vendas e comunicação, gerando valor real para sua empresa, seus clientes e sua equipe.",
-  },
   {
     icon: Target,
     label: "Missão",
-    title: "Impulsionar marcas rumo à liderança",
-    desc: "Impulsionar marcas rumo à liderança e ao crescimento exponencial. Criamos pontes definitivas entre empresas e clientes por meio de estratégias de marketing personalizadas, tecnologia e um atendimento focado em gerar resultados mensuráveis e sustentáveis. O seu topo é a nossa meta.",
+    title: "Crescimento digital com inteligência",
+    desc: "Ajudar empresas a crescerem no ambiente digital com estratégias inteligentes, criativas e mensuráveis.",
   },
   {
     icon: Eye,
     label: "Visão",
-    title: "Referência nacional em inteligência de marketing",
-    desc: "Consolidar-se como a principal referência nacional em inteligência de marketing e aceleração de negócios, moldando o futuro do empreendedorismo no Brasil — do pequeno ao grande player — com soluções de alto impacto e padrão global.",
+    title: "Referência em marketing digital no Brasil",
+    desc: "Ser referência em marketing digital no Brasil, reconhecida pela inovação e resultados consistentes.",
   },
   {
     icon: Heart,
     label: "Valores",
-    title: "Nossos Pilares",
-    items: [
-      "Obsessão pelo Resultado do Cliente: O sucesso das nossas marcas parceiras é o único indicador de performance que aceitamos.",
-      "Inovação Disruptiva: Antecipamos tendências e aplicamos o que há de mais avançado em tecnologia e estratégia.",
-      "Evolução Colaborativa & Conhecimento: Cultivamos talentos e compartilhamos inteligência para elevar a régua do mercado.",
-      "Transparência & Integridade Inegociáveis: Parcerias sólidas se constroem com clareza, ética e entrega real.",
-      "Excelência Operacional: Gestão profissional, dados e inteligência aplicados a cada etapa da operação.",
-      "Valorização Humana: Ambientes de trabalho dignos e inspiradores geram ideias extraordinárias.",
-    ],
+    title: "Nossos pilares",
+    desc: "Comprometimento, criatividade, transparência e foco em resultados.",
   },
 ];
 
@@ -253,6 +251,7 @@ export const servicoOptions = [
 ];
 
 export const NAV_LINKS = [
+  { to: "/quem-somos", label: "Quem Somos" },
   { to: "/diferenciais", label: "Diferenciais" },
   { to: "/servicos", label: "Serviços" },
   { to: "/processo", label: "Processo" },

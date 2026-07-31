@@ -241,7 +241,7 @@ function Index() {
             highlight="valores"
             description="Marketing 2.0 | O Motor de Crescimento do Seu Negócio"
           />
-          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid gap-4 md:grid-cols-3">
             {mvv.map((m) => (
               <div key={m.label} className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
@@ -251,22 +251,16 @@ function Index() {
                   {m.label}
                 </div>
                 <h3 className="mt-2 font-display text-lg font-bold group-hover:text-brd transition">{m.title}</h3>
-                {"items" in m && m.items ? (
-                  <ul className="mt-3 text-sm text-foreground/70 leading-relaxed list-disc pl-4 space-y-2">
-                    {m.items.map((item, i) => (
-                      <li key={i}>{item}</li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p className="mt-3 text-sm text-foreground/70 leading-relaxed whitespace-pre-line flex-1">
-                    {m.desc}
-                  </p>
-                )}
+                <p className="mt-3 text-sm text-foreground/70 leading-relaxed whitespace-pre-line flex-1">
+                  {m.desc}
+                </p>
               </div>
             ))}
           </div>
+          <SeeMore to="/quem-somos" label="Conheça quem somos" />
         </div>
       </section>
+
 
       {/* DIFERENCIAIS */}
 
