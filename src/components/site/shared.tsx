@@ -20,8 +20,8 @@ import {
   Rocket,
   Search,
   Sparkles,
-  
   TrendingUp,
+  Users,
   Video,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
@@ -78,22 +78,35 @@ export const clientLogos = [
 
 export const mvv = [
   {
+    icon: Users,
+    label: "Quem Somos",
+    title: "O Motor de Crescimento do Seu Negócio",
+    desc: "Há uma década, a Marketing 2.0 transforma marcas em líderes de mercado. Unimos inteligência estratégica, inovação contínua e execução de alta performance para entregar o que realmente importa: crescimento previsível, posicionamento forte e escala para o seu negócio.\n\nCuidamos da sua presença digital com a responsabilidade e a precisão de quem domina o ecossistema de vendas e comunicação, gerando valor real para sua empresa, seus clientes e sua equipe.",
+  },
+  {
     icon: Target,
     label: "Missão",
-    title: "Gerar crescimento real",
-    desc: "Levar estratégia, criatividade e dados para marcas que querem resultados concretos nas redes sociais — não apenas presença.",
+    title: "Impulsionar marcas rumo à liderança",
+    desc: "Impulsionar marcas rumo à liderança e ao crescimento exponencial. Criamos pontes definitivas entre empresas e clientes por meio de estratégias de marketing personalizadas, tecnologia e um atendimento focado em gerar resultados mensuráveis e sustentáveis. O seu topo é a nossa meta.",
   },
   {
     icon: Eye,
     label: "Visão",
-    title: "Referência em performance",
-    desc: "Ser reconhecida como a agência que une conteúdo de alto nível e tráfego pago com transparência total nos números.",
+    title: "Referência nacional em inteligência de marketing",
+    desc: "Consolidar-se como a principal referência nacional em inteligência de marketing e aceleração de negócios, moldando o futuro do empreendedorismo no Brasil — do pequeno ao grande player — com soluções de alto impacto e padrão global.",
   },
   {
     icon: Heart,
     label: "Valores",
-    title: "Verdade, ritmo e parceria",
-    desc: "Movimentação diária, comunicação honesta, relatórios claros e envolvimento genuíno com o negócio de cada cliente.",
+    title: "Nossos Pilares",
+    items: [
+      "Obsessão pelo Resultado do Cliente: O sucesso das nossas marcas parceiras é o único indicador de performance que aceitamos.",
+      "Inovação Disruptiva: Antecipamos tendências e aplicamos o que há de mais avançado em tecnologia e estratégia.",
+      "Evolução Colaborativa & Conhecimento: Cultivamos talentos e compartilhamos inteligência para elevar a régua do mercado.",
+      "Transparência & Integridade Inegociáveis: Parcerias sólidas se constroem com clareza, ética e entrega real.",
+      "Excelência Operacional: Gestão profissional, dados e inteligência aplicados a cada etapa da operação.",
+      "Valorização Humana: Ambientes de trabalho dignos e inspiradores geram ideias extraordinárias.",
+    ],
   },
 ];
 
