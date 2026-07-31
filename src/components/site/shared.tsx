@@ -141,11 +141,72 @@ export const depoimentos = [
 ];
 
 export const grupo = [
-  { name: "UP Fotos e Vídeos", tag: "Produção audiovisual", color: "from-pink-500/20 to-transparent", icon: Camera },
-  { name: "A3H Print", tag: "Comunicação impressa", color: "from-amber-500/20 to-transparent", icon: Printer },
-  { name: "Trinity Tecnologias", tag: "Sites e sistemas", color: "from-sky-500/20 to-transparent", icon: Code2 },
-  { name: "Buskiache", tag: "Guia comercial + app", color: "from-emerald-500/20 to-transparent", icon: MapPin },
+  {
+    name: "UP Fotos e Vídeos",
+    tag: "Produção audiovisual",
+    color: "from-pink-500/20 to-transparent",
+    icon: Camera,
+    to: "/up-fotos" as const,
+    description:
+      "Produção audiovisual completa para marcas que precisam de imagem forte: fotografia de produto, ensaios institucionais, vídeos para redes sociais, reels e cobertura de eventos.",
+    bullets: [
+      "Fotografia de produto e catálogo",
+      "Ensaios institucionais e de equipe",
+      "Reels, shorts e vídeos verticais",
+      "Cobertura de eventos e making of",
+      "Edição, cor e finalização profissional",
+    ],
+  },
+  {
+    name: "A3H Print",
+    tag: "Comunicação impressa",
+    color: "from-amber-500/20 to-transparent",
+    icon: Printer,
+    to: "/a3h-print" as const,
+    description:
+      "Comunicação impressa e visual com acabamento premium: do cartão de visita à fachada, garantindo que a marca seja consistente no digital e no físico.",
+    bullets: [
+      "Cartões, folders e materiais promocionais",
+      "Banners, faixas e adesivos",
+      "Comunicação visual e fachadas",
+      "Brindes e materiais personalizados",
+      "Acabamento premium e entrega rápida",
+    ],
+  },
+  {
+    name: "Trinity Tecnologias",
+    tag: "Sites e sistemas",
+    color: "from-sky-500/20 to-transparent",
+    icon: Code2,
+    to: "/trinity-tecnologias" as const,
+    description:
+      "Tecnologia sob medida para o crescimento: sites de alta conversão, landing pages, e-commerce e sistemas internos integrados às campanhas de marketing.",
+    bullets: [
+      "Sites institucionais e landing pages",
+      "Lojas virtuais e integrações de pagamento",
+      "Sistemas e automações sob medida",
+      "Integração com CRM e WhatsApp",
+      "Performance, SEO técnico e segurança",
+    ],
+  },
+  {
+    name: "Buskiache",
+    tag: "Guia comercial + app",
+    color: "from-emerald-500/20 to-transparent",
+    icon: MapPin,
+    to: "/buskiache" as const,
+    description:
+      "Guia comercial e aplicativo que conecta empresas locais a novos clientes, ampliando a visibilidade da sua marca na região onde ela mais vende.",
+    bullets: [
+      "Perfil comercial destacado no guia",
+      "Presença no aplicativo Buskiache",
+      "Divulgação regional segmentada",
+      "Promoções e campanhas locais",
+      "Mais visibilidade para o comércio de bairro",
+    ],
+  },
 ];
+
 
 export const servicoOptions = [
   "Gestão de Redes Sociais",
