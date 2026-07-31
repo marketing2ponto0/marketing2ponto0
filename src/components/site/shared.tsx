@@ -58,12 +58,16 @@ export const stats = [
 ];
 
 export const clientLogos = [
-  "Construmax",
-  "RealFit",
-  "Clínica Verdi",
-  "GrãoCafé",
-  "TecnoLog",
-  "Moda Haus",
+  "Santo Gole",
+  "HB Imóveis SP",
+  "Tríade Corretora BR",
+  "CDL Franco da Rocha",
+  "Amanda Carvalho Celebrante",
+  "Parador do Pay",
+  "Canoa Cantareira",
+  "Visãotek",
+  "Clinic Medicina Diagnóstica",
+  "Clinicard +",
 ];
 
 export const mvv = [
