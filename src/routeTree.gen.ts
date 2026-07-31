@@ -9,11 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VendaNoLinkRouteImport } from './routes/venda-no-link'
 import { Route as UpFotosRouteImport } from './routes/up-fotos'
 import { Route as TrinityTecnologiasRouteImport } from './routes/trinity-tecnologias'
 import { Route as ServicosRouteImport } from './routes/servicos'
 import { Route as ProcessoRouteImport } from './routes/processo'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
+import { Route as MidiaOoh360RouteImport } from './routes/midia-ooh-360'
 import { Route as GrupoRouteImport } from './routes/grupo'
 import { Route as DiferenciaisRouteImport } from './routes/diferenciais'
 import { Route as DepoimentosRouteImport } from './routes/depoimentos'
@@ -25,6 +27,11 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
+const VendaNoLinkRoute = VendaNoLinkRouteImport.update({
+  id: '/venda-no-link',
+  path: '/venda-no-link',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UpFotosRoute = UpFotosRouteImport.update({
   id: '/up-fotos',
   path: '/up-fotos',
@@ -48,6 +55,11 @@ const ProcessoRoute = ProcessoRouteImport.update({
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
   path: '/portfolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MidiaOoh360Route = MidiaOoh360RouteImport.update({
+  id: '/midia-ooh-360',
+  path: '/midia-ooh-360',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GrupoRoute = GrupoRouteImport.update({
@@ -109,11 +121,13 @@ export interface FileRoutesByFullPath {
   '/depoimentos': typeof DepoimentosRoute
   '/diferenciais': typeof DiferenciaisRoute
   '/grupo': typeof GrupoRoute
+  '/midia-ooh-360': typeof MidiaOoh360Route
   '/portfolio': typeof PortfolioRoute
   '/processo': typeof ProcessoRoute
   '/servicos': typeof ServicosRoute
   '/trinity-tecnologias': typeof TrinityTecnologiasRoute
   '/up-fotos': typeof UpFotosRoute
+  '/venda-no-link': typeof VendaNoLinkRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesByTo {
@@ -125,11 +139,13 @@ export interface FileRoutesByTo {
   '/depoimentos': typeof DepoimentosRoute
   '/diferenciais': typeof DiferenciaisRoute
   '/grupo': typeof GrupoRoute
+  '/midia-ooh-360': typeof MidiaOoh360Route
   '/portfolio': typeof PortfolioRoute
   '/processo': typeof ProcessoRoute
   '/servicos': typeof ServicosRoute
   '/trinity-tecnologias': typeof TrinityTecnologiasRoute
   '/up-fotos': typeof UpFotosRoute
+  '/venda-no-link': typeof VendaNoLinkRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesById {
@@ -143,11 +159,13 @@ export interface FileRoutesById {
   '/depoimentos': typeof DepoimentosRoute
   '/diferenciais': typeof DiferenciaisRoute
   '/grupo': typeof GrupoRoute
+  '/midia-ooh-360': typeof MidiaOoh360Route
   '/portfolio': typeof PortfolioRoute
   '/processo': typeof ProcessoRoute
   '/servicos': typeof ServicosRoute
   '/trinity-tecnologias': typeof TrinityTecnologiasRoute
   '/up-fotos': typeof UpFotosRoute
+  '/venda-no-link': typeof VendaNoLinkRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRouteTypes {
@@ -161,11 +179,13 @@ export interface FileRouteTypes {
     | '/depoimentos'
     | '/diferenciais'
     | '/grupo'
+    | '/midia-ooh-360'
     | '/portfolio'
     | '/processo'
     | '/servicos'
     | '/trinity-tecnologias'
     | '/up-fotos'
+    | '/venda-no-link'
     | '/admin'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -177,11 +197,13 @@ export interface FileRouteTypes {
     | '/depoimentos'
     | '/diferenciais'
     | '/grupo'
+    | '/midia-ooh-360'
     | '/portfolio'
     | '/processo'
     | '/servicos'
     | '/trinity-tecnologias'
     | '/up-fotos'
+    | '/venda-no-link'
     | '/admin'
   id:
     | '__root__'
@@ -194,11 +216,13 @@ export interface FileRouteTypes {
     | '/depoimentos'
     | '/diferenciais'
     | '/grupo'
+    | '/midia-ooh-360'
     | '/portfolio'
     | '/processo'
     | '/servicos'
     | '/trinity-tecnologias'
     | '/up-fotos'
+    | '/venda-no-link'
     | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
 }
@@ -212,15 +236,24 @@ export interface RootRouteChildren {
   DepoimentosRoute: typeof DepoimentosRoute
   DiferenciaisRoute: typeof DiferenciaisRoute
   GrupoRoute: typeof GrupoRoute
+  MidiaOoh360Route: typeof MidiaOoh360Route
   PortfolioRoute: typeof PortfolioRoute
   ProcessoRoute: typeof ProcessoRoute
   ServicosRoute: typeof ServicosRoute
   TrinityTecnologiasRoute: typeof TrinityTecnologiasRoute
   UpFotosRoute: typeof UpFotosRoute
+  VendaNoLinkRoute: typeof VendaNoLinkRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/venda-no-link': {
+      id: '/venda-no-link'
+      path: '/venda-no-link'
+      fullPath: '/venda-no-link'
+      preLoaderRoute: typeof VendaNoLinkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/up-fotos': {
       id: '/up-fotos'
       path: '/up-fotos'
@@ -254,6 +287,13 @@ declare module '@tanstack/react-router' {
       path: '/portfolio'
       fullPath: '/portfolio'
       preLoaderRoute: typeof PortfolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/midia-ooh-360': {
+      id: '/midia-ooh-360'
+      path: '/midia-ooh-360'
+      fullPath: '/midia-ooh-360'
+      preLoaderRoute: typeof MidiaOoh360RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/grupo': {
@@ -350,11 +390,13 @@ const rootRouteChildren: RootRouteChildren = {
   DepoimentosRoute: DepoimentosRoute,
   DiferenciaisRoute: DiferenciaisRoute,
   GrupoRoute: GrupoRoute,
+  MidiaOoh360Route: MidiaOoh360Route,
   PortfolioRoute: PortfolioRoute,
   ProcessoRoute: ProcessoRoute,
   ServicosRoute: ServicosRoute,
   TrinityTecnologiasRoute: TrinityTecnologiasRoute,
   UpFotosRoute: UpFotosRoute,
+  VendaNoLinkRoute: VendaNoLinkRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
