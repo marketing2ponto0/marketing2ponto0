@@ -88,7 +88,6 @@ function Index() {
         <div className="mx-auto max-w-7xl px-6 pt-16 pb-24 md:pt-24 md:pb-32 grid lg:grid-cols-2 gap-14 items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-xs font-medium text-gold">
-              <Sparkles className="h-3.5 w-3.5" />
               Agência especializada em mídias sociais
             </span>
             <h1 className="mt-6 font-display text-5xl md:text-7xl font-extrabold leading-[1.02]">
