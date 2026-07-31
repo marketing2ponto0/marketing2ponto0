@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Check } from "lucide-react";
+import { Check, Image } from "lucide-react";
 import { quemSomos, mvv, PageHeader, CtaBand } from "../components/site/shared";
 
 export const Route = createFileRoute("/quem-somos")({
