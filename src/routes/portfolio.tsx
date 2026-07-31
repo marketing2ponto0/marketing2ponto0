@@ -2,8 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Download, Maximize2, Minimize2, X } from "lucide-react";
 import { PageHeader } from "@/components/site/shared";
-import { VideoGallery } from "@/components/site/portfolio-videos";
-import { VIDEO_SLIDE_INDEX } from "@/lib/portfolio-videos";
 
 import s01 from "@/assets/portfolio/slide-01.jpg.asset.json";
 import s02 from "@/assets/portfolio/slide-02.jpg.asset.json";
@@ -104,18 +102,12 @@ function PortfolioPage() {
       <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_260px]">
         {/* Visualizador */}
         <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-[var(--brd)] shadow-2xl">
-          {index === VIDEO_SLIDE_INDEX ? (
-            <div className="min-h-[420px]">
-              <VideoGallery />
-            </div>
-          ) : (
-            <img
-              src={SLIDES[index]}
-              alt={`Portfólio Marketing 2.0 — página ${index + 1} de ${total}`}
-              className="mx-auto block max-h-[78vh] w-auto max-w-full"
-              loading={index === 0 ? "eager" : "lazy"}
-            />
-          )}
+          <img
+            src={SLIDES[index]}
+            alt={`Portfólio Marketing 2.0 — página ${index + 1} de ${total}`}
+            className="mx-auto block max-h-[78vh] w-auto max-w-full"
+            loading={index === 0 ? "eager" : "lazy"}
+          />
 
 
           <button
@@ -186,17 +178,11 @@ function PortfolioPage() {
           ref={overlayRef}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4"
         >
-          {index === VIDEO_SLIDE_INDEX ? (
-            <div className="max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-2xl bg-[var(--brd)]">
-              <VideoGallery />
-            </div>
-          ) : (
-            <img
-              src={SLIDES[index]}
-              alt={`Portfólio Marketing 2.0 — página ${index + 1} de ${total}`}
-              className="max-h-[92vh] w-auto max-w-full"
-            />
-          )}
+          <img
+            src={SLIDES[index]}
+            alt={`Portfólio Marketing 2.0 — página ${index + 1} de ${total}`}
+            className="max-h-[92vh] w-auto max-w-full"
+          />
 
           <button
             type="button"
