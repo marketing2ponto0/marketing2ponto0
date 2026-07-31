@@ -80,7 +80,7 @@ export const mvv = [
     icon: Users,
     label: "Quem Somos",
     title: "O Motor de Crescimento do Seu Negócio",
-    desc: "Há uma década, a Marketing 2.0 transforma marcas em líderes de mercado. Unimos inteligência estratégica, inovação contínua e execução de alta performance para entregar o que realmente importa: crescimento previsível, posicionamento forte e escala para o seu negócio.\n\nCuidamos da sua presença digital com a responsabilidade e a precisão de quem domina o ecossistema de vendas e comunicação, gerando valor real para sua empresa, seus clientes e sua equipe.",
+    desc: "Há uma década, a Marketing 2.0 transforma marcas em líderes de mercado. Unimos inteligência estratégica, inovação contínua e execução de alta performance para entregar o que realmente importa: crescimento previsível, posicionamento forte e escala para o seu negócio.\n\nCuidamos da sua presença digital e física com a responsabilidade e a precisão de quem domina o ecossistema de vendas e comunicação, gerando valor real para sua empresa, seus clientes e sua equipe.",
   },
   {
     icon: Target,
