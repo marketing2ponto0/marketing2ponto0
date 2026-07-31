@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Check } from "lucide-react";
+import { Check, Image } from "lucide-react";
 import { quemSomos, mvv, PageHeader, CtaBand } from "../components/site/shared";
 
 export const Route = createFileRoute("/quem-somos")({
@@ -34,7 +34,21 @@ function QuemSomosPage() {
             highlight="O Motor de Crescimento do Seu Negócio"
           />
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          <div className="mt-10 rounded-2xl border border-border bg-ink-2 p-4 hover:border-brd hover:shadow-xl transition">
+            <div className="relative flex min-h-[320px] md:min-h-[420px] items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-brd/10 to-brd/5">
+              <div className="flex flex-col items-center gap-3 text-center text-foreground/60">
+                <div className="grid h-16 w-16 place-items-center rounded-2xl bg-brd text-gold shadow-lg">
+                  <Image className="h-7 w-7" />
+                </div>
+                <div className="space-y-1">
+                  <p className="font-display text-lg font-semibold text-foreground">Espaço reservado para foto</p>
+                  <p className="text-sm">Envie a imagem pelo painel admin ou substitua este placeholder.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-6 lg:grid-cols-3">
             <div className="lg:col-span-2 rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl transition">
               <h2 className="font-display text-xl font-bold">{quemSomos.title}</h2>
               <p className="mt-4 text-sm leading-relaxed text-foreground/70 whitespace-pre-line">
