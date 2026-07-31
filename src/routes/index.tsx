@@ -242,7 +242,7 @@ function Index() {
             highlight="valores"
             description="Marketing 2.0 | O Motor de Crescimento do Seu Negócio"
           />
-          <div className="mt-14 grid gap-4 md:grid-cols-3">
+          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {mvv.map((m) => (
               <div key={m.label} className="glass rounded-2xl p-7">
                 <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
@@ -252,9 +252,17 @@ function Index() {
                   {m.label}
                 </div>
                 <h3 className="mt-2 font-display text-lg font-bold">{m.title}</h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                  {m.desc}
-                </p>
+                {"items" in m ? (
+                  <ul className="mt-3 text-sm text-muted-foreground leading-relaxed list-disc pl-4 space-y-2">
+                    {m.items.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+                    {m.desc}
+                  </p>
+                )}
               </div>
             ))}
           </div>
