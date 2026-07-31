@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Award, Sparkles } from "lucide-react";
+import { ArrowRight, Award } from "lucide-react";
 import {
   WhatsAppIcon,
   WHATSAPP,
@@ -47,7 +47,6 @@ function SectionHeader({
   return (
     <div className="mx-auto max-w-3xl text-center">
       <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-xs font-medium text-gold">
-        {eyebrow !== "Quem somos" && <Sparkles className="h-3.5 w-3.5" />}
         {eyebrow}
       </span>
       <h2 className="mt-6 font-display text-3xl md:text-5xl font-extrabold leading-[1.05]">
