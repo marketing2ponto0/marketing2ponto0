@@ -43,6 +43,17 @@ export function GrupoDetail({ name }: { name: string }) {
                 </li>
               ))}
             </ul>
+
+            {"site" in item && item.site ? (
+              <a
+                href={item.site}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-brd px-5 py-3 text-sm font-semibold text-cream hover:bg-brd/90 transition"
+              >
+                Acessar plataforma <ExternalLink className="h-4 w-4 text-gold" />
+              </a>
+            ) : null}
           </div>
 
           <div className="mt-12">
