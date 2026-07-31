@@ -374,7 +374,7 @@ function Index() {
             highlight="completo"
             description="Quatro empresas que se conectam para entregar tudo que sua marca precisa — do post ao sistema."
           />
-          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {grupo.map((g) => (
               <Link
                 key={g.name}
