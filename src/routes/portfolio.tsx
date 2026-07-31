@@ -177,15 +177,9 @@ function PortfolioPage() {
           </div>
         </div>
 
-        {/* Miniaturas + download */}
+        {/* Miniaturas */}
         <div className="flex flex-col gap-4">
-          <a
-            href={pdfAsset.url}
-            download="Portfolio-Marketing-2.0.pdf"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gold)] px-6 py-3 text-sm font-extrabold text-black transition hover:bg-[var(--brd)] hover:text-white"
-          >
-            <Download className="h-4 w-4" /> Baixar portfólio (PDF)
-          </a>
+
 
           <div className="grid max-h-[64vh] grid-cols-4 gap-2 overflow-y-auto pr-1 lg:grid-cols-3">
             {items.map((item, i) => (
