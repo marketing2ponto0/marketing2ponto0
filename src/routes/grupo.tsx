@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { grupo, PageHeader, CtaBand } from "../components/site/shared";
 
 export const Route = createFileRoute("/grupo")({
@@ -34,8 +34,9 @@ function GrupoPage() {
 
           <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {grupo.map((g) => (
-              <div
+              <Link
                 key={g.name}
+                to={g.to}
                 className={`relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br ${g.color} p-6 hover:border-gold/40 transition`}
               >
                 <g.icon className="h-6 w-6 text-gold" />
@@ -43,7 +44,7 @@ function GrupoPage() {
                 <p className="mt-1 text-xs text-muted-foreground uppercase tracking-wider">
                   {g.tag}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

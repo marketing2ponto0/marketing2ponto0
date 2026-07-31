@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UpFotosRouteImport } from './routes/up-fotos'
+import { Route as TrinityTecnologiasRouteImport } from './routes/trinity-tecnologias'
 import { Route as ServicosRouteImport } from './routes/servicos'
 import { Route as ProcessoRouteImport } from './routes/processo'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
@@ -16,11 +18,23 @@ import { Route as GrupoRouteImport } from './routes/grupo'
 import { Route as DiferenciaisRouteImport } from './routes/diferenciais'
 import { Route as DepoimentosRouteImport } from './routes/depoimentos'
 import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as BuskiacheRouteImport } from './routes/buskiache'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as A3hPrintRouteImport } from './routes/a3h-print'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
+const UpFotosRoute = UpFotosRouteImport.update({
+  id: '/up-fotos',
+  path: '/up-fotos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrinityTecnologiasRoute = TrinityTecnologiasRouteImport.update({
+  id: '/trinity-tecnologias',
+  path: '/trinity-tecnologias',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicosRoute = ServicosRouteImport.update({
   id: '/servicos',
   path: '/servicos',
@@ -56,9 +70,19 @@ const ContatoRoute = ContatoRouteImport.update({
   path: '/contato',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BuskiacheRoute = BuskiacheRouteImport.update({
+  id: '/buskiache',
+  path: '/buskiache',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const A3hPrintRoute = A3hPrintRouteImport.update({
+  id: '/a3h-print',
+  path: '/a3h-print',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -78,7 +102,9 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/a3h-print': typeof A3hPrintRoute
   '/auth': typeof AuthRoute
+  '/buskiache': typeof BuskiacheRoute
   '/contato': typeof ContatoRoute
   '/depoimentos': typeof DepoimentosRoute
   '/diferenciais': typeof DiferenciaisRoute
@@ -86,11 +112,15 @@ export interface FileRoutesByFullPath {
   '/portfolio': typeof PortfolioRoute
   '/processo': typeof ProcessoRoute
   '/servicos': typeof ServicosRoute
+  '/trinity-tecnologias': typeof TrinityTecnologiasRoute
+  '/up-fotos': typeof UpFotosRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/a3h-print': typeof A3hPrintRoute
   '/auth': typeof AuthRoute
+  '/buskiache': typeof BuskiacheRoute
   '/contato': typeof ContatoRoute
   '/depoimentos': typeof DepoimentosRoute
   '/diferenciais': typeof DiferenciaisRoute
@@ -98,13 +128,17 @@ export interface FileRoutesByTo {
   '/portfolio': typeof PortfolioRoute
   '/processo': typeof ProcessoRoute
   '/servicos': typeof ServicosRoute
+  '/trinity-tecnologias': typeof TrinityTecnologiasRoute
+  '/up-fotos': typeof UpFotosRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/a3h-print': typeof A3hPrintRoute
   '/auth': typeof AuthRoute
+  '/buskiache': typeof BuskiacheRoute
   '/contato': typeof ContatoRoute
   '/depoimentos': typeof DepoimentosRoute
   '/diferenciais': typeof DiferenciaisRoute
@@ -112,13 +146,17 @@ export interface FileRoutesById {
   '/portfolio': typeof PortfolioRoute
   '/processo': typeof ProcessoRoute
   '/servicos': typeof ServicosRoute
+  '/trinity-tecnologias': typeof TrinityTecnologiasRoute
+  '/up-fotos': typeof UpFotosRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/a3h-print'
     | '/auth'
+    | '/buskiache'
     | '/contato'
     | '/depoimentos'
     | '/diferenciais'
@@ -126,11 +164,15 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/processo'
     | '/servicos'
+    | '/trinity-tecnologias'
+    | '/up-fotos'
     | '/admin'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/a3h-print'
     | '/auth'
+    | '/buskiache'
     | '/contato'
     | '/depoimentos'
     | '/diferenciais'
@@ -138,12 +180,16 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/processo'
     | '/servicos'
+    | '/trinity-tecnologias'
+    | '/up-fotos'
     | '/admin'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/a3h-print'
     | '/auth'
+    | '/buskiache'
     | '/contato'
     | '/depoimentos'
     | '/diferenciais'
@@ -151,13 +197,17 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/processo'
     | '/servicos'
+    | '/trinity-tecnologias'
+    | '/up-fotos'
     | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  A3hPrintRoute: typeof A3hPrintRoute
   AuthRoute: typeof AuthRoute
+  BuskiacheRoute: typeof BuskiacheRoute
   ContatoRoute: typeof ContatoRoute
   DepoimentosRoute: typeof DepoimentosRoute
   DiferenciaisRoute: typeof DiferenciaisRoute
@@ -165,10 +215,26 @@ export interface RootRouteChildren {
   PortfolioRoute: typeof PortfolioRoute
   ProcessoRoute: typeof ProcessoRoute
   ServicosRoute: typeof ServicosRoute
+  TrinityTecnologiasRoute: typeof TrinityTecnologiasRoute
+  UpFotosRoute: typeof UpFotosRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/up-fotos': {
+      id: '/up-fotos'
+      path: '/up-fotos'
+      fullPath: '/up-fotos'
+      preLoaderRoute: typeof UpFotosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trinity-tecnologias': {
+      id: '/trinity-tecnologias'
+      path: '/trinity-tecnologias'
+      fullPath: '/trinity-tecnologias'
+      preLoaderRoute: typeof TrinityTecnologiasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/servicos': {
       id: '/servicos'
       path: '/servicos'
@@ -218,11 +284,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContatoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/buskiache': {
+      id: '/buskiache'
+      path: '/buskiache'
+      fullPath: '/buskiache'
+      preLoaderRoute: typeof BuskiacheRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/a3h-print': {
+      id: '/a3h-print'
+      path: '/a3h-print'
+      fullPath: '/a3h-print'
+      preLoaderRoute: typeof A3hPrintRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -263,7 +343,9 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  A3hPrintRoute: A3hPrintRoute,
   AuthRoute: AuthRoute,
+  BuskiacheRoute: BuskiacheRoute,
   ContatoRoute: ContatoRoute,
   DepoimentosRoute: DepoimentosRoute,
   DiferenciaisRoute: DiferenciaisRoute,
@@ -271,6 +353,8 @@ const rootRouteChildren: RootRouteChildren = {
   PortfolioRoute: PortfolioRoute,
   ProcessoRoute: ProcessoRoute,
   ServicosRoute: ServicosRoute,
+  TrinityTecnologiasRoute: TrinityTecnologiasRoute,
+  UpFotosRoute: UpFotosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

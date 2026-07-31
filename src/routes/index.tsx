@@ -378,7 +378,7 @@ function Index() {
             {grupo.map((g) => (
               <Link
                 key={g.name}
-                to="/grupo"
+                to={g.to}
                 className={`relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br ${g.color} p-6 hover:border-gold/40 transition block`}
               >
                 <g.icon className="h-6 w-6 text-gold" />
