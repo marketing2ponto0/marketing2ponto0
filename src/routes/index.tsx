@@ -199,20 +199,36 @@ function Index() {
       </section>
 
       {/* CLIENT LOGO STRIP */}
-      <div className="border-y border-border/60 bg-ink-2/40 py-8">
-        <div className="mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center gap-6 md:gap-10">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground shrink-0">
+      <div className="border-y border-border/60 bg-ink-2/40 py-8 group overflow-hidden">
+        <div className="mx-auto max-w-7xl px-6 mb-6">
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground text-center md:text-left">
             Marcas que crescem com a Marketing 2.0
           </p>
-          <div className="flex flex-wrap justify-center md:justify-start gap-x-8 gap-y-3">
-            {clientLogos.map((l) => (
-              <span
-                key={l}
-                className="font-display text-base font-bold text-muted-foreground/70 hover:text-gold transition"
-              >
-                {l}
-              </span>
-            ))}
+        </div>
+        <div className="relative space-y-4">
+          <div className="flex overflow-hidden">
+            <div className="flex shrink-0 gap-10 animate-marquee-left">
+              {[...clientLogos.slice(0, 8), ...clientLogos.slice(0, 8)].map((l, i) => (
+                <span
+                  key={`row1-${l}-${i}`}
+                  className="font-display text-base font-bold text-muted-foreground/70 hover:text-gold transition whitespace-nowrap"
+                >
+                  {l}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="flex overflow-hidden">
+            <div className="flex shrink-0 gap-10 animate-marquee-right">
+              {[...clientLogos.slice(8), ...clientLogos.slice(8)].map((l, i) => (
+                <span
+                  key={`row2-${l}-${i}`}
+                  className="font-display text-base font-bold text-muted-foreground/70 hover:text-gold transition whitespace-nowrap"
+                >
+                  {l}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
