@@ -21,6 +21,7 @@ import {
   Rocket,
   Search,
   TrendingUp,
+  Tv,
   Users,
   Video,
 } from "lucide-react";
