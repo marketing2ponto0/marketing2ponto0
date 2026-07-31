@@ -89,6 +89,42 @@ export type Database = {
         }
         Relationships: []
       }
+      portfolio_slides: {
+        Row: {
+          active: boolean
+          caption: string | null
+          created_at: string
+          id: string
+          media_type: string
+          media_url: string
+          order_index: number
+          poster_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          caption?: string | null
+          created_at?: string
+          id?: string
+          media_type?: string
+          media_url: string
+          order_index?: number
+          poster_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          caption?: string | null
+          created_at?: string
+          id?: string
+          media_type?: string
+          media_url?: string
+          order_index?: number
+          poster_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           active: boolean
