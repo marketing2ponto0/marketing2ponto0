@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, Check } from "lucide-react";
+import { ArrowLeft, Check, ExternalLink } from "lucide-react";
 import { grupo, PageHeader, CtaBand } from "./shared";
 
 export function GrupoDetail({ name }: { name: string }) {
