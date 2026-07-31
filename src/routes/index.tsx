@@ -243,22 +243,22 @@ function Index() {
           />
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {mvv.map((m) => (
-              <div key={m.label} className="glass rounded-2xl p-7">
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
+              <div key={m.label} className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col">
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <m.icon className="h-5 w-5" />
                 </div>
                 <div className="mt-5 text-xs uppercase tracking-[0.2em] text-gold">
                   {m.label}
                 </div>
-                <h3 className="mt-2 font-display text-lg font-bold">{m.title}</h3>
+                <h3 className="mt-2 font-display text-lg font-bold group-hover:text-brd transition">{m.title}</h3>
                 {"items" in m && m.items ? (
-                  <ul className="mt-3 text-sm text-muted-foreground leading-relaxed list-disc pl-4 space-y-2">
+                  <ul className="mt-3 text-sm text-foreground/70 leading-relaxed list-disc pl-4 space-y-2">
                     {m.items.map((item, i) => (
                       <li key={i}>{item}</li>
                     ))}
                   </ul>
                 ) : (
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+                  <p className="mt-3 text-sm text-foreground/70 leading-relaxed whitespace-pre-line flex-1">
                     {m.desc}
                   </p>
                 )}
@@ -283,13 +283,13 @@ function Index() {
               <Link
                 key={d.title}
                 to="/diferenciais"
-                className="glass rounded-2xl p-6 hover:border-gold/40 transition block"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
               >
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <d.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-4 font-display text-base font-bold">{d.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                <h3 className="mt-4 font-display text-base font-bold group-hover:text-brd transition">{d.title}</h3>
+                <p className="mt-2 text-sm text-foreground/70 leading-relaxed flex-1">
                   {d.desc}
                 </p>
               </Link>
@@ -346,16 +346,18 @@ function Index() {
               <Link
                 key={p.step}
                 to="/processo"
-                className="relative rounded-2xl border border-border/60 p-6 overflow-hidden hover:border-gold/40 transition block"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
               >
                 <div className="flex items-start justify-between">
-                  <div className="font-display text-5xl font-extrabold text-black">
+                  <div className="font-display text-5xl font-extrabold text-black group-hover:text-brd transition">
                     {p.step}
                   </div>
-                  <p.icon className="h-5 w-5 text-gold" />
+                  <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+                    <p.icon className="h-5 w-5" />
+                  </div>
                 </div>
-                <h3 className="mt-4 font-display text-lg font-bold">{p.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                <h3 className="mt-4 font-display text-lg font-bold group-hover:text-brd transition">{p.title}</h3>
+                <p className="mt-2 text-sm text-foreground/70 leading-relaxed flex-1">
                   {p.desc}
                 </p>
               </Link>
@@ -379,11 +381,13 @@ function Index() {
               <Link
                 key={g.name}
                 to={g.to}
-                className="relative overflow-hidden rounded-2xl border border-border/60 bg-white p-6 hover:border-gold/40 transition block"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-6 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
               >
-                <g.icon className="h-6 w-6 text-gold" />
-                <h3 className="mt-6 font-display text-lg font-bold">{g.name}</h3>
-                <p className="mt-1 text-xs text-muted-foreground uppercase tracking-wider">
+                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+                  <g.icon className="h-6 w-6" />
+                </div>
+                <h3 className="mt-6 font-display text-lg font-bold group-hover:text-brd transition">{g.name}</h3>
+                <p className="mt-1 text-xs text-foreground/70 uppercase tracking-wider">
                   {g.tag}
                 </p>
               </Link>
@@ -406,20 +410,22 @@ function Index() {
               <Link
                 key={t.name}
                 to="/depoimentos"
-                className="glass rounded-2xl p-8 flex flex-col hover:border-gold/40 transition"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
               >
-                <Award className="h-6 w-6 text-gold" />
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+                  <Award className="h-5 w-5" />
+                </div>
                 <div className="mt-4 text-gold text-sm tracking-widest">★★★★★</div>
-                <blockquote className="mt-4 text-base leading-relaxed flex-1">
+                <blockquote className="mt-4 text-base leading-relaxed flex-1 text-foreground/90">
                   "{t.quote}"
                 </blockquote>
                 <div className="mt-6 pt-6 border-t border-border/60 flex items-center gap-3">
-                  <div className="grid h-11 w-11 place-items-center rounded-full border border-gold/30 bg-gold/5 text-gold font-display font-bold text-sm">
+                  <div className="grid h-11 w-11 place-items-center rounded-full border border-gold/30 bg-gold/5 text-gold font-display font-bold text-sm group-hover:bg-gold group-hover:text-foreground transition">
                     {t.initials}
                   </div>
                   <div>
-                    <div className="font-semibold">{t.name}</div>
-                    <div className="text-xs text-muted-foreground">{t.role}</div>
+                    <div className="font-semibold group-hover:text-brd transition">{t.name}</div>
+                    <div className="text-xs text-foreground/70">{t.role}</div>
                   </div>
                 </div>
               </Link>
