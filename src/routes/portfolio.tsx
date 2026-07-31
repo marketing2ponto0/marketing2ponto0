@@ -2,6 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Download, Maximize2, Minimize2, X } from "lucide-react";
 import { PageHeader } from "@/components/site/shared";
+import { listPortfolioSlidesPublic } from "@/lib/portfolio.functions";
+
+type Slide = { id: string; media_type: "image" | "video"; url: string; poster: string | null; caption: string | null };
 
 import s01 from "@/assets/portfolio/slide-01.jpg.asset.json";
 import s02 from "@/assets/portfolio/slide-02.jpg.asset.json";
@@ -44,14 +47,34 @@ export const Route = createFileRoute("/portfolio")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
+  loader: async () => {
+    try {
+      return { slides: (await listPortfolioSlidesPublic()) as Slide[] };
+    } catch {
+      return { slides: [] as Slide[] };
+    }
+  },
   component: PortfolioPage,
 });
 
 function PortfolioPage() {
+  const { slides } = Route.useLoaderData();
+  const items: Slide[] =
+    slides.length > 0
+      ? slides
+      : SLIDES.map((url, i) => ({
+          id: `static-${i}`,
+          media_type: "image" as const,
+          url,
+          poster: null,
+          caption: null,
+        }));
+
   const [index, setIndex] = useState(0);
   const [full, setFull] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const total = SLIDES.length;
+  const total = items.length;
+  const current = items[Math.min(index, total - 1)];
 
   const go = useCallback(
     (dir: number) => setIndex((i) => (i + dir + total) % total),
@@ -102,12 +125,23 @@ function PortfolioPage() {
       <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_260px]">
         {/* Visualizador */}
         <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-[var(--brd)] shadow-2xl">
-          <img
-            src={SLIDES[index]}
-            alt={`Portfólio Marketing 2.0 — página ${index + 1} de ${total}`}
-            className="mx-auto block max-h-[78vh] w-auto max-w-full"
-            loading={index === 0 ? "eager" : "lazy"}
-          />
+          {current.media_type === "video" ? (
+            <video
+              key={current.id}
+              src={current.url}
+              poster={current.poster ?? undefined}
+              controls
+              playsInline
+              className="mx-auto block max-h-[78vh] w-auto max-w-full"
+            />
+          ) : (
+            <img
+              src={current.url}
+              alt={current.caption ?? `Portfólio Marketing 2.0 — página ${index + 1} de ${total}`}
+              className="mx-auto block max-h-[78vh] w-auto max-w-full"
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+          )}
 
 
           <button
@@ -154,9 +188,9 @@ function PortfolioPage() {
           </a>
 
           <div className="grid max-h-[64vh] grid-cols-4 gap-2 overflow-y-auto pr-1 lg:grid-cols-3">
-            {SLIDES.map((src, i) => (
+            {items.map((item, i) => (
               <button
-                key={src}
+                key={item.id}
                 type="button"
                 onClick={() => setIndex(i)}
                 aria-label={`Ir para a página ${i + 1}`}
@@ -166,7 +200,17 @@ function PortfolioPage() {
                     : "border-transparent opacity-60 hover:opacity-100"
                 }`}
               >
-                <img src={src} alt={`Miniatura da página ${i + 1}`} loading="lazy" className="block w-full" />
+                {item.media_type === "video" ? (
+                  item.poster ? (
+                    <img src={item.poster} alt={`Miniatura da página ${i + 1}`} loading="lazy" className="block w-full" />
+                  ) : (
+                    <span className="flex aspect-video w-full items-center justify-center bg-black/80 text-[10px] font-bold text-white">
+                      VÍDEO
+                    </span>
+                  )
+                ) : (
+                  <img src={item.url} alt={`Miniatura da página ${i + 1}`} loading="lazy" className="block w-full" />
+                )}
               </button>
             ))}
           </div>
@@ -178,11 +222,23 @@ function PortfolioPage() {
           ref={overlayRef}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4"
         >
-          <img
-            src={SLIDES[index]}
-            alt={`Portfólio Marketing 2.0 — página ${index + 1} de ${total}`}
-            className="max-h-[92vh] w-auto max-w-full"
-          />
+          {current.media_type === "video" ? (
+            <video
+              key={`full-${current.id}`}
+              src={current.url}
+              poster={current.poster ?? undefined}
+              controls
+              autoPlay
+              playsInline
+              className="max-h-[92vh] w-auto max-w-full"
+            />
+          ) : (
+            <img
+              src={current.url}
+              alt={current.caption ?? `Portfólio Marketing 2.0 — página ${index + 1} de ${total}`}
+              className="max-h-[92vh] w-auto max-w-full"
+            />
+          )}
 
           <button
             type="button"
