@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Download, Maximize2, Minimize2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2, Minimize2, X } from "lucide-react";
 import { PageHeader } from "@/components/site/shared";
 import { listPortfolioSlidesPublic } from "@/lib/portfolio.functions";
 
@@ -22,7 +22,6 @@ import s13 from "@/assets/portfolio/slide-13.jpg.asset.json";
 import s14 from "@/assets/portfolio/slide-14.jpg.asset.json";
 import s15 from "@/assets/portfolio/slide-15.jpg.asset.json";
 import s16 from "@/assets/portfolio/slide-16.jpg.asset.json";
-import pdfAsset from "@/assets/portfolio/portfolio.pdf.asset.json";
 
 const SLIDES = [s01, s02, s03, s04, s05, s06, s07, s08, s09, s10, s11, s12, s13, s14, s15, s16].map(
   (a) => a.url,
@@ -177,15 +176,9 @@ function PortfolioPage() {
           </div>
         </div>
 
-        {/* Miniaturas + download */}
+        {/* Miniaturas */}
         <div className="flex flex-col gap-4">
-          <a
-            href={pdfAsset.url}
-            download="Portfolio-Marketing-2.0.pdf"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gold)] px-6 py-3 text-sm font-extrabold text-black transition hover:bg-[var(--brd)] hover:text-white"
-          >
-            <Download className="h-4 w-4" /> Baixar portfólio (PDF)
-          </a>
+
 
           <div className="grid max-h-[64vh] grid-cols-4 gap-2 overflow-y-auto pr-1 lg:grid-cols-3">
             {items.map((item, i) => (
