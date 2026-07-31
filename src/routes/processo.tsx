@@ -36,15 +36,15 @@ function ProcessoPage() {
             {processo.map((p) => (
               <div
                 key={p.step}
-                className="relative rounded-2xl border border-border/60 p-6 overflow-hidden"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-6 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
               >
                 <div className="flex items-start justify-between">
                   <div className="font-display text-5xl font-extrabold text-black">
                     {p.step}
                   </div>
-                  <p.icon className="h-5 w-5 text-gold" />
+                  <p.icon className="h-5 w-5 text-gold group-hover:text-brd transition" />
                 </div>
-                <h3 className="mt-4 font-display text-lg font-bold">{p.title}</h3>
+                <h3 className="mt-4 font-display text-lg font-bold group-hover:text-brd transition">{p.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                   {p.desc}
                 </p>

@@ -59,7 +59,7 @@ function ContatoPage() {
                 href={WHATSAPP}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-4 rounded-2xl border border-border/60 p-4 hover:border-gold/40 transition"
+                className="group flex items-center gap-4 rounded-2xl border border-border bg-ink-2 p-4 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition"
               >
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
                   <WhatsAppIcon className="h-5 w-5" />
@@ -71,7 +71,7 @@ function ContatoPage() {
               </a>
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
-                className="flex items-center gap-4 rounded-2xl border border-border/60 p-4 hover:border-gold/40 transition"
+                className="group flex items-center gap-4 rounded-2xl border border-border bg-ink-2 p-4 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition"
               >
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
                   <Mail className="h-5 w-5" />
@@ -81,7 +81,7 @@ function ContatoPage() {
                   <div className="font-semibold">{CONTACT_EMAIL}</div>
                 </div>
               </a>
-              <div className="flex items-center gap-4 rounded-2xl border border-border/60 p-4">
+              <div className="group flex items-center gap-4 rounded-2xl border border-border bg-ink-2 p-4 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition">
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
                   <Instagram className="h-5 w-5" />
                 </span>
@@ -90,7 +90,7 @@ function ContatoPage() {
                   <div className="font-semibold">@marketing2ponto0</div>
                 </div>
               </div>
-              <div className="flex items-center gap-4 rounded-2xl border border-border/60 p-4">
+              <div className="group flex items-center gap-4 rounded-2xl border border-border bg-ink-2 p-4 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition">
                 <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
                   <Phone className="h-5 w-5" />
                 </span>

@@ -37,10 +37,10 @@ function GrupoPage() {
               <Link
                 key={g.name}
                 to={g.to}
-                className="relative overflow-hidden rounded-2xl border border-border/60 bg-white p-6 hover:border-gold/40 transition"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-6 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
               >
-                <g.icon className="h-6 w-6 text-gold" />
-                <h3 className="mt-6 font-display text-lg font-bold">{g.name}</h3>
+                <g.icon className="h-6 w-6 text-gold group-hover:text-brd transition" />
+                <h3 className="mt-6 font-display text-lg font-bold group-hover:text-brd transition">{g.name}</h3>
                 <p className="mt-1 text-xs text-muted-foreground uppercase tracking-wider">
                   {g.tag}
                 </p>

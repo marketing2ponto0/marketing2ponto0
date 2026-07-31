@@ -36,12 +36,12 @@ function ServicosPage() {
             {servicos.map((s) => (
               <div
                 key={s.title}
-                className="group relative overflow-hidden rounded-2xl border border-border/60 bg-ink-2/60 p-7 hover:border-gold/40 transition flex flex-col"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
               >
                 <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <s.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-5 font-display text-lg font-bold">{s.title}</h3>
+                <h3 className="mt-5 font-display text-lg font-bold group-hover:text-brd transition">{s.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">
                   {s.desc}
                 </p>
