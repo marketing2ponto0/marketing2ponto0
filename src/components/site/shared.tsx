@@ -10,6 +10,7 @@ import {
   Target,
   Instagram,
   Layers,
+  Link2,
   MapPin,
   Megaphone,
   MessageSquare,
