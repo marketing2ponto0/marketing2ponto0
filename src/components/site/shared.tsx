@@ -68,6 +68,12 @@ export const clientLogos = [
   "Visãotek",
   "Clinic Medicina Diagnóstica",
   "Clinicard +",
+  "Construmax",
+  "RealFit",
+  "Clínica Verdi",
+  "GrãoCafé",
+  "TecnoLog",
+  "Moda Haus",
 ];
 
 export const mvv = [
