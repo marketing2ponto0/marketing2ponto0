@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Download, Maximize2, Minimize2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2, Minimize2, X } from "lucide-react";
 import { PageHeader } from "@/components/site/shared";
 import { listPortfolioSlidesPublic } from "@/lib/portfolio.functions";
 
@@ -22,7 +22,6 @@ import s13 from "@/assets/portfolio/slide-13.jpg.asset.json";
 import s14 from "@/assets/portfolio/slide-14.jpg.asset.json";
 import s15 from "@/assets/portfolio/slide-15.jpg.asset.json";
 import s16 from "@/assets/portfolio/slide-16.jpg.asset.json";
-import pdfAsset from "@/assets/portfolio/portfolio.pdf.asset.json";
 
 const SLIDES = [s01, s02, s03, s04, s05, s06, s07, s08, s09, s10, s11, s12, s13, s14, s15, s16].map(
   (a) => a.url,
