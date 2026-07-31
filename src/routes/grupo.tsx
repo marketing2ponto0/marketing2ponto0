@@ -37,7 +37,7 @@ function GrupoPage() {
               <Link
                 key={g.name}
                 to={g.to}
-                className={`relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-br ${g.color} p-6 hover:border-gold/40 transition`}
+                className="relative overflow-hidden rounded-2xl border border-border/60 bg-white p-6 hover:border-gold/40 transition"
               >
                 <g.icon className="h-6 w-6 text-gold" />
                 <h3 className="mt-6 font-display text-lg font-bold">{g.name}</h3>
