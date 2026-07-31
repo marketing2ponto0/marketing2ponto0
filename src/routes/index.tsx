@@ -240,7 +240,7 @@ function Index() {
             eyebrow="Quem somos"
             title="Missão, visão e"
             highlight="valores"
-            description="Os princípios que guiam cada estratégia, cada post e cada resultado que entregamos."
+            description="Marketing 2.0 | O Motor de Crescimento do Seu Negócio"
           />
           <div className="mt-14 grid gap-4 md:grid-cols-3">
             {mvv.map((m) => (
