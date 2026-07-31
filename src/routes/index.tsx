@@ -191,7 +191,7 @@ function Index() {
                 <div className="text-[10px] text-cream/80 uppercase tracking-wider font-semibold">
                   Conversão este mês
                 </div>
-                <div className="font-display text-2xl font-extrabold text-cream">+34,7%</div>
+                <div className="font-display text-2xl font-extrabold text-cream">+72,5%</div>
               </div>
             </div>
           </div>
