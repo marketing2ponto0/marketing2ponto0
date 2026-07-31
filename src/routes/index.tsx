@@ -252,7 +252,7 @@ function Index() {
                   {m.label}
                 </div>
                 <h3 className="mt-2 font-display text-lg font-bold">{m.title}</h3>
-                {"items" in m ? (
+                {"items" in m && m.items ? (
                   <ul className="mt-3 text-sm text-muted-foreground leading-relaxed list-disc pl-4 space-y-2">
                     {m.items.map((item, i) => (
                       <li key={i}>{item}</li>
