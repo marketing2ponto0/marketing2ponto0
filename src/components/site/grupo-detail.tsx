@@ -67,7 +67,7 @@ export function GrupoDetail({ name }: { name: string }) {
                   <Link
                     key={g.name}
                     to={g.to}
-                    className={`rounded-2xl border border-border/60 bg-gradient-to-br ${g.color} p-5 hover:border-gold/40 transition block`}
+                    className="rounded-2xl border border-border/60 bg-white p-5 hover:border-gold/40 transition block"
                   >
                     <g.icon className="h-5 w-5 text-gold" />
                     <h3 className="mt-4 font-display text-base font-bold">{g.name}</h3>
