@@ -47,7 +47,7 @@ function SectionHeader({
   return (
     <div className="mx-auto max-w-3xl text-center">
       <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-xs font-medium text-gold">
-        <Sparkles className="h-3.5 w-3.5" />
+        {eyebrow !== "Quem somos" && <Sparkles className="h-3.5 w-3.5" />}
         {eyebrow}
       </span>
       <h2 className="mt-6 font-display text-3xl md:text-5xl font-extrabold leading-[1.05]">
@@ -201,7 +201,7 @@ function Index() {
       {/* CLIENT LOGO STRIP */}
       <div className="border-y border-border/60 bg-ink-2/40 py-8 group overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 mb-6">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground text-center md:text-left">
+          <p className="text-xs uppercase tracking-[0.2em] text-gold font-bold text-center md:text-left">
             Marcas que crescem com a Marketing 2.0
           </p>
         </div>
