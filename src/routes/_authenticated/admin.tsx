@@ -17,6 +17,11 @@ import {
   saveLogo,
   deleteLogo,
 } from "@/lib/admin.functions";
+import {
+  listPortfolioSlidesAdmin,
+  savePortfolioSlide,
+  deletePortfolioSlide,
+} from "@/lib/portfolio.functions";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
@@ -35,7 +40,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-type Tab = "leads" | "textos" | "servicos" | "depoimentos" | "logos";
+type Tab = "leads" | "textos" | "servicos" | "depoimentos" | "logos" | "portfolio";
 
 function AdminPage() {
   const navigate = useNavigate();
@@ -75,6 +80,7 @@ function AdminPage() {
     { key: "servicos", label: "Serviços" },
     { key: "depoimentos", label: "Depoimentos" },
     { key: "logos", label: "Logos" },
+    { key: "portfolio", label: "Portfólio" },
   ];
 
   return (
@@ -108,6 +114,7 @@ function AdminPage() {
       {tab === "servicos" && <ServicesTab />}
       {tab === "depoimentos" && <TestimonialsTab />}
       {tab === "logos" && <LogosTab />}
+      {tab === "portfolio" && <PortfolioTab />}
     </div>
   );
 }
@@ -508,6 +515,155 @@ function LogoCard({ initial, onSave, onRemove }: { initial: LogoRow; onSave: (l:
             <Trash2 className="h-4 w-4" /> Remover
           </button>
           <button onClick={() => onSave(l)} className="inline-flex items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white">
+            <Save className="h-4 w-4" /> Salvar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------------- PORTFÓLIO ---------------- */
+type SlideRow = {
+  id?: string;
+  media_type: "image" | "video";
+  media_url: string;
+  poster_url: string | null;
+  caption: string | null;
+  order_index: number;
+  active: boolean;
+};
+
+async function uploadPortfolioFile(file: File) {
+  const ext = file.name.split(".").pop()?.toLowerCase() ?? "bin";
+  const path = `slides/${crypto.randomUUID()}.${ext}`;
+  const { error } = await supabase.storage.from("portfolio").upload(path, file, {
+    cacheControl: "3600",
+    upsert: false,
+    contentType: file.type || undefined,
+  });
+  if (error) throw new Error(error.message);
+  return path;
+}
+
+function PortfolioTab() {
+  const [items, setItems] = useState<SlideRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState<string | null>(null);
+
+  async function refresh() {
+    setLoading(true);
+    try { setItems((await listPortfolioSlidesAdmin()) as SlideRow[]); }
+    finally { setLoading(false); }
+  }
+  useEffect(() => { refresh(); }, []);
+
+  function addNew() {
+    setItems([
+      ...items,
+      { media_type: "image", media_url: "", poster_url: null, caption: "", order_index: items.length + 1, active: true },
+    ]);
+  }
+
+  async function save(s: SlideRow) {
+    try {
+      if (!s.media_url) { setMessage("Envie um arquivo antes de salvar."); return; }
+      await savePortfolioSlide({ data: s as any });
+      setMessage("Salvo"); setTimeout(() => setMessage(null), 1500); refresh();
+    } catch (e: any) { setMessage(e.message); }
+  }
+
+  async function remove(id?: string) {
+    if (!id) { refresh(); return; }
+    if (!confirm("Remover este slide?")) return;
+    await deletePortfolioSlide({ data: { id } });
+    refresh();
+  }
+
+  if (loading) return <p className="text-black/60">Carregando...</p>;
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between gap-4">
+        <p className="text-sm text-black/60">
+          Envie cada página do portfólio como imagem — e a página 7 (ou qualquer outra) como vídeo MP4.
+          A ordem define a sequência da apresentação. Sem slides cadastrados, o site usa a apresentação atual.
+        </p>
+        <button onClick={addNew} className="inline-flex shrink-0 items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white">
+          <Plus className="h-4 w-4" /> Adicionar
+        </button>
+      </div>
+      {message && <div className="rounded-md bg-emerald-500/15 px-3 py-2 text-sm text-emerald-800">{message}</div>}
+      {items.map((s, idx) => (
+        <SlideCard key={s.id ?? `new-${idx}`} initial={s} onSave={save} onRemove={remove} />
+      ))}
+    </div>
+  );
+}
+
+function SlideCard({ initial, onSave, onRemove }: { initial: SlideRow; onSave: (s: SlideRow) => void; onRemove: (id?: string) => void }) {
+  const [s, setS] = useState<SlideRow>(initial);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>, field: "media_url" | "poster_url") {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setBusy(true); setErr(null);
+    try {
+      const path = await uploadPortfolioFile(file);
+      setS((prev) => ({
+        ...prev,
+        [field]: path,
+        ...(field === "media_url" ? { media_type: file.type.startsWith("video") ? "video" : "image" } : {}),
+      }) as SlideRow);
+    } catch (e: any) { setErr(e.message); }
+    finally { setBusy(false); e.target.value = ""; }
+  }
+
+  return (
+    <div className="rounded-lg border border-black/10 bg-black/5 p-4">
+      <div className="grid gap-3 md:grid-cols-4">
+        <Field label="Tipo">
+          <select value={s.media_type} onChange={(e) => setS({ ...s, media_type: e.target.value as "image" | "video" })} className={inputCls}>
+            <option value="image">Imagem</option>
+            <option value="video">Vídeo</option>
+          </select>
+        </Field>
+        <Field label="Ordem">
+          <input type="number" value={s.order_index} onChange={(e) => setS({ ...s, order_index: parseInt(e.target.value) || 0 })} className={inputCls} />
+        </Field>
+        <div className="md:col-span-2">
+          <Field label="Legenda (opcional)">
+            <input value={s.caption ?? ""} onChange={(e) => setS({ ...s, caption: e.target.value })} className={inputCls} />
+          </Field>
+        </div>
+        <div className="md:col-span-2">
+          <Field label={s.media_type === "video" ? "Arquivo de vídeo (MP4)" : "Arquivo de imagem"}>
+            <input type="file" accept={s.media_type === "video" ? "video/*" : "image/*"} onChange={(e) => handleFile(e, "media_url")} className="w-full text-sm" />
+          </Field>
+          <p className="mt-1 truncate text-xs text-black/50">{s.media_url || "Nenhum arquivo enviado"}</p>
+        </div>
+        {s.media_type === "video" && (
+          <div className="md:col-span-2">
+            <Field label="Capa do vídeo (opcional)">
+              <input type="file" accept="image/*" onChange={(e) => handleFile(e, "poster_url")} className="w-full text-sm" />
+            </Field>
+            <p className="mt-1 truncate text-xs text-black/50">{s.poster_url || "Sem capa"}</p>
+          </div>
+        )}
+      </div>
+      {busy && <p className="mt-2 text-xs text-black/60">Enviando arquivo...</p>}
+      {err && <p className="mt-2 text-xs text-red-600">{err}</p>}
+      <div className="mt-3 flex items-center justify-between">
+        <label className="inline-flex items-center gap-2 text-sm text-black/70">
+          <input type="checkbox" checked={s.active} onChange={(e) => setS({ ...s, active: e.target.checked })} /> Ativo
+        </label>
+        <div className="flex gap-2">
+          <button onClick={() => onRemove(s.id)} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 px-3 py-1.5 text-sm text-red-500 hover:bg-red-500/10">
+            <Trash2 className="h-4 w-4" /> Remover
+          </button>
+          <button disabled={busy} onClick={() => onSave(s)} className="inline-flex items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white disabled:opacity-50">
             <Save className="h-4 w-4" /> Salvar
           </button>
         </div>
