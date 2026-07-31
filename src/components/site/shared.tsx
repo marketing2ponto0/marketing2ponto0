@@ -10,6 +10,7 @@ import {
   Target,
   Instagram,
   Layers,
+  Link2,
   MapPin,
   Megaphone,
   MessageSquare,
@@ -20,6 +21,7 @@ import {
   Rocket,
   Search,
   TrendingUp,
+  Tv,
   Users,
   Video,
 } from "lucide-react";
@@ -203,6 +205,39 @@ export const grupo = [
       "Divulgação regional segmentada",
       "Promoções e campanhas locais",
       "Mais visibilidade para o comércio de bairro",
+    ],
+  },
+  {
+    name: "Mídia OOH 360º",
+    tag: "TV e rádio indoor",
+    color: "from-violet-500/20 to-transparent",
+    icon: Tv,
+    to: "/midia-ooh-360" as const,
+    site: "https://midiaooh360.lovable.app",
+    description:
+      "Sistema de TV e rádio indoor para comércios: sua programação, seus anúncios e os de parceiros rodando na tela do ponto de venda, com gestão remota e opção de revenda.",
+    bullets: [
+      "TV indoor em qualquer Smart TV com internet",
+      "Rádio indoor com locuções e ofertas",
+      "Programação e playlists gerenciadas à distância",
+      "Espaço publicitário para monetizar sua tela",
+      "Modelo de revenda para agências e parceiros",
+    ],
+  },
+  {
+    name: "Venda no Link",
+    tag: "Vendas por link e catálogo",
+    color: "from-rose-500/20 to-transparent",
+    icon: Link2,
+    to: "/venda-no-link" as const,
+    description:
+      "Plataforma para vender direto pelo link: catálogo digital, checkout rápido e pedidos que caem no WhatsApp — ideal para quem vende por redes sociais.",
+    bullets: [
+      "Catálogo digital pronto para compartilhar",
+      "Link único para bio, stories e WhatsApp",
+      "Checkout simples e pedidos organizados",
+      "Cupons, promoções e produtos em destaque",
+      "Integração com as campanhas de tráfego pago",
     ],
   },
 ];
