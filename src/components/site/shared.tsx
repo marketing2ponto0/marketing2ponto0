@@ -20,8 +20,8 @@ import {
   Rocket,
   Search,
   Sparkles,
-  
   TrendingUp,
+  Users,
   Video,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
