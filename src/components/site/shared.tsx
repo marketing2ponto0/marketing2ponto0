@@ -52,9 +52,9 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 export const stats = [
-  { num: "9+", label: "anos no mercado" },
+  { num: "+10", label: "anos no mercado" },
   { num: "+50", label: "clientes ativos" },
-  { num: "100k+", label: "leads captados" },
+  { num: "+100K", label: "leads captados" },
 ];
 
 export const clientLogos = [
