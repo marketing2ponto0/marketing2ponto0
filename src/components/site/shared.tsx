@@ -251,6 +251,7 @@ export const servicoOptions = [
 ];
 
 export const NAV_LINKS = [
+  { to: "/quem-somos", label: "Quem Somos" },
   { to: "/diferenciais", label: "Diferenciais" },
   { to: "/servicos", label: "Serviços" },
   { to: "/processo", label: "Processo" },

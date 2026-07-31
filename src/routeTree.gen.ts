@@ -13,6 +13,7 @@ import { Route as VendaNoLinkRouteImport } from './routes/venda-no-link'
 import { Route as UpFotosRouteImport } from './routes/up-fotos'
 import { Route as TrinityTecnologiasRouteImport } from './routes/trinity-tecnologias'
 import { Route as ServicosRouteImport } from './routes/servicos'
+import { Route as QuemSomosRouteImport } from './routes/quem-somos'
 import { Route as ProcessoRouteImport } from './routes/processo'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as MidiaOoh360RouteImport } from './routes/midia-ooh-360'
@@ -45,6 +46,11 @@ const TrinityTecnologiasRoute = TrinityTecnologiasRouteImport.update({
 const ServicosRoute = ServicosRouteImport.update({
   id: '/servicos',
   path: '/servicos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuemSomosRoute = QuemSomosRouteImport.update({
+  id: '/quem-somos',
+  path: '/quem-somos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProcessoRoute = ProcessoRouteImport.update({
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/midia-ooh-360': typeof MidiaOoh360Route
   '/portfolio': typeof PortfolioRoute
   '/processo': typeof ProcessoRoute
+  '/quem-somos': typeof QuemSomosRoute
   '/servicos': typeof ServicosRoute
   '/trinity-tecnologias': typeof TrinityTecnologiasRoute
   '/up-fotos': typeof UpFotosRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/midia-ooh-360': typeof MidiaOoh360Route
   '/portfolio': typeof PortfolioRoute
   '/processo': typeof ProcessoRoute
+  '/quem-somos': typeof QuemSomosRoute
   '/servicos': typeof ServicosRoute
   '/trinity-tecnologias': typeof TrinityTecnologiasRoute
   '/up-fotos': typeof UpFotosRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/midia-ooh-360': typeof MidiaOoh360Route
   '/portfolio': typeof PortfolioRoute
   '/processo': typeof ProcessoRoute
+  '/quem-somos': typeof QuemSomosRoute
   '/servicos': typeof ServicosRoute
   '/trinity-tecnologias': typeof TrinityTecnologiasRoute
   '/up-fotos': typeof UpFotosRoute
@@ -182,6 +191,7 @@ export interface FileRouteTypes {
     | '/midia-ooh-360'
     | '/portfolio'
     | '/processo'
+    | '/quem-somos'
     | '/servicos'
     | '/trinity-tecnologias'
     | '/up-fotos'
@@ -200,6 +210,7 @@ export interface FileRouteTypes {
     | '/midia-ooh-360'
     | '/portfolio'
     | '/processo'
+    | '/quem-somos'
     | '/servicos'
     | '/trinity-tecnologias'
     | '/up-fotos'
@@ -219,6 +230,7 @@ export interface FileRouteTypes {
     | '/midia-ooh-360'
     | '/portfolio'
     | '/processo'
+    | '/quem-somos'
     | '/servicos'
     | '/trinity-tecnologias'
     | '/up-fotos'
@@ -239,6 +251,7 @@ export interface RootRouteChildren {
   MidiaOoh360Route: typeof MidiaOoh360Route
   PortfolioRoute: typeof PortfolioRoute
   ProcessoRoute: typeof ProcessoRoute
+  QuemSomosRoute: typeof QuemSomosRoute
   ServicosRoute: typeof ServicosRoute
   TrinityTecnologiasRoute: typeof TrinityTecnologiasRoute
   UpFotosRoute: typeof UpFotosRoute
@@ -273,6 +286,13 @@ declare module '@tanstack/react-router' {
       path: '/servicos'
       fullPath: '/servicos'
       preLoaderRoute: typeof ServicosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quem-somos': {
+      id: '/quem-somos'
+      path: '/quem-somos'
+      fullPath: '/quem-somos'
+      preLoaderRoute: typeof QuemSomosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/processo': {
@@ -393,6 +413,7 @@ const rootRouteChildren: RootRouteChildren = {
   MidiaOoh360Route: MidiaOoh360Route,
   PortfolioRoute: PortfolioRoute,
   ProcessoRoute: ProcessoRoute,
+  QuemSomosRoute: QuemSomosRoute,
   ServicosRoute: ServicosRoute,
   TrinityTecnologiasRoute: TrinityTecnologiasRoute,
   UpFotosRoute: UpFotosRoute,
