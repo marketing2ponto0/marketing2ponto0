@@ -67,10 +67,10 @@ export function GrupoDetail({ name }: { name: string }) {
                   <Link
                     key={g.name}
                     to={g.to}
-                    className="rounded-2xl border border-border/60 bg-white p-5 hover:border-gold/40 transition block"
+                    className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-5 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
                   >
-                    <g.icon className="h-5 w-5 text-gold" />
-                    <h3 className="mt-4 font-display text-base font-bold">{g.name}</h3>
+                    <g.icon className="h-5 w-5 text-gold group-hover:text-brd transition" />
+                    <h3 className="mt-4 font-display text-base font-bold group-hover:text-brd transition">{g.name}</h3>
                     <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">
                       {g.tag}
                     </p>

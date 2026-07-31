@@ -37,12 +37,12 @@ function DiferenciaisPage() {
             {diferenciais.map((d) => (
               <div
                 key={d.title}
-                className="glass rounded-2xl p-6 hover:border-gold/40 transition"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-6 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
               >
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <d.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-4 font-display text-base font-bold">{d.title}</h3>
+                <h3 className="mt-4 font-display text-base font-bold group-hover:text-brd transition">{d.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                   {d.desc}
                 </p>

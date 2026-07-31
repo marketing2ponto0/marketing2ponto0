@@ -34,8 +34,8 @@ function DepoimentosPage() {
 
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {depoimentos.map((t) => (
-              <figure key={t.name} className="glass rounded-2xl p-8 flex flex-col">
-                <Award className="h-6 w-6 text-gold" />
+              <figure key={t.name} className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col">
+                <Award className="h-6 w-6 text-gold group-hover:text-brd transition" />
                 <div className="mt-4 text-gold text-sm tracking-widest">★★★★★</div>
                 <blockquote className="mt-4 text-base leading-relaxed flex-1">
                   "{t.quote}"
