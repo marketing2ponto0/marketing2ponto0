@@ -266,29 +266,53 @@ function Index() {
 
       <section className="py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-6">
-          <SectionHeader
-            eyebrow="Nosso maior diferencial"
-            title="Diferente dos demais que fazem"
-            highlight="pacotes"
-            description="Foco em movimentação e engajamento diário, com ADS incluso e conexões reais com o público."
-          />
-          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {diferenciais.map((d) => (
-              <Link
-                key={d.title}
-                to="/diferenciais"
-                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
-              >
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
-                  <d.icon className="h-5 w-5" />
-                </div>
-                <h3 className="mt-4 font-display text-base font-bold group-hover:text-brd transition">{d.title}</h3>
-                <p className="mt-2 text-sm text-foreground/70 leading-relaxed flex-1">
-                  {d.desc}
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div className="lg:sticky lg:top-24">
+              <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-xs font-medium text-gold uppercase tracking-wider">
+                Nosso maior diferencial
+              </span>
+              <h2 className="mt-6 font-display text-4xl md:text-5xl font-extrabold leading-[1.05]">
+                Diferente dos demais que fazem <span className="gradient-gold">pacotes</span>
+              </h2>
+              <div className="mt-8 space-y-6 text-lg text-muted-foreground">
+                <p>
+                  Diferente dos demais que fazem pacotes por publicações, <b className="text-foreground">nós focamos na movimentação e engajamento</b>, movimentando diariamente e várias vezes por dia!
                 </p>
-              </Link>
-            ))}
+                <p>
+                  Especializados em mídias sociais, focados em ampliar a presença online das marcas e criar <b className="text-foreground">conexões reais com seus públicos</b>.
+                </p>
+              </div>
+              <div className="mt-10">
+                <Link
+                  to="/contato"
+                  className="inline-flex items-center gap-2 rounded-full bg-brd px-8 py-4 text-sm font-semibold text-cream hover:bg-brd-light transition brand-shadow"
+                >
+                  Quero esse diferencial
+                </Link>
+              </div>
+            </div>
+            <div className="grid gap-4">
+              {diferenciais.map((d) => (
+                <Link
+                  key={d.title}
+                  to="/diferenciais"
+                  className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-6 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex items-start gap-5"
+                >
+                  <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+                    <d.icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-base font-bold group-hover:text-brd transition">{d.title}</h3>
+                    <p className="mt-1 text-sm text-foreground/70 leading-relaxed">
+                      {d.desc}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
+          <SeeMore to="/diferenciais" label="Ver todos os diferenciais" />
+        </div>
           <SeeMore to="/diferenciais" label="Ver todos os diferenciais" />
         </div>
       </section>
