@@ -243,15 +243,15 @@ function Index() {
           />
           <div className="mt-14 grid gap-4 md:grid-cols-3">
             {mvv.map((m) => (
-              <div key={m.label} className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col">
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+              <div key={m.label} className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition">
+                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <m.icon className="h-5 w-5" />
                 </div>
-                <div className="mt-5 text-xs uppercase tracking-[0.2em] text-gold">
+                <div className="mt-6 text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
                   {m.label}
                 </div>
                 <h3 className="mt-2 font-display text-lg font-bold group-hover:text-brd transition">{m.title}</h3>
-                <p className="mt-3 text-sm text-foreground/70 leading-relaxed whitespace-pre-line flex-1">
+                <p className="mt-4 text-sm text-foreground/70 leading-relaxed whitespace-pre-line flex-1">
                   {m.desc}
                 </p>
               </div>
@@ -329,16 +329,16 @@ function Index() {
               <Link
                 key={s.title}
                 to="/servicos"
-                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
                 <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <s.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-5 font-display text-lg font-bold text-foreground group-hover:text-brd transition">{s.title}</h3>
-                <p className="mt-2 text-sm text-foreground/70 leading-relaxed flex-1">
+                <h3 className="mt-6 font-display text-lg font-bold text-foreground group-hover:text-brd transition">{s.title}</h3>
+                <p className="mt-3 text-sm text-foreground/70 leading-relaxed flex-1">
                   {s.desc}
                 </p>
-                <span className="mt-5 self-start rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-brd group-hover:bg-gold group-hover:text-foreground group-hover:border-gold transition">
+                <span className="mt-6 self-start rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-brd group-hover:bg-gold group-hover:text-foreground group-hover:border-gold transition">
                   {s.badge}
                 </span>
               </Link>
@@ -362,18 +362,18 @@ function Index() {
               <Link
                 key={p.step}
                 to="/processo"
-                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
                 <div className="flex items-start justify-between">
                   <div className="font-display text-5xl font-extrabold text-black group-hover:text-brd transition">
                     {p.step}
                   </div>
-                  <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                     <p.icon className="h-5 w-5" />
                   </div>
                 </div>
-                <h3 className="mt-4 font-display text-lg font-bold group-hover:text-brd transition">{p.title}</h3>
-                <p className="mt-2 text-sm text-foreground/70 leading-relaxed flex-1">
+                <h3 className="mt-6 font-display text-lg font-bold group-hover:text-brd transition">{p.title}</h3>
+                <p className="mt-3 text-sm text-foreground/70 leading-relaxed flex-1">
                   {p.desc}
                 </p>
               </Link>
@@ -397,13 +397,13 @@ function Index() {
               <Link
                 key={g.name}
                 to={g.to}
-                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-6 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
                 <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <g.icon className="h-6 w-6" />
                 </div>
                 <h3 className="mt-6 font-display text-lg font-bold group-hover:text-brd transition">{g.name}</h3>
-                <p className="mt-1 text-xs text-foreground/70 uppercase tracking-wider">
+                <p className="mt-2 text-[10px] font-bold text-foreground/70 uppercase tracking-widest group-hover:text-gold transition">
                   {g.tag}
                 </p>
               </Link>
@@ -426,22 +426,22 @@ function Index() {
               <Link
                 key={t.name}
                 to="/depoimentos"
-                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <Award className="h-5 w-5" />
                 </div>
-                <div className="mt-4 text-gold text-sm tracking-widest">★★★★★</div>
-                <blockquote className="mt-4 text-base leading-relaxed flex-1 text-foreground/90">
+                <div className="mt-6 text-gold text-sm tracking-widest">★★★★★</div>
+                <blockquote className="mt-4 text-base leading-relaxed flex-1 text-foreground/90 italic">
                   "{t.quote}"
                 </blockquote>
-                <div className="mt-6 pt-6 border-t border-border/60 flex items-center gap-3">
-                  <div className="grid h-11 w-11 place-items-center rounded-full border border-gold/30 bg-gold/5 text-gold font-display font-bold text-sm group-hover:bg-gold group-hover:text-foreground transition">
+                <div className="mt-8 pt-8 border-t border-border/60 flex items-center gap-4">
+                  <div className="grid h-12 w-12 place-items-center rounded-full border border-gold/30 bg-gold/5 text-gold font-display font-bold text-sm group-hover:bg-gold group-hover:text-foreground transition">
                     {t.initials}
                   </div>
                   <div>
-                    <div className="font-semibold group-hover:text-brd transition">{t.name}</div>
-                    <div className="text-xs text-foreground/70">{t.role}</div>
+                    <div className="font-bold group-hover:text-brd transition">{t.name}</div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-foreground/60">{t.role}</div>
                   </div>
                 </div>
               </Link>
