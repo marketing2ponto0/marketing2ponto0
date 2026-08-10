@@ -266,15 +266,15 @@ function Index() {
 
       <section className="py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
             <div className="lg:sticky lg:top-24">
               <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-xs font-medium text-gold uppercase tracking-wider">
                 Nosso maior diferencial
               </span>
-              <h2 className="mt-6 font-display text-4xl md:text-5xl font-extrabold leading-[1.05]">
+              <h2 className="mt-6 font-display text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1]">
                 Diferente dos demais que fazem <span className="gradient-gold">pacotes</span>
               </h2>
-              <div className="mt-8 space-y-6 text-lg text-muted-foreground">
+              <div className="mt-8 space-y-6 text-lg text-muted-foreground leading-relaxed">
                 <p>
                   Diferente dos demais que fazem pacotes por publicações, <b className="text-foreground">nós focamos na movimentação e engajamento</b>, movimentando diariamente e várias vezes por dia!
                 </p>
@@ -291,19 +291,19 @@ function Index() {
                 </Link>
               </div>
             </div>
-            <div className="grid gap-4">
+            <div className="grid sm:grid-cols-2 gap-4 lg:gap-6">
               {diferenciais.map((d) => (
                 <Link
                   key={d.title}
                   to="/diferenciais"
-                  className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-6 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex items-start gap-5"
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
                 >
-                  <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                     <d.icon className="h-5 w-5" />
                   </div>
-                  <div>
-                    <h3 className="font-display text-base font-bold group-hover:text-brd transition">{d.title}</h3>
-                    <p className="mt-1 text-sm text-foreground/70 leading-relaxed">
+                  <div className="mt-6">
+                    <h3 className="font-display text-lg font-bold group-hover:text-brd transition">{d.title}</h3>
+                    <p className="mt-3 text-sm text-foreground/70 leading-relaxed">
                       {d.desc}
                     </p>
                   </div>
