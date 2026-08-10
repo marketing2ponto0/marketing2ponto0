@@ -397,13 +397,13 @@ function Index() {
               <Link
                 key={g.name}
                 to={g.to}
-                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-6 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
                 <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <g.icon className="h-6 w-6" />
                 </div>
                 <h3 className="mt-6 font-display text-lg font-bold group-hover:text-brd transition">{g.name}</h3>
-                <p className="mt-1 text-xs text-foreground/70 uppercase tracking-wider">
+                <p className="mt-2 text-[10px] font-bold text-foreground/70 uppercase tracking-widest group-hover:text-gold transition">
                   {g.tag}
                 </p>
               </Link>
