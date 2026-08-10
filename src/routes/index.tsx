@@ -313,8 +313,6 @@ function Index() {
           </div>
           <SeeMore to="/diferenciais" label="Ver todos os diferenciais" />
         </div>
-          <SeeMore to="/diferenciais" label="Ver todos os diferenciais" />
-        </div>
       </section>
 
       {/* SERVIÇOS */}
