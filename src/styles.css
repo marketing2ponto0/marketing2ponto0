@@ -91,9 +91,10 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     background-image:
-      radial-gradient(ellipse 70% 50% at 10% -10%, rgba(123, 28, 46, 0.10), transparent 60%),
-      radial-gradient(ellipse 60% 40% at 100% 10%, rgba(201, 168, 76, 0.10), transparent 60%);
+      radial-gradient(ellipse 70% 50% at 10% -10%, rgba(123, 28, 46, 0.05), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 100% 10%, rgba(201, 168, 76, 0.05), transparent 60%);
     background-attachment: fixed;
+    text-rendering: optimizeLegibility;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
