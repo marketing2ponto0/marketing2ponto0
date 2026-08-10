@@ -243,15 +243,15 @@ function Index() {
           />
           <div className="mt-14 grid gap-4 md:grid-cols-3">
             {mvv.map((m) => (
-              <div key={m.label} className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col">
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+              <div key={m.label} className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition">
+                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <m.icon className="h-5 w-5" />
                 </div>
-                <div className="mt-5 text-xs uppercase tracking-[0.2em] text-gold">
+                <div className="mt-6 text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
                   {m.label}
                 </div>
                 <h3 className="mt-2 font-display text-lg font-bold group-hover:text-brd transition">{m.title}</h3>
-                <p className="mt-3 text-sm text-foreground/70 leading-relaxed whitespace-pre-line flex-1">
+                <p className="mt-4 text-sm text-foreground/70 leading-relaxed whitespace-pre-line flex-1">
                   {m.desc}
                 </p>
               </div>
