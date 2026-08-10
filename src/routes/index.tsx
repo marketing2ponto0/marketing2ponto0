@@ -426,22 +426,22 @@ function Index() {
               <Link
                 key={t.name}
                 to="/depoimentos"
-                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <Award className="h-5 w-5" />
                 </div>
-                <div className="mt-4 text-gold text-sm tracking-widest">★★★★★</div>
-                <blockquote className="mt-4 text-base leading-relaxed flex-1 text-foreground/90">
+                <div className="mt-6 text-gold text-sm tracking-widest">★★★★★</div>
+                <blockquote className="mt-4 text-base leading-relaxed flex-1 text-foreground/90 italic">
                   "{t.quote}"
                 </blockquote>
-                <div className="mt-6 pt-6 border-t border-border/60 flex items-center gap-3">
-                  <div className="grid h-11 w-11 place-items-center rounded-full border border-gold/30 bg-gold/5 text-gold font-display font-bold text-sm group-hover:bg-gold group-hover:text-foreground transition">
+                <div className="mt-8 pt-8 border-t border-border/60 flex items-center gap-4">
+                  <div className="grid h-12 w-12 place-items-center rounded-full border border-gold/30 bg-gold/5 text-gold font-display font-bold text-sm group-hover:bg-gold group-hover:text-foreground transition">
                     {t.initials}
                   </div>
                   <div>
-                    <div className="font-semibold group-hover:text-brd transition">{t.name}</div>
-                    <div className="text-xs text-foreground/70">{t.role}</div>
+                    <div className="font-bold group-hover:text-brd transition">{t.name}</div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-foreground/60">{t.role}</div>
                   </div>
                 </div>
               </Link>
