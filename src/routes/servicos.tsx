@@ -36,16 +36,16 @@ function ServicosPage() {
             {servicos.map((s) => (
               <div
                 key={s.title}
-                className="group relative overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition flex flex-col"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
                 <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <s.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-5 font-display text-lg font-bold group-hover:text-brd transition">{s.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">
+                <h3 className="mt-6 font-display text-lg font-bold group-hover:text-brd transition">{s.title}</h3>
+                <p className="mt-3 text-sm text-foreground/70 leading-relaxed flex-1">
                   {s.desc}
                 </p>
-                <span className="mt-5 self-start rounded-full border border-gold/30 bg-gold/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-gold">
+                <span className="mt-6 self-start rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-brd group-hover:bg-gold group-hover:text-foreground group-hover:border-gold transition">
                   {s.badge}
                 </span>
               </div>
