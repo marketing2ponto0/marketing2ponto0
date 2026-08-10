@@ -110,6 +110,12 @@ function Index() {
                 Quero crescer agora
                 <ArrowRight className="h-4 w-4" />
               </Link>
+              <Link
+                to="/portfolio"
+                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3.5 text-sm font-semibold hover:bg-black/5 transition"
+              >
+                Ver Portfólio
+              </Link>
               <a
                 href={WHATSAPP}
                 target="_blank"
@@ -117,7 +123,7 @@ function Index() {
                 className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3.5 text-sm font-semibold hover:bg-black/5 transition"
               >
                 <WhatsAppIcon className="h-4 w-4" />
-                Falar no WhatsApp
+                WhatsApp
               </a>
             </div>
 
