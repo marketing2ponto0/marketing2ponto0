@@ -112,7 +112,6 @@ function PortfolioPage() {
     return () => window.removeEventListener("keydown", onKey);
   }, [go, closeFull]);
 
-
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
       <PageHeader
@@ -199,7 +198,6 @@ function PortfolioPage() {
           </a>
         </div>
       </div>
-    </div>
 
       {full && (
         <div
@@ -265,7 +263,6 @@ function PortfolioPage() {
               <Minimize2 className="h-4 w-4" /> Sair
             </button>
           </div>
-
         </div>
       )}
     </div>
