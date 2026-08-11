@@ -110,21 +110,87 @@ export const mvv = [
 ];
 
 export const diferenciais = [
-  { icon: BarChart3, title: "Estratégia para criação de conteúdo", desc: "Planejamento editorial personalizado para cada marca e público-alvo." },
-  { icon: Megaphone, title: "Tráfego pago (ADS) já incluso", desc: "Google, Meta e TikTok Ads integrados — sem custo extra." },
-  { icon: Repeat, title: "Movimentação diária", desc: "Presença ativa e interações todos os dias da semana." },
-  { icon: PenTool, title: "Legendas com metodologia própria", desc: "Copywriting que prende o leitor e converte seguidores em clientes." },
-  { icon: MessageSquare, title: "Interagir via Direct", desc: "Gestão ativa de mensagens para fortalecer relacionamento." },
-  { icon: Search, title: "Análise de concorrência e tendências", desc: "Monitoramos o mercado para manter sua marca à frente." },
+  { 
+    icon: BarChart3, 
+    title: "Estratégia para criação de conteúdo", 
+    desc: "Planejamento editorial personalizado para cada marca e público-alvo.",
+    bullets: ["Estudo de público-alvo", "Calendário editorial", "Linhas de comunicação"]
+  },
+  { 
+    icon: Megaphone, 
+    title: "Tráfego pago (ADS) já incluso", 
+    desc: "Google, Meta e TikTok Ads integrados — sem custo extra.",
+    bullets: ["Google Ads (Pesquisa)", "Meta Ads (Insta/Face)", "TikTok Ads"]
+  },
+  { 
+    icon: Repeat, 
+    title: "Movimentação diária", 
+    desc: "Presença ativa e interações todos os dias da semana.",
+    bullets: ["Stories diários", "Posts regulares", "Engajamento ativo"]
+  },
+  { 
+    icon: PenTool, 
+    title: "Legendas com metodologia própria", 
+    desc: "Copywriting que prende o leitor e converte seguidores em clientes.",
+    bullets: ["Metodologia de conversão", "Gatilhos mentais", "CTAs persuasivos"]
+  },
+  { 
+    icon: MessageSquare, 
+    title: "Interagir via Direct", 
+    desc: "Gestão ativa de mensagens para fortalecer relacionamento.",
+    bullets: ["Resposta rápida", "Qualificação de leads", "Atendimento humano"]
+  },
+  { 
+    icon: Search, 
+    title: "Análise de concorrência e tendências", 
+    desc: "Monitoramos o mercado para manter sua marca à frente.",
+    bullets: ["Benchmarking", "Monitoramento de nicho", "Inovação constante"]
+  },
 ];
 
 export const servicos = [
-  { icon: Instagram, title: "Gestão de Redes Sociais", desc: "Instagram, Facebook, TikTok, Threads e LinkedIn. Conteúdo e movimentação diária para crescer de verdade.", badge: "Core service" },
-  { icon: Megaphone, title: "Tráfego Pago (ADS)", desc: "Campanhas de alta performance no Google, Meta e TikTok. Já incluso no pacote — sem cobrar à parte.", badge: "Incluso" },
-  { icon: Video, title: "Posts, Stories e Vídeos", desc: "Criação visual profissional: posts para feed, stories dinâmicos e vídeos para reels e TikTok.", badge: "Criação visual" },
-  { icon: Palette, title: "Criação de Logos e Mascotes", desc: "Identidade visual com personalidade, logos, mascotes e peças para todos os canais.", badge: "Branding" },
-  { icon: PenTool, title: "Copywriting Estratégico", desc: "Legendas com metodologia que prende o leitor e converte seguidores em clientes reais.", badge: "Conteúdo" },
-  { icon: TrendingUp, title: "Análise e Relatórios", desc: "Relatórios mensais com métricas reais: alcance, engajamento, leads e ROI.", badge: "Inteligência" },
+  { 
+    icon: Instagram, 
+    title: "Gestão de Redes Sociais", 
+    desc: "Instagram, Facebook, TikTok, Threads e LinkedIn. Conteúdo e movimentação diária para crescer de verdade.", 
+    badge: "Core service",
+    details: ["Planejamento de conteúdo", "Postagens diárias", "Gestão de comunidade", "Monitoramento de métricas"]
+  },
+  { 
+    icon: Megaphone, 
+    title: "Tráfego Pago (ADS)", 
+    desc: "Campanhas de alta performance no Google, Meta e TikTok. Já incluso no pacote — sem cobrar à parte.", 
+    badge: "Incluso",
+    details: ["Google Ads & YouTube", "Meta Ads (Instagram)", "TikTok Ads", "Gestão de orçamento"]
+  },
+  { 
+    icon: Video, 
+    title: "Posts, Stories e Vídeos", 
+    desc: "Criação visual profissional: posts para feed, stories dinâmicos e vídeos para reels e TikTok.", 
+    badge: "Criação visual",
+    details: ["Design profissional", "Edição de vídeos/reels", "Stories interativos", "Identidade visual p/ posts"]
+  },
+  { 
+    icon: Palette, 
+    title: "Criação de Logos e Mascotes", 
+    desc: "Identidade visual com personalidade, logos, mascotes e peças para todos os canais.", 
+    badge: "Branding",
+    details: ["Logotipos exclusivos", "Mascotes personalizados", "Manual da marca", "Papelaria digital"]
+  },
+  { 
+    icon: PenTool, 
+    title: "Copywriting Estratégico", 
+    desc: "Legendas com metodologia que prende o leitor e converte seguidores em clientes reais.", 
+    badge: "Conteúdo",
+    details: ["Legendas persuasivas", "Roteiros para vídeos", "Copy para anúncios", "Tom de voz da marca"]
+  },
+  { 
+    icon: TrendingUp, 
+    title: "Análise e Relatórios", 
+    desc: "Relatórios mensais com métricas reais: alcance, engajamento, leads e ROI.", 
+    badge: "Inteligência",
+    details: ["KPIs mensais", "Análise de ROI", "Insights de crescimento", "Reunião de alinhamento"]
+  },
 ];
 
 export const processo = [
