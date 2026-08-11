@@ -22,33 +22,50 @@ const slideSchema = z.object({
 
 /** Lista pública (usada no site) — assina URLs do bucket privado. */
 export const listPortfolioSlidesPublic = createServerFn({ method: "GET" }).handler(async () => {
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  const { data, error } = await supabaseAdmin
-    .from("portfolio_slides")
-    .select("id, media_type, media_url, poster_url, caption, order_index")
-    .eq("active", true)
-    .order("order_index");
-  if (error) throw new Error(error.message);
-
-  const rows = data ?? [];
-  const paths = rows.flatMap((r) => [r.media_url, r.poster_url].filter(Boolean) as string[]);
-  const map = new Map<string, string>();
-  if (paths.length) {
-    const { data: signed } = await supabaseAdmin.storage
-      .from("portfolio")
-      .createSignedUrls(paths, SIGNED_URL_TTL);
-    for (const s of signed ?? []) {
-      if (s.path && s.signedUrl) map.set(s.path, s.signedUrl);
+  try {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin
+      .from("portfolio_slides")
+      .select("id, media_type, media_url, poster_url, caption, order_index")
+      .eq("active", true)
+      .order("order_index");
+    
+    if (error) {
+      console.error("[Portfolio] Database error:", error.message);
+      return [];
     }
-  }
 
-  return rows.map((r) => ({
-    id: r.id,
-    media_type: r.media_type as "image" | "video",
-    caption: r.caption,
-    url: map.get(r.media_url) ?? r.media_url,
-    poster: r.poster_url ? (map.get(r.poster_url) ?? r.poster_url) : null,
-  }));
+    const rows = data ?? [];
+    if (rows.length === 0) return [];
+
+    const paths = rows.flatMap((r) => [r.media_url, r.poster_url].filter(Boolean) as string[]);
+    const map = new Map<string, string>();
+    
+    if (paths.length) {
+      const { data: signed, error: storageError } = await supabaseAdmin.storage
+        .from("portfolio")
+        .createSignedUrls(paths, SIGNED_URL_TTL);
+      
+      if (storageError) {
+        console.error("[Portfolio] Storage error:", storageError.message);
+      } else {
+        for (const s of signed ?? []) {
+          if (s.path && s.signedUrl) map.set(s.path, s.signedUrl);
+        }
+      }
+    }
+
+    return rows.map((r) => ({
+      id: r.id,
+      media_type: r.media_type as "image" | "video",
+      caption: r.caption,
+      url: map.get(r.media_url) ?? r.media_url,
+      poster: r.poster_url ? (map.get(r.poster_url) ?? r.poster_url) : null,
+    }));
+  } catch (err) {
+    console.error("[Portfolio] Fetch failed:", err);
+    return [];
+  }
 });
 
 export const listPortfolioSlidesAdmin = createServerFn({ method: "GET" })
