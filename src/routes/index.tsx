@@ -382,24 +382,29 @@ function Index() {
             highlight="resultado"
             description="Um método claro em quatro etapas para transformar sua presença digital."
           />
-          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {processo.map((p) => (
-              <div
-                key={p.step}
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
-              >
-                <div className="flex items-start justify-between">
-                  <div className="font-display text-5xl font-extrabold text-black group-hover:text-brd transition">
-                    {p.step}
+          <div className="mt-14 grid gap-8 lg:grid-cols-4">
+            {processo.map((p, idx) => (
+              <div key={p.step} className="relative">
+                {idx < processo.length - 1 && (
+                  <div className="hidden lg:block absolute top-12 left-[60%] w-full h-[2px] bg-gradient-to-r from-brd/40 to-transparent z-0" />
+                )}
+                <div className="group relative z-10 flex flex-col items-center text-center">
+                  <div className="relative flex h-24 w-24 items-center justify-center rounded-3xl bg-ink-2 border border-border shadow-lg group-hover:border-brd group-hover:shadow-brd/20 transition-all duration-500 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-brd to-brd-dark opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="relative font-display text-4xl font-black text-brd group-hover:text-gold transition-colors">
+                      {p.step}
+                    </div>
                   </div>
-                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+                  <div className="mt-8">
+                    <h3 className="font-display text-lg font-bold group-hover:text-brd transition-colors">{p.title}</h3>
+                    <p className="mt-4 text-sm text-foreground/70 leading-relaxed max-w-[240px]">
+                      {p.desc}
+                    </p>
+                  </div>
+                  <div className="mt-6 grid h-10 w-10 place-items-center rounded-xl bg-gold/10 text-brd group-hover:bg-brd group-hover:text-gold transition-all">
                     <p.icon className="h-5 w-5" />
                   </div>
                 </div>
-                <h3 className="mt-6 font-display text-lg font-bold group-hover:text-brd transition">{p.title}</h3>
-                <p className="mt-3 text-sm text-foreground/70 leading-relaxed flex-1">
-                  {p.desc}
-                </p>
               </div>
             ))}
           </div>
