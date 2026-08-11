@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Award } from "lucide-react";
+import { ArrowRight, Award, Check } from "lucide-react";
 import {
   WhatsAppIcon,
   WHATSAPP,
@@ -12,6 +12,7 @@ import {
   grupo,
   depoimentos,
   CtaBand,
+  quemSomos,
 } from "../components/site/shared";
 
 export const Route = createFileRoute("/")({
@@ -266,7 +267,26 @@ function Index() {
               </div>
             ))}
           </div>
-          <SeeMore to="/quem-somos" label="Conheça quem somos" />
+          <div className="mt-16 rounded-2xl border border-border bg-ink-2 p-8 md:p-10 hover:border-brd hover:shadow-xl transition">
+            <div className="grid lg:grid-cols-3 gap-12">
+              <div className="lg:col-span-2">
+                <h2 className="font-display text-2xl font-bold">{quemSomos.title}</h2>
+                <p className="mt-6 text-base leading-relaxed text-foreground/70 whitespace-pre-line">
+                  {quemSomos.desc}
+                </p>
+              </div>
+              <ul className="space-y-4">
+                {quemSomos.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-3 text-sm leading-relaxed">
+                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-lg bg-brd text-gold">
+                      <Check className="h-3.5 w-3.5" />
+                    </span>
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -302,9 +322,8 @@ function Index() {
             </div>
             <div className="grid sm:grid-cols-2 gap-4 lg:gap-6">
               {diferenciais.map((d) => (
-                <Link
+                <div
                   key={d.title}
-                  to="/diferenciais"
                   className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
                 >
                   <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
@@ -315,12 +334,19 @@ function Index() {
                     <p className="mt-3 text-sm text-foreground/70 leading-relaxed">
                       {d.desc}
                     </p>
+                    <ul className="mt-4 space-y-2">
+                      {d.bullets.map((b) => (
+                        <li key={b} className="flex items-center gap-2 text-[10px] text-foreground/60">
+                          <Check className="h-3 w-3 text-gold" />
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
-          <SeeMore to="/diferenciais" label="Ver todos os diferenciais" />
         </div>
       </section>
 
@@ -335,25 +361,33 @@ function Index() {
           />
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {servicos.map((s) => (
-              <Link
+              <div
                 key={s.title}
-                to="/servicos"
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
                 <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
                   <s.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-6 font-display text-lg font-bold text-foreground group-hover:text-brd transition">{s.title}</h3>
-                <p className="mt-3 text-sm text-foreground/70 leading-relaxed flex-1">
+                <p className="mt-3 text-sm text-foreground/70 leading-relaxed">
                   {s.desc}
                 </p>
-                <span className="mt-6 self-start rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-brd group-hover:bg-gold group-hover:text-foreground group-hover:border-gold transition">
-                  {s.badge}
-                </span>
-              </Link>
+                <ul className="mt-6 space-y-2.5 flex-1">
+                  {s.details.map((detail) => (
+                    <li key={detail} className="flex items-start gap-2.5 text-xs text-foreground/70">
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold" />
+                      <span>{detail}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8 pt-6 border-t border-border/60">
+                  <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-brd group-hover:bg-gold group-hover:text-foreground group-hover:border-gold transition">
+                    {s.badge}
+                  </span>
+                </div>
+              </div>
             ))}
           </div>
-          <SeeMore to="/servicos" label="Ver todos os serviços" />
         </div>
       </section>
 
@@ -366,29 +400,33 @@ function Index() {
             highlight="resultado"
             description="Um método claro em quatro etapas para transformar sua presença digital."
           />
-          <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {processo.map((p) => (
-              <Link
-                key={p.step}
-                to="/processo"
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
-              >
-                <div className="flex items-start justify-between">
-                  <div className="font-display text-5xl font-extrabold text-black group-hover:text-brd transition">
-                    {p.step}
+          <div className="mt-14 grid gap-8 lg:grid-cols-4">
+            {processo.map((p, idx) => (
+              <div key={p.step} className="relative">
+                {idx < processo.length - 1 && (
+                  <div className="hidden lg:block absolute top-12 left-[60%] w-full h-[2px] bg-gradient-to-r from-brd/40 to-transparent z-0" />
+                )}
+                <div className="group relative z-10 flex flex-col items-center text-center">
+                  <div className="relative flex h-24 w-24 items-center justify-center rounded-3xl bg-ink-2 border border-border shadow-lg group-hover:border-brd group-hover:shadow-brd/20 transition-all duration-500 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-brd to-brd-dark opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="relative font-display text-4xl font-black text-brd group-hover:text-gold transition-colors">
+                      {p.step}
+                    </div>
                   </div>
-                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+                  <div className="mt-8">
+                    <h3 className="font-display text-lg font-bold group-hover:text-brd transition-colors">{p.title}</h3>
+                    <p className="mt-4 text-sm text-foreground/70 leading-relaxed max-w-[240px]">
+                      {p.desc}
+                    </p>
+                  </div>
+                  <div className="mt-6 grid h-10 w-10 place-items-center rounded-xl bg-gold/10 text-brd group-hover:bg-brd group-hover:text-gold transition-all">
                     <p.icon className="h-5 w-5" />
                   </div>
                 </div>
-                <h3 className="mt-6 font-display text-lg font-bold group-hover:text-brd transition">{p.title}</h3>
-                <p className="mt-3 text-sm text-foreground/70 leading-relaxed flex-1">
-                  {p.desc}
-                </p>
-              </Link>
+              </div>
             ))}
           </div>
-          <SeeMore to="/processo" label="Conhecer o processo" />
+          
         </div>
       </section>
 
@@ -401,24 +439,69 @@ function Index() {
             highlight="completo"
             description="Quatro empresas que se conectam para entregar tudo que sua marca precisa — do post ao sistema."
           />
-          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {grupo.map((g) => (
-              <Link
+              <div
                 key={g.name}
-                to={g.to}
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
+                className={`group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-gradient-to-br ${g.color} p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition`}
               >
-                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
-                  <g.icon className="h-6 w-6" />
+                <div className="flex items-start justify-between">
+                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-brd text-gold shadow-lg">
+                    <g.icon className="h-6 w-6" />
+                  </div>
+                  <Link 
+                    to={g.to}
+                    className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brd hover:text-gold transition"
+                  >
+                    Detalhes <ArrowRight className="h-3 w-3" />
+                  </Link>
                 </div>
-                <h3 className="mt-6 font-display text-lg font-bold group-hover:text-brd transition">{g.name}</h3>
+                
+                <h3 className="mt-8 font-display text-xl font-bold text-foreground group-hover:text-brd transition">
+                  {g.name}
+                </h3>
                 <p className="mt-2 text-[10px] font-bold text-foreground/70 uppercase tracking-widest group-hover:text-gold transition">
                   {g.tag}
                 </p>
-              </Link>
+                
+                <p className="mt-6 text-sm leading-relaxed text-foreground/80 flex-1">
+                  {g.description}
+                </p>
+
+                <ul className="mt-6 space-y-2.5">
+                  {g.bullets.slice(0, 3).map((b) => (
+                    <li key={b} className="flex items-start gap-2.5 text-xs text-foreground/70">
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {"site" in g && g.site ? (
+                  <div className="mt-8">
+                    <a
+                      href={g.site}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brd/10 border border-brd/20 py-3 text-[10px] font-bold uppercase tracking-wider text-brd hover:bg-brd hover:text-cream transition"
+                    >
+                      Acessar Plataforma
+                    </a>
+                  </div>
+                ) : (
+                  <div className="mt-8">
+                    <Link
+                      to="/contato"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brd py-3 text-[10px] font-bold uppercase tracking-wider text-cream hover:bg-brd-light transition shadow-md"
+                    >
+                      Solicitar Orçamento
+                    </Link>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
-          <SeeMore to="/grupo" label="Conhecer o grupo" />
+          
         </div>
       </section>
 
@@ -432,9 +515,8 @@ function Index() {
           />
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {depoimentos.map((t) => (
-              <Link
+              <div
                 key={t.name}
-                to="/depoimentos"
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
                 <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
@@ -453,10 +535,10 @@ function Index() {
                     <div className="text-[10px] font-bold uppercase tracking-wider text-foreground/60">{t.role}</div>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
-          <SeeMore to="/depoimentos" label="Ver todos os depoimentos" />
+          
         </div>
       </section>
 
