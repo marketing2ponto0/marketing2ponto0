@@ -416,19 +416,65 @@ function Index() {
             highlight="completo"
             description="Quatro empresas que se conectam para entregar tudo que sua marca precisa — do post ao sistema."
           />
-          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {grupo.map((g) => (
               <div
                 key={g.name}
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
+                className={`group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-gradient-to-br ${g.color} p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition`}
               >
-                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
-                  <g.icon className="h-6 w-6" />
+                <div className="flex items-start justify-between">
+                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-brd text-gold shadow-lg">
+                    <g.icon className="h-6 w-6" />
+                  </div>
+                  <Link 
+                    to={g.to}
+                    className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brd hover:text-gold transition"
+                  >
+                    Detalhes <ArrowRight className="h-3 w-3" />
+                  </Link>
                 </div>
-                <h3 className="mt-6 font-display text-lg font-bold group-hover:text-brd transition">{g.name}</h3>
+                
+                <h3 className="mt-8 font-display text-xl font-bold text-foreground group-hover:text-brd transition">
+                  {g.name}
+                </h3>
                 <p className="mt-2 text-[10px] font-bold text-foreground/70 uppercase tracking-widest group-hover:text-gold transition">
                   {g.tag}
                 </p>
+                
+                <p className="mt-6 text-sm leading-relaxed text-foreground/80 flex-1">
+                  {g.description}
+                </p>
+
+                <ul className="mt-6 space-y-2.5">
+                  {g.bullets.slice(0, 3).map((b) => (
+                    <li key={b} className="flex items-start gap-2.5 text-xs text-foreground/70">
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {"site" in g && g.site ? (
+                  <div className="mt-8">
+                    <a
+                      href={g.site}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brd/10 border border-brd/20 py-3 text-[10px] font-bold uppercase tracking-wider text-brd hover:bg-brd hover:text-cream transition"
+                    >
+                      Acessar Plataforma
+                    </a>
+                  </div>
+                ) : (
+                  <div className="mt-8">
+                    <Link
+                      to="/contato"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brd py-3 text-[10px] font-bold uppercase tracking-wider text-cream hover:bg-brd-light transition shadow-md"
+                    >
+                      Solicitar Orçamento
+                    </Link>
+                  </div>
+                )}
               </div>
             ))}
           </div>
