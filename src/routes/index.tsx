@@ -192,12 +192,15 @@ function Index() {
                   <div className="text-[10px] text-muted-foreground uppercase tracking-wider">seguidores</div>
                 </div>
               </div>
-              <div className="mt-6 flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-brd-dark to-brd px-5 py-4 brand-shadow">
+              <Link 
+                to="/contato"
+                className="mt-6 flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-brd-dark to-brd px-5 py-4 brand-shadow hover:scale-[1.02] transition-transform cursor-pointer"
+              >
                 <div className="text-[10px] text-cream/80 uppercase tracking-wider font-semibold">
                   Conversão este mês
                 </div>
                 <div className="font-display text-2xl font-extrabold text-cream">+72,5%</div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
