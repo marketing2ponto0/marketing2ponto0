@@ -302,9 +302,8 @@ function Index() {
             </div>
             <div className="grid sm:grid-cols-2 gap-4 lg:gap-6">
               {diferenciais.map((d) => (
-                <Link
+                <div
                   key={d.title}
-                  to="/diferenciais"
                   className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
                 >
                   <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
@@ -316,7 +315,7 @@ function Index() {
                       {d.desc}
                     </p>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
@@ -335,9 +334,8 @@ function Index() {
           />
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {servicos.map((s) => (
-              <Link
+              <div
                 key={s.title}
-                to="/servicos"
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
                 <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
@@ -350,7 +348,7 @@ function Index() {
                 <span className="mt-6 self-start rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-brd group-hover:bg-gold group-hover:text-foreground group-hover:border-gold transition">
                   {s.badge}
                 </span>
-              </Link>
+              </div>
             ))}
           </div>
           <SeeMore to="/servicos" label="Ver todos os serviços" />
@@ -368,9 +366,8 @@ function Index() {
           />
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {processo.map((p) => (
-              <Link
+              <div
                 key={p.step}
-                to="/processo"
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
                 <div className="flex items-start justify-between">
@@ -385,7 +382,7 @@ function Index() {
                 <p className="mt-3 text-sm text-foreground/70 leading-relaxed flex-1">
                   {p.desc}
                 </p>
-              </Link>
+              </div>
             ))}
           </div>
           <SeeMore to="/processo" label="Conhecer o processo" />
@@ -403,9 +400,8 @@ function Index() {
           />
           <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {grupo.map((g) => (
-              <Link
+              <div
                 key={g.name}
-                to={g.to}
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
                 <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
@@ -415,7 +411,7 @@ function Index() {
                 <p className="mt-2 text-[10px] font-bold text-foreground/70 uppercase tracking-widest group-hover:text-gold transition">
                   {g.tag}
                 </p>
-              </Link>
+              </div>
             ))}
           </div>
           <SeeMore to="/grupo" label="Conhecer o grupo" />
@@ -432,9 +428,8 @@ function Index() {
           />
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {depoimentos.map((t) => (
-              <Link
+              <div
                 key={t.name}
-                to="/depoimentos"
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
                 <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
@@ -453,7 +448,7 @@ function Index() {
                     <div className="text-[10px] font-bold uppercase tracking-wider text-foreground/60">{t.role}</div>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
           <SeeMore to="/depoimentos" label="Ver todos os depoimentos" />
