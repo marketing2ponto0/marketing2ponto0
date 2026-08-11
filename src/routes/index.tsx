@@ -403,7 +403,7 @@ function Index() {
               </div>
             ))}
           </div>
-          <SeeMore to="/processo" label="Conhecer o processo" />
+          
         </div>
       </section>
 
@@ -432,7 +432,7 @@ function Index() {
               </div>
             ))}
           </div>
-          <SeeMore to="/grupo" label="Conhecer o grupo" />
+          
         </div>
       </section>
 
@@ -469,7 +469,7 @@ function Index() {
               </div>
             ))}
           </div>
-          <SeeMore to="/depoimentos" label="Ver todos os depoimentos" />
+          
         </div>
       </section>
 
