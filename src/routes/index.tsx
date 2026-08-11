@@ -339,6 +339,18 @@ function Index() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* SERVIÇOS */}
+      <section className="py-20 md:py-24 bg-ink-2/30 border-y border-border/60">
+        <div className="mx-auto max-w-7xl px-6">
+          <SectionHeader
+            eyebrow="O que entregamos"
+            title="Soluções completas para sua"
+            highlight="marca"
+            description="Do planejamento estratégico à execução diária: tudo o que sua marca precisa em um só lugar."
+          />
           <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {servicos.map((s) => (
               <div
@@ -358,18 +370,6 @@ function Index() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* SERVIÇOS */}
-      <section className="py-20 md:py-24 bg-ink-2/30 border-y border-border/60">
-        <div className="mx-auto max-w-7xl px-6">
-          <SectionHeader
-            eyebrow="O que entregamos"
-            title="Soluções completas para sua"
-            highlight="marca"
-            description="Do planejamento estratégico à execução diária: tudo o que sua marca precisa em um só lugar."
-          />
         </div>
       </section>
 
