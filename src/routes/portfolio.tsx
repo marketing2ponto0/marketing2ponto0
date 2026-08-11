@@ -127,20 +127,20 @@ function PortfolioPage() {
             key={item.id} 
             className="group relative overflow-hidden rounded-3xl border border-black/10 bg-white shadow-xl transition-all hover:shadow-2xl hover:-translate-y-1"
           >
-            <div className="aspect-[16/10] md:aspect-auto overflow-hidden bg-ink-2">
+            <div className="overflow-hidden bg-ink-2">
               {item.media_type === "video" ? (
                 <video
                   src={item.url}
                   poster={item.poster ?? undefined}
                   controls
                   playsInline
-                  className="mx-auto block w-full h-auto max-h-[85vh] object-contain"
+                  className="w-full h-auto"
                 />
               ) : (
                 <img
                   src={item.url}
                   alt={item.caption ?? `Portfólio Marketing 2.0 — página ${i + 1}`}
-                  className="mx-auto block w-full h-auto max-h-[85vh] object-contain"
+                  className="w-full h-auto"
                   loading={i < 2 ? "eager" : "lazy"}
                 />
               )}
@@ -212,13 +212,13 @@ function PortfolioPage() {
               controls
               autoPlay
               playsInline
-              className="max-h-[92vh] w-auto max-w-full"
+              className="max-h-full w-full object-contain"
             />
           ) : (
             <img
               src={current.url}
               alt={current.caption ?? `Portfólio Marketing 2.0 — página ${index + 1} de ${total}`}
-              className="max-h-[92vh] w-auto max-w-full"
+              className="max-h-full w-full object-contain"
             />
           )}
 
