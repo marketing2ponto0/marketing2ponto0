@@ -334,6 +334,14 @@ function Index() {
                     <p className="mt-3 text-sm text-foreground/70 leading-relaxed">
                       {d.desc}
                     </p>
+                    <ul className="mt-4 space-y-2">
+                      {d.bullets.map((b) => (
+                        <li key={b} className="flex items-center gap-2 text-[10px] text-foreground/60">
+                          <Check className="h-3 w-3 text-gold" />
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               ))}
@@ -361,12 +369,22 @@ function Index() {
                   <s.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-6 font-display text-lg font-bold text-foreground group-hover:text-brd transition">{s.title}</h3>
-                <p className="mt-3 text-sm text-foreground/70 leading-relaxed flex-1">
+                <p className="mt-3 text-sm text-foreground/70 leading-relaxed">
                   {s.desc}
                 </p>
-                <span className="mt-6 self-start rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-brd group-hover:bg-gold group-hover:text-foreground group-hover:border-gold transition">
-                  {s.badge}
-                </span>
+                <ul className="mt-6 space-y-2.5 flex-1">
+                  {s.details.map((detail) => (
+                    <li key={detail} className="flex items-start gap-2.5 text-xs text-foreground/70">
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold" />
+                      <span>{detail}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8 pt-6 border-t border-border/60">
+                  <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-brd group-hover:bg-gold group-hover:text-foreground group-hover:border-gold transition">
+                    {s.badge}
+                  </span>
+                </div>
               </div>
             ))}
           </div>
