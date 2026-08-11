@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Award } from "lucide-react";
+import { ArrowRight, Award, Check } from "lucide-react";
 import {
   WhatsAppIcon,
   WHATSAPP,
@@ -12,6 +12,7 @@ import {
   grupo,
   depoimentos,
   CtaBand,
+  quemSomos,
 } from "../components/site/shared";
 
 export const Route = createFileRoute("/")({
@@ -266,7 +267,26 @@ function Index() {
               </div>
             ))}
           </div>
-          <SeeMore to="/quem-somos" label="Conheça quem somos" />
+          <div className="mt-16 rounded-2xl border border-border bg-ink-2 p-8 md:p-10 hover:border-brd hover:shadow-xl transition">
+            <div className="grid lg:grid-cols-3 gap-12">
+              <div className="lg:col-span-2">
+                <h2 className="font-display text-2xl font-bold">{quemSomos.title}</h2>
+                <p className="mt-6 text-base leading-relaxed text-foreground/70 whitespace-pre-line">
+                  {quemSomos.desc}
+                </p>
+              </div>
+              <ul className="space-y-4">
+                {quemSomos.bullets.map((b) => (
+                  <li key={b} className="flex items-start gap-3 text-sm leading-relaxed">
+                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-lg bg-brd text-gold">
+                      <Check className="h-3.5 w-3.5" />
+                    </span>
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
