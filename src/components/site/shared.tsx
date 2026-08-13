@@ -278,7 +278,7 @@ export const grupo = [
     color: "from-violet-500/20 to-transparent",
     icon: Tv,
     to: "/midia-ooh-360" as const,
-    site: "https://midiaooh360.lovable.app",
+    site: "https://midiaooh360.com.br",
     description:
       "Sistema de TV e rádio indoor para comércios: sua programação, seus anúncios e os de parceiros rodando na tela do ponto de venda, com gestão remota e opção de revenda.",
     bullets: [
