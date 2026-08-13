@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, useSuspenseQuery } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -12,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader, SiteFooter, WhatsAppFloat } from "../components/site/chrome";
+import { getPublicSettings } from "@/lib/settings.functions";
+
 
 function NotFoundComponent() {
   return (
@@ -74,7 +76,12 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  loader: ({ context }) => context.queryClient.ensureQueryData({
+    queryKey: ["site-settings"],
+    queryFn: () => getPublicSettings(),
+  }),
   head: () => ({
+
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -129,6 +136,11 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
+
+  const { data: settings } = useSuspenseQuery({
+    queryKey: ["site-settings"],
+    queryFn: () => getPublicSettings(),
+  });
   
   // Lógica para lidar com redirecionamento de hash legados (#admin -> /admin)
   useEffect(() => {
@@ -136,6 +148,19 @@ function RootComponent() {
       router.navigate({ to: "/admin" });
     }
   }, [router]);
+
+  useEffect(() => {
+    const faviconUrl = settings?.find((s: any) => s.key === "site_favicon_url")?.value;
+    if (faviconUrl) {
+      let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.getElementsByTagName('head')[0].appendChild(link);
+      }
+      link.href = faviconUrl;
+    }
+  }, [settings]);
 
   const isAuthPage = router.state.location.pathname.startsWith("/auth") || 
                      router.state.location.pathname.startsWith("/_authenticated") ||
@@ -154,3 +179,4 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+
