@@ -398,10 +398,12 @@ function Index() {
                 key={s.title}
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
               >
-                <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
-                  <s.icon className="h-5 w-5" />
+                <div className="flex items-center gap-4">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+                    <s.icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-display text-lg font-bold text-foreground group-hover:text-brd transition">{s.title}</h3>
                 </div>
-                <h3 className="mt-6 font-display text-lg font-bold text-foreground group-hover:text-brd transition">{s.title}</h3>
                 <p className="mt-3 text-sm text-foreground/70 leading-relaxed">
                   {s.desc}
                 </p>
