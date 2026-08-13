@@ -147,8 +147,7 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const router = useRouter();
 
-  // Moved settings to local components or index route to avoid root suspense issues
-  const settings: any[] = [];
+  const { data: settings } = Route.useLoaderData();
   
   // Lógica para lidar com redirecionamento de hash legados (#admin -> /admin)
   useEffect(() => {
