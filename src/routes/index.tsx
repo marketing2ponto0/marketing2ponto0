@@ -281,12 +281,12 @@ function Index() {
           <div className="mt-14 grid gap-4 md:grid-cols-3">
             {mvv.map((m) => (
               <div key={m.label} className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition">
-                <div className="flex items-center gap-4">
-                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
-                    <m.icon className="h-5 w-5" />
+                <div className="flex items-center gap-5">
+                  <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+                    <m.icon className="h-6 w-6" />
                   </div>
                   <div>
-                    <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-gold">
+                    <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-gold leading-tight">
                       {m.label}
                     </div>
                     <h3 className="font-display text-lg font-bold group-hover:text-brd transition">{m.title}</h3>
