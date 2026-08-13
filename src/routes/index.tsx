@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-// Adicione um fluxo para eu enviar e organizar vídeos (título, descrição e ordem) e atualizar a página automaticamente.
-import { ArrowRight, Award, Check } from "lucide-react";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { listPortfolioSlidesPublic } from "../lib/portfolio.functions";
+import { ArrowRight, Award, Check, Play } from "lucide-react";
 import {
   WhatsAppIcon,
   WHATSAPP,
@@ -17,6 +18,10 @@ import {
 } from "../components/site/shared";
 
 export const Route = createFileRoute("/")({
+  loader: ({ context }) => context.queryClient.ensureQueryData({
+    queryKey: ["portfolio-slides-public"],
+    queryFn: () => listPortfolioSlidesPublic(),
+  }),
   head: () => ({
     meta: [
       { title: "Marketing 2.0 — Muito mais que uma agência" },
@@ -82,6 +87,12 @@ function SeeMore({ to, label }: { to: string; label: string }) {
 }
 
 function Index() {
+  const { data: slides } = useSuspenseQuery({
+    queryKey: ["portfolio-slides-public"],
+    queryFn: () => listPortfolioSlidesPublic(),
+  });
+
+  const videoSlides = slides.filter(s => s.media_type === "video");
   return (
     <main>
       {/* HERO */}
@@ -542,6 +553,64 @@ function Index() {
           
         </div>
       </section>
+
+      {/* SEÇÃO DE VÍDEOS (PORTFÓLIO) */}
+      {videoSlides.length > 0 && (
+        <section className="py-20 md:py-24 bg-ink-2/30 border-y border-border/60">
+          <div className="mx-auto max-w-7xl px-6">
+            <SectionHeader
+              eyebrow="Nosso Portfólio"
+              title="Resultados em"
+              highlight="movimento"
+              description="Confira alguns dos nossos trabalhos e resultados gerados para nossos clientes."
+            />
+            
+            <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {videoSlides.map((video) => (
+                <div 
+                  key={video.id}
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 hover:border-brd hover:shadow-xl transition-all"
+                >
+                  <div className="relative aspect-video overflow-hidden bg-black">
+                    <video
+                      src={video.url}
+                      poster={video.poster || undefined}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      controls
+                      preload="metadata"
+                    />
+                    <div className="absolute inset-0 pointer-events-none flex items-center justify-center bg-black/20 group-hover:bg-transparent transition-colors">
+                      <div className="h-16 w-16 rounded-full bg-brd/90 text-gold flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+                        <Play className="h-8 w-8 fill-current ml-1" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-display text-lg font-bold group-hover:text-brd transition">
+                      {video.caption?.split('\n')[0] || "Vídeo de Portfólio"}
+                    </h3>
+                    {video.caption?.includes('\n') && (
+                      <p className="mt-2 text-sm text-foreground/70 leading-relaxed">
+                        {video.caption.split('\n').slice(1).join('\n')}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-16 text-center">
+              <Link
+                to="/portfolio"
+                className="inline-flex items-center gap-2 rounded-full border border-brd px-8 py-4 text-sm font-semibold text-brd hover:bg-brd hover:text-cream transition shadow-sm"
+              >
+                Ver portfólio completo
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       <CtaBand />
     </main>
