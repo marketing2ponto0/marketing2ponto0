@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider, useSuspenseQuery } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -147,7 +147,7 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const router = useRouter();
 
-  const { data: settings } = useSuspenseQuery({
+  const { data: settings } = useQuery({
     queryKey: ["site-settings"],
     queryFn: () => getPublicSettings(),
   });
