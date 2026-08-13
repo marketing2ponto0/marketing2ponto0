@@ -103,10 +103,8 @@ export function SiteFooter() {
     <footer className="py-10 border-t border-border/60">
       <div className="mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
         <div className="flex items-center gap-2">
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-brd text-cream text-xs font-bold">
-            M
-          </span>
-          © {new Date().getFullYear()} Marketing 2.0. Todos os direitos reservados.
+          <img src="/logo.png" alt="Marketing 2.0" className="h-8 w-auto" />
+          <span className="text-xs">© {new Date().getFullYear()} Marketing 2.0. Todos os direitos reservados.</span>
         </div>
         <div className="flex gap-6">
           <Link to="/servicos" className="hover:text-foreground transition">Serviços</Link>
