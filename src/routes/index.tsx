@@ -577,7 +577,14 @@ function Index() {
                       poster={video.poster || undefined}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       controls
-                      preload="metadata"
+                      preload="none"
+                      playsInline
+                      muted
+                      onMouseOver={(e) => e.currentTarget.play()}
+                      onMouseOut={(e) => {
+                        e.currentTarget.pause();
+                        e.currentTarget.currentTime = 0;
+                      }}
                     />
                     <div className="absolute inset-0 pointer-events-none flex items-center justify-center bg-black/20 group-hover:bg-transparent transition-colors">
                       <div className="h-16 w-16 rounded-full bg-brd/90 text-gold flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
