@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+// Pelo admin criar a opção de mexer em cada campo, foto, texto e vídeos, separador por tópicos criar admin pelo www.marketing2ponto0.com.br/admin
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { listPortfolioSlidesPublic } from "../lib/portfolio.functions";
 import { ArrowRight, Award, Check, Play } from "lucide-react";
