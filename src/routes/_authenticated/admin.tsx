@@ -124,6 +124,7 @@ function AdminPage() {
     { key: "logos", label: "Logos" },
     { key: "portfolio", label: "Portfólio (Imagens)" },
     { key: "videos", label: "Vídeos do Portfólio" },
+    { key: "social", label: "Redes Sociais" },
   ];
 
   return (
@@ -165,6 +166,7 @@ function AdminPage() {
       {tab === "logos" && <LogosTab />}
       {tab === "portfolio" && <PortfolioTab filter="image" />}
       {tab === "videos" && <PortfolioTab filter="video" />}
+      {tab === "social" && <SocialTab />}
     </div>
   );
 }
