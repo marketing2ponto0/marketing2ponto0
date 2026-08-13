@@ -41,7 +41,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-type Tab = "leads" | "config" | "textos" | "servicos" | "depoimentos" | "logos" | "portfolio" | "videos";
+type Tab = "leads" | "config" | "textos" | "servicos" | "depoimentos" | "logos" | "portfolio" | "videos" | "social";
 
 const inputCls = "w-full rounded-md border border-border bg-ink px-3 py-2 text-sm text-foreground focus:border-brd/40 focus:outline-none";
 
@@ -124,6 +124,7 @@ function AdminPage() {
     { key: "logos", label: "Logos" },
     { key: "portfolio", label: "Portfólio (Imagens)" },
     { key: "videos", label: "Vídeos do Portfólio" },
+    { key: "social", label: "Redes Sociais" },
   ];
 
   return (
@@ -165,6 +166,7 @@ function AdminPage() {
       {tab === "logos" && <LogosTab />}
       {tab === "portfolio" && <PortfolioTab filter="image" />}
       {tab === "videos" && <PortfolioTab filter="video" />}
+      {tab === "social" && <SocialTab />}
     </div>
   );
 }
@@ -442,6 +444,82 @@ function TextRow({ initial, onSave, saving }: { initial: { key: string; value: s
         rows={value.length > 80 ? 3 : 1}
         className={inputCls}
       />
+    </div>
+  );
+}
+
+function SocialTab() {
+  const [items, setItems] = useState<{ key: string; value: string }[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
+
+  const socialKeys = ["site_insta", "site_fb", "site_linkedin", "site_tiktok"];
+
+  async function refresh() {
+    setLoading(true);
+    try { 
+      const settings = await listSettings();
+      setItems(settings as { key: string; value: string }[]); 
+    }
+    finally { setLoading(false); }
+  }
+  useEffect(() => { refresh(); }, []);
+
+  async function save(key: string, value: string) {
+    setSaving(key); setMessage(null);
+    try {
+      await updateSetting({ data: { key, value } });
+      setMessage(`Link salvo`);
+      setTimeout(() => setMessage(null), 2000);
+      refresh();
+    } catch (e: any) {
+      setMessage(e.message);
+    } finally { setSaving(null); }
+  }
+
+  if (loading) return <p className="text-foreground/60">Carregando links...</p>;
+
+  return (
+    <div className="space-y-4 max-w-2xl">
+      <div className="mb-4">
+        <h3 className="text-lg font-bold">Links de Redes Sociais</h3>
+        <p className="text-xs text-foreground/50">Edite os links que aparecem no cabeçalho e rodapé do site.</p>
+      </div>
+      {message && <div className="rounded-md bg-emerald-500/15 px-3 py-2 text-sm text-emerald-200">{message}</div>}
+      {socialKeys.map((key) => {
+        const item = items.find(i => i.key === key) || { key, value: "" };
+        const label = key.replace("site_", "").charAt(0).toUpperCase() + key.replace("site_", "").slice(1);
+        return (
+          <div key={key} className="rounded-lg border border-border bg-ink-2 p-4">
+            <label className="mb-2 block text-xs uppercase tracking-wide text-foreground/60 font-bold">{label}</label>
+            <div className="flex gap-2">
+              <input
+                value={item.value}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setItems(prev => {
+                    const exists = prev.find(i => i.key === key);
+                    if (exists) {
+                      return prev.map(i => i.key === key ? { ...i, value: val } : i);
+                    }
+                    return [...prev, { key, value: val }];
+                  });
+                }}
+                className="w-full rounded-md border border-border bg-ink px-3 py-2 text-sm text-foreground focus:border-brd/40 focus:outline-none"
+                placeholder={`https://...`}
+              />
+              <button
+                onClick={() => save(key, item.value)}
+                disabled={saving === key}
+                className="rounded-md bg-brd px-4 py-2 text-sm font-semibold text-cream disabled:opacity-50 min-w-[80px]"
+              >
+                {saving === key ? "..." : "Salvar"}
+              </button>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, Check, Instagram, Loader2, Mail, Phone } from "lucide-react";
+import { getPublicSettings } from "@/lib/settings.functions";
 import {
   WhatsAppIcon,
   WHATSAPP,
@@ -36,6 +38,16 @@ function ContatoPage() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const send = useServerFn(submitLead);
   const recordNotif = useServerFn(recordLeadNotification);
+
+  const { data: settings } = useQuery({
+    queryKey: ["site-settings"],
+    queryFn: () => getPublicSettings(),
+  });
+
+  const instaUrl = settings?.find((s: any) => s.key === "site_insta")?.value || "https://www.instagram.com/marketing2ponto0";
+  const fbUrl = settings?.find((s: any) => s.key === "site_fb")?.value || "https://www.facebook.com/marketing2ponto0";
+  const linkedinUrl = settings?.find((s: any) => s.key === "site_linkedin")?.value || "https://www.linkedin.com/company/marketing2ponto0";
+  const tiktokUrl = settings?.find((s: any) => s.key === "site_tiktok")?.value || "https://www.tiktok.com/@marketing2ponto0";
 
   return (
     <main>
@@ -93,7 +105,7 @@ function ContatoPage() {
                 </div>
                 <div className="flex flex-wrap gap-2 pt-2">
                   <a 
-                    href="https://www.instagram.com/marketing2ponto0" 
+                    href={instaUrl}
                     target="_blank" 
                     rel="noreferrer"
                     className="px-3 py-1.5 rounded-lg bg-ink text-[10px] font-bold uppercase tracking-wider text-gold hover:bg-gold hover:text-foreground transition"
@@ -101,7 +113,7 @@ function ContatoPage() {
                     Instagram
                   </a>
                   <a 
-                    href="https://www.facebook.com/marketing2ponto0" 
+                    href={fbUrl}
                     target="_blank" 
                     rel="noreferrer"
                     className="px-3 py-1.5 rounded-lg bg-ink text-[10px] font-bold uppercase tracking-wider text-gold hover:bg-gold hover:text-foreground transition"
@@ -109,7 +121,7 @@ function ContatoPage() {
                     Facebook
                   </a>
                   <a 
-                    href="https://www.linkedin.com/company/marketing2ponto0" 
+                    href={linkedinUrl}
                     target="_blank" 
                     rel="noreferrer"
                     className="px-3 py-1.5 rounded-lg bg-ink text-[10px] font-bold uppercase tracking-wider text-gold hover:bg-gold hover:text-foreground transition"
@@ -117,7 +129,7 @@ function ContatoPage() {
                     LinkedIn
                   </a>
                   <a 
-                    href="https://www.tiktok.com/@marketing2ponto0" 
+                    href={tiktokUrl}
                     target="_blank" 
                     rel="noreferrer"
                     className="px-3 py-1.5 rounded-lg bg-ink text-[10px] font-bold uppercase tracking-wider text-gold hover:bg-gold hover:text-foreground transition"
