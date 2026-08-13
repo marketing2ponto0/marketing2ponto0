@@ -689,7 +689,7 @@ const inputCls = "w-full rounded-md border border-border bg-ink px-3 py-2 text-s
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-xs uppercase tracking-wide text-black/60">{label}</span>
+      <span className="mb-1 block text-xs uppercase tracking-wide text-foreground/60">{label}</span>
       {children}
     </label>
   );
@@ -697,7 +697,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 function Stat({ label, value, tone }: { label: string; value: number; tone: "neutral" | "success" | "warning" | "danger" }) {
   const tones: Record<typeof tone, string> = {
-    neutral: "border-black/10 bg-black/5 text-black",
+    neutral: "border-border bg-ink-2 text-foreground",
     success: "border-emerald-500/30 bg-emerald-500/10 text-emerald-100",
     warning: "border-amber-500/30 bg-amber-500/10 text-amber-100",
     danger: "border-red-500/30 bg-red-500/10 text-red-100",
