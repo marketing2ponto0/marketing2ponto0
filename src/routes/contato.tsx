@@ -51,18 +51,18 @@ function ContatoPage() {
 
   return (
     <main>
-      <section className="py-20 md:py-24">
+      <section className="py-20 md:py-24 overflow-hidden">
         <div className="mx-auto max-w-6xl px-6 grid lg:grid-cols-2 gap-12 items-start">
-          <div>
+          <div className="w-full overflow-hidden">
             <span className="text-xs uppercase tracking-[0.2em] text-gold">
               Fale com a gente
             </span>
-            <h1 className="mt-3 text-4xl md:text-5xl font-extrabold">
+            <h1 className="mt-3 text-3xl md:text-5xl font-extrabold leading-tight">
               Vamos conversar
               <br />
               sobre o seu <span className="gradient-gold">negócio</span>
             </h1>
-            <p className="mt-4 text-muted-foreground max-w-md">
+            <p className="mt-4 text-muted-foreground max-w-md text-sm md:text-base">
               Preencha o formulário e um especialista entrará em contato em até 24h com uma análise inicial gratuita.
             </p>
 
@@ -251,7 +251,7 @@ function ContatoPage() {
               setSubmitting(false);
               setSent(true);
             }}
-            className="glass rounded-2xl p-8 space-y-4"
+            className="glass rounded-2xl p-6 md:p-8 space-y-4 w-full"
           >
             {sent ? (
               <div className="text-center py-10">
