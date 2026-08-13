@@ -147,7 +147,7 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const router = useRouter();
 
-  const { data: settings } = Route.useLoaderData();
+  const settings = Route.useLoaderData();
   
   // Lógica para lidar com redirecionamento de hash legados (#admin -> /admin)
   useEffect(() => {
