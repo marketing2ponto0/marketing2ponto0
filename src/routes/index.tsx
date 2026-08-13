@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 // Pelo admin criar a opção de mexer em cada campo, foto, texto e vídeos, separador por tópicos criar admin pelo www.marketing2ponto0.com.br/admin
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { listPortfolioSlidesPublic } from "../lib/portfolio.functions";
+import { getPublicSettings } from "../lib/settings.functions";
 import { ArrowRight, Award, Check, Play } from "lucide-react";
 import {
   WhatsAppIcon,
@@ -19,10 +20,18 @@ import {
 } from "../components/site/shared";
 
 export const Route = createFileRoute("/")({
-  loader: ({ context }) => context.queryClient.ensureQueryData({
-    queryKey: ["portfolio-slides-public"],
-    queryFn: () => listPortfolioSlidesPublic(),
-  }),
+  loader: async ({ context }) => {
+    await Promise.all([
+      context.queryClient.ensureQueryData({
+        queryKey: ["portfolio-slides-public"],
+        queryFn: () => listPortfolioSlidesPublic(),
+      }),
+      context.queryClient.ensureQueryData({
+        queryKey: ["site-settings"],
+        queryFn: () => getPublicSettings(),
+      }),
+    ]);
+  },
   head: () => ({
     meta: [
       { title: "Marketing 2.0 — Muito mais que uma agência" },
@@ -91,6 +100,11 @@ function Index() {
   const { data: slides } = useSuspenseQuery({
     queryKey: ["portfolio-slides-public"],
     queryFn: () => listPortfolioSlidesPublic(),
+  });
+
+  const { data: settings } = useSuspenseQuery({
+    queryKey: ["site-settings"],
+    queryFn: () => getPublicSettings(),
   });
 
   const videoSlides = slides.filter(s => s.media_type === "video");
@@ -463,8 +477,16 @@ function Index() {
                     <g.icon className="h-6 w-6" />
                   </div>
                   {/* Placeholder for Logo - moved to top right and larger */}
-                  <div className="grid h-20 w-20 place-items-center rounded-xl border border-brd/20 bg-ink-2/50 text-[10px] text-brd/40 font-bold uppercase tracking-tighter text-center leading-none px-1 shadow-inner">
-                    Logo
+                  <div className="grid h-20 w-20 place-items-center rounded-xl border border-brd/20 bg-ink-2/50 overflow-hidden shadow-inner">
+                    {settings?.find((s: any) => s.key === `site_logo_${g.name.toLowerCase().replace(/ /g, "_")}`)?.value ? (
+                      <img 
+                        src={settings.find((s: any) => s.key === `site_logo_${g.name.toLowerCase().replace(/ /g, "_")}`)?.value} 
+                        alt={g.name} 
+                        className="h-full w-full object-contain p-2"
+                      />
+                    ) : (
+                      <span className="text-[10px] text-brd/40 font-bold uppercase tracking-tighter text-center leading-none px-1">Logo</span>
+                    )}
                   </div>
                 </div>
                 

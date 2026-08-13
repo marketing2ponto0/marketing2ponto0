@@ -345,6 +345,42 @@ function ConfigTab() {
           </Field>
         </div>
       </div>
+
+      <div className="rounded-xl border border-border bg-ink-2 p-6">
+        <h3 className="mb-4 text-lg font-bold">Logos do Ecossistema</h3>
+        <div className="space-y-6">
+          {[
+            "UP Fotos e Vídeos",
+            "A3H Print",
+            "Trinity Tecnologias",
+            "Buskiache",
+            "Mídia OOH 360º",
+            "Venda no Link"
+          ].map((name) => {
+            const key = `site_logo_${name.toLowerCase().replace(/ /g, "_")}`;
+            const url = settings.find(s => s.key === key)?.value;
+            return (
+              <Field key={key} label={name}>
+                <div className="flex items-center gap-4">
+                  <div className="h-16 w-16 overflow-hidden rounded border border-border bg-ink flex items-center justify-center">
+                    {url ? <img src={url} alt={name} className="max-h-full max-w-full object-contain" /> : <span className="text-[10px] text-foreground/30">Sem logo</span>}
+                  </div>
+                  <div className="flex-1">
+                    <input 
+                      type="file" 
+                      accept="image/*" 
+                      onChange={(e) => handleUpload(key, e)}
+                      disabled={!!uploading && uploading === key}
+                      className="w-full text-xs text-foreground/60 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-brd file:text-cream hover:file:bg-brd-light transition cursor-pointer"
+                    />
+                    {uploading === key && <p className="mt-1 text-[10px] text-gold animate-pulse">Enviando...</p>}
+                  </div>
+                </div>
+              </Field>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
