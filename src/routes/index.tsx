@@ -472,7 +472,7 @@ function Index() {
                   </Link>
                 </div>
                 
-                <h3 className="mt-8 font-display text-xl font-bold text-foreground group-hover:text-brd transition">
+                </h3>
                   {g.name}
                 </h3>
                 <p className="mt-2 text-[10px] font-bold text-foreground/70 uppercase tracking-widest group-hover:text-gold transition">
