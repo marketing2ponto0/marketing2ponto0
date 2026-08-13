@@ -25,9 +25,8 @@ export const listSettings = createServerFn({ method: "GET" })
     await assertAdmin(supabaseAdmin, userId);
 
     const { data, error } = await supabaseAdmin
-      .from("site_texts")
-      .select("key, value")
-      .ilike("key", "site_%");
+      .from("site_settings")
+      .select("key, value");
 
     if (error) throw new Error(error.message);
     return (data as any[]) ?? [];
@@ -44,7 +43,7 @@ export const updateSetting = createServerFn({ method: "POST" })
     await assertAdmin(supabaseAdmin, userId);
 
     const { error } = await supabaseAdmin
-      .from("site_texts")
+      .from("site_settings")
       .upsert({ key: data.key, value: data.value });
 
     if (error) throw new Error(error.message);
@@ -87,14 +86,12 @@ export const uploadAsset = createServerFn({ method: "POST" }).handler(
   },
 );
 
-/** Gets specific site settings with signed URLs if they look like storage paths */
 export const getPublicSettings = createServerFn({ method: "GET" }).handler(async () => {
   try {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await supabaseAdmin
-      .from("site_texts")
-      .select("key, value")
-      .ilike("key", "site_%");
+      .from("site_settings")
+      .select("key, value");
 
     if (error) {
       console.error("[Settings] Error fetching public settings:", error.message);
