@@ -489,6 +489,7 @@ function TestimonialsTab() {
 function LogosTab() {
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
 
   async function refresh() {
     setLoading(true);
@@ -497,10 +498,60 @@ function LogosTab() {
   }
   useEffect(() => { refresh(); }, []);
 
+  async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("bucket", "client-logos");
+      const { url } = await uploadAsset({ data: formData as any }) as { url: string };
+      await saveLogo({ data: { name: file.name.split('.')[0], image_url: url, active: true, order_index: items.length } });
+      refresh();
+    } catch (err: any) { alert(err.message); }
+    finally { setUploading(false); }
+  }
+
+  async function remove(id: string) {
+    if (!confirm("Remover?")) return;
+    await deleteLogo({ data: { id } });
+    refresh();
+  }
+
   if (loading) return <p className="text-foreground/60">Carregando...</p>;
 
-  return <div className="text-foreground/60">Em desenvolvimento (CRUD Logos).</div>;
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-bold">Logos dos Clientes</h3>
+        <label className="cursor-pointer rounded-md bg-brd px-4 py-2 text-sm font-semibold text-cream hover:bg-brd-light transition">
+          {uploading ? "Enviando..." : "Subir Logo"}
+          <input type="file" accept="image/*" onChange={handleUpload} className="hidden" disabled={uploading} />
+        </label>
+      </div>
+      
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+        {items.map((logo) => (
+          <div key={logo.id} className="group relative rounded-xl border border-border bg-ink-2 p-4 flex flex-col items-center justify-center aspect-square">
+            {logo.image_url ? (
+              <img src={logo.image_url} alt={logo.name} className="max-h-full max-w-full object-contain opacity-60 group-hover:opacity-100 transition" />
+            ) : (
+              <span className="text-xs text-foreground/40">{logo.name}</span>
+            )}
+            <button 
+              onClick={() => remove(logo.id)}
+              className="absolute -top-2 -right-2 hidden group-hover:flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-white shadow-lg transition hover:bg-red-600"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
+
 
 function PortfolioTab({ filter }: { filter: "image" | "video" }) {
   const [items, setItems] = useState<any[]>([]);
