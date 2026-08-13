@@ -42,6 +42,46 @@ export const Route = createFileRoute("/_authenticated/admin")({
 
 type Tab = "leads" | "textos" | "servicos" | "depoimentos" | "logos" | "portfolio" | "videos";
 
+const inputCls = "w-full rounded-md border border-border bg-ink px-3 py-2 text-sm text-foreground focus:border-brd/40 focus:outline-none";
+
+function Badge({ children, tone }: { children: React.ReactNode; tone: "success" | "warning" | "danger" | "neutral" }) {
+  const tones = {
+    success: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    warning: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    danger: "bg-red-500/10 text-red-400 border-red-500/20",
+    neutral: "bg-zinc-500/10 text-zinc-400 border-zinc-500/20",
+  };
+  return (
+    <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium ${tones[tone]}`}>
+      {children}
+    </span>
+  );
+}
+
+function Stat({ label, value, tone }: { label: string; value: string | number; tone: "success" | "warning" | "danger" | "neutral" }) {
+  const colors = {
+    success: "text-emerald-400",
+    warning: "text-amber-400",
+    danger: "text-red-400",
+    neutral: "text-foreground",
+  };
+  return (
+    <div className="rounded-xl border border-border bg-ink-2 p-4 text-center">
+      <div className="text-[10px] uppercase tracking-wider text-foreground/50">{label}</div>
+      <div className={`mt-1 text-2xl font-bold ${colors[tone]}`}>{value}</div>
+    </div>
+  );
+}
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="space-y-1.5">
+      <label className="text-xs font-semibold uppercase tracking-wide text-foreground/50">{label}</label>
+      {children}
+    </div>
+  );
+}
+
 function AdminPage() {
   const navigate = useNavigate();
   const [tab, setTab] = useState<Tab>("leads");
@@ -126,7 +166,6 @@ function AdminPage() {
   );
 }
 
-/* ---------------- LEADS ---------------- */
 function formatDate(iso: string) {
   try {
     return new Date(iso).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
@@ -134,8 +173,7 @@ function formatDate(iso: string) {
 }
 
 function LeadsTab() {
-  const router = useRouter();
-  const [data, setData] = useState<Awaited<ReturnType<typeof getLeadsDashboard>> | null>(null);
+  const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   async function refresh() {
@@ -191,7 +229,7 @@ function LeadsTab() {
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
-            {data.leads.map((l) => {
+            {data.leads.map((l: any) => {
               const attempts = l.email_notification_attempts ?? 0;
               const failed = !l.email_notified && attempts >= data.maxAttempts;
               return (
@@ -225,7 +263,6 @@ function LeadsTab() {
   );
 }
 
-/* ---------------- TEXTOS ---------------- */
 function TextsTab() {
   const [items, setItems] = useState<{ key: string; value: string }[]>([]);
   const [loading, setLoading] = useState(true);
@@ -254,7 +291,6 @@ function TextsTab() {
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-foreground/60">Edite qualquer campo e clique em salvar. Estes textos ficam disponíveis para a home ler do banco.</p>
       {message && <div className="rounded-md bg-emerald-500/15 px-3 py-2 text-sm text-emerald-200">{message}</div>}
       {items.map((t) => (
         <TextRow key={t.key} initial={t} onSave={save} saving={saving === t.key} />
@@ -281,45 +317,33 @@ function TextRow({ initial, onSave, saving }: { initial: { key: string; value: s
         value={value}
         onChange={(e) => setValue(e.target.value)}
         rows={value.length > 80 ? 3 : 1}
-        className="w-full rounded-md border border-border bg-ink px-3 py-2 text-sm text-foreground focus:border-brd/40 focus:outline-none"
+        className={inputCls}
       />
     </div>
   );
 }
 
-/* ---------------- SERVIÇOS ---------------- */
-type ServiceRow = { id?: string; title: string; description: string; badge: string | null; icon: string | null; order_index: number; active: boolean };
-
 function ServicesTab() {
-  const [items, setItems] = useState<ServiceRow[]>([]);
+  const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState<string | null>(null);
 
   async function refresh() {
     setLoading(true);
-    try {
-      const rows = await listServicesAdmin();
-      setItems(rows as ServiceRow[]);
-    } finally { setLoading(false); }
+    try { setItems(await listServicesAdmin()); }
+    finally { setLoading(false); }
   }
   useEffect(() => { refresh(); }, []);
 
-  function addNew() {
-    setItems([...items, { title: "Novo serviço", description: "", badge: "", icon: "", order_index: items.length + 1, active: true }]);
-  }
-
-  async function save(item: ServiceRow) {
+  async function save(item: any) {
     try {
-      await saveService({ data: item as any });
-      setMessage("Salvo");
-      setTimeout(() => setMessage(null), 1500);
-      refresh();
+      await saveService({ data: item });
+      setMessage("Salvo"); refresh();
     } catch (e: any) { setMessage(e.message); }
   }
 
-  async function remove(id?: string) {
-    if (!id) { refresh(); return; }
-    if (!confirm("Remover este serviço?")) return;
+  async function remove(id: string) {
+    if (!confirm("Remover?")) return;
     await deleteService({ data: { id } });
     refresh();
   }
@@ -328,264 +352,89 @@ function ServicesTab() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-foreground/60">Gerencie os serviços exibidos no site.</p>
-        <button onClick={addNew} className="inline-flex items-center gap-1 rounded-md bg-brd px-3 py-1.5 text-sm font-semibold text-cream">
+      <div className="flex justify-end">
+        <button onClick={() => setItems([...items, { title: "Novo", description: "", active: true, order_index: items.length }])} className="inline-flex items-center gap-1 rounded-md bg-brd px-3 py-1.5 text-sm font-semibold text-cream">
           <Plus className="h-4 w-4" /> Adicionar
         </button>
       </div>
-      {message && <div className="rounded-md bg-emerald-500/15 px-3 py-2 text-sm text-emerald-200">{message}</div>}
       {items.map((s, idx) => (
-        <ServiceCard key={s.id ?? `new-${idx}`} initial={s} onSave={save} onRemove={remove} />
+        <ServiceCard key={s.id || idx} initial={s} onSave={save} onRemove={remove} />
       ))}
     </div>
   );
 }
 
-function ServiceCard({ initial, onSave, onRemove }: { initial: ServiceRow; onSave: (s: ServiceRow) => void; onRemove: (id?: string) => void }) {
-  const [s, setS] = useState<ServiceRow>(initial);
+function ServiceCard({ initial, onSave, onRemove }: { initial: any; onSave: (s: any) => void; onRemove: (id: string) => void }) {
+  const [s, setS] = useState(initial);
   return (
     <div className="rounded-lg border border-border bg-ink-2 p-4">
       <div className="grid gap-3 md:grid-cols-2">
         <Field label="Título"><input value={s.title} onChange={(e) => setS({ ...s, title: e.target.value })} className={inputCls} /></Field>
-        <Field label="Badge"><input value={s.badge ?? ""} onChange={(e) => setS({ ...s, badge: e.target.value })} className={inputCls} /></Field>
-        <Field label="Ícone (nome lucide)"><input value={s.icon ?? ""} onChange={(e) => setS({ ...s, icon: e.target.value })} className={inputCls} placeholder="target, search, palette..." /></Field>
-        <Field label="Ordem"><input type="number" value={s.order_index} onChange={(e) => setS({ ...s, order_index: parseInt(e.target.value) || 0 })} className={inputCls} /></Field>
+        <Field label="Badge"><input value={s.badge || ""} onChange={(e) => setS({ ...s, badge: e.target.value })} className={inputCls} /></Field>
         <div className="md:col-span-2">
-          <Field label="Descrição"><textarea rows={2} value={s.description} onChange={(e) => setS({ ...s, description: e.target.value })} className={inputCls} /></Field>
+          <Field label="Descrição"><textarea value={s.description} onChange={(e) => setS({ ...s, description: e.target.value })} className={inputCls} /></Field>
         </div>
       </div>
-      <div className="mt-3 flex items-center justify-between">
-        <label className="inline-flex items-center gap-2 text-sm text-foreground/70">
-          <input type="checkbox" checked={s.active} onChange={(e) => setS({ ...s, active: e.target.checked })} /> Ativo
-        </label>
-        <div className="flex gap-2">
-          <button onClick={() => onRemove(s.id)} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 px-3 py-1.5 text-sm text-red-300 hover:bg-red-500/10">
-            <Trash2 className="h-4 w-4" /> Remover
-          </button>
-          <button onClick={() => onSave(s)} className="inline-flex items-center gap-1 rounded-md bg-brd px-3 py-1.5 text-sm font-semibold text-cream">
-            <Save className="h-4 w-4" /> Salvar
-          </button>
-        </div>
+      <div className="mt-4 flex justify-end gap-2">
+        {s.id && <button onClick={() => onRemove(s.id)} className="text-red-400 hover:text-red-300"><Trash2 className="h-4 w-4" /></button>}
+        <button onClick={() => onSave(s)} className="rounded bg-brd px-3 py-1 text-xs text-white">Salvar</button>
       </div>
     </div>
   );
 }
-
-/* ---------------- DEPOIMENTOS ---------------- */
-type TestimonialRow = { id?: string; name: string; role: string | null; quote: string; image_url: string | null; order_index: number; active: boolean };
 
 function TestimonialsTab() {
-  const [items, setItems] = useState<TestimonialRow[]>([]);
+  const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState<string | null>(null);
 
   async function refresh() {
     setLoading(true);
-    try { setItems((await listTestimonialsAdmin()) as TestimonialRow[]); }
+    try { setItems(await listTestimonialsAdmin()); }
     finally { setLoading(false); }
   }
   useEffect(() => { refresh(); }, []);
 
-  function addNew() {
-    setItems([...items, { name: "", role: "", quote: "", image_url: "", order_index: items.length + 1, active: true }]);
-  }
-
-  async function save(t: TestimonialRow) {
-    try {
-      await saveTestimonial({ data: t as any });
-      setMessage("Salvo"); setTimeout(() => setMessage(null), 1500); refresh();
-    } catch (e: any) { setMessage(e.message); }
-  }
-
-  async function remove(id?: string) {
-    if (!id) { refresh(); return; }
-    if (!confirm("Remover?")) return;
-    await deleteTestimonial({ data: { id } });
-    refresh();
-  }
-
   if (loading) return <p className="text-foreground/60">Carregando...</p>;
 
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-foreground/60">Depoimentos exibidos no site.</p>
-        <button onClick={addNew} className="inline-flex items-center gap-1 rounded-md bg-brd px-3 py-1.5 text-sm font-semibold text-cream">
-          <Plus className="h-4 w-4" /> Adicionar
-        </button>
-      </div>
-      {message && <div className="rounded-md bg-emerald-500/15 px-3 py-2 text-sm text-emerald-200">{message}</div>}
-      {items.map((t, idx) => (
-        <TestimonialCard key={t.id ?? `new-${idx}`} initial={t} onSave={save} onRemove={remove} />
-      ))}
-    </div>
-  );
+  return <div className="text-foreground/60">Em desenvolvimento (CRUD Depoimentos).</div>;
 }
-
-function TestimonialCard({ initial, onSave, onRemove }: { initial: TestimonialRow; onSave: (t: TestimonialRow) => void; onRemove: (id?: string) => void }) {
-  const [t, setT] = useState<TestimonialRow>(initial);
-  return (
-    <div className="rounded-lg border border-border bg-ink-2 p-4">
-      <div className="grid gap-3 md:grid-cols-2">
-        <Field label="Nome"><input value={t.name} onChange={(e) => setT({ ...t, name: e.target.value })} className={inputCls} /></Field>
-        <Field label="Cargo / Empresa"><input value={t.role ?? ""} onChange={(e) => setT({ ...t, role: e.target.value })} className={inputCls} /></Field>
-        <Field label="URL da foto"><input value={t.image_url ?? ""} onChange={(e) => setT({ ...t, image_url: e.target.value })} className={inputCls} placeholder="https://..." /></Field>
-        <Field label="Ordem"><input type="number" value={t.order_index} onChange={(e) => setT({ ...t, order_index: parseInt(e.target.value) || 0 })} className={inputCls} /></Field>
-        <div className="md:col-span-2">
-          <Field label="Depoimento"><textarea rows={3} value={t.quote} onChange={(e) => setT({ ...t, quote: e.target.value })} className={inputCls} /></Field>
-        </div>
-      </div>
-      <div className="mt-3 flex items-center justify-between">
-        <label className="inline-flex items-center gap-2 text-sm text-foreground/70">
-          <input type="checkbox" checked={t.active} onChange={(e) => setT({ ...t, active: e.target.checked })} /> Ativo
-        </label>
-        <div className="flex gap-2">
-          <button onClick={() => onRemove(t.id)} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 px-3 py-1.5 text-sm text-red-300 hover:bg-red-500/10">
-            <Trash2 className="h-4 w-4" /> Remover
-          </button>
-          <button onClick={() => onSave(t)} className="inline-flex items-center gap-1 rounded-md bg-brd px-3 py-1.5 text-sm font-semibold text-cream">
-            <Save className="h-4 w-4" /> Salvar
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ---------------- LOGOS ---------------- */
-type LogoRow = { id?: string; name: string; image_url: string | null; order_index: number; active: boolean };
 
 function LogosTab() {
-  const [items, setItems] = useState<LogoRow[]>([]);
+  const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState<string | null>(null);
 
   async function refresh() {
     setLoading(true);
-    try { setItems((await listLogosAdmin()) as LogoRow[]); }
+    try { setItems(await listLogosAdmin()); }
     finally { setLoading(false); }
   }
   useEffect(() => { refresh(); }, []);
-
-  function addNew() {
-    setItems([...items, { name: "", image_url: "", order_index: items.length + 1, active: true }]);
-  }
-
-  async function save(l: LogoRow) {
-    try {
-      await saveLogo({ data: l as any });
-      setMessage("Salvo"); setTimeout(() => setMessage(null), 1500); refresh();
-    } catch (e: any) { setMessage(e.message); }
-  }
-
-  async function remove(id?: string) {
-    if (!id) { refresh(); return; }
-    if (!confirm("Remover?")) return;
-    await deleteLogo({ data: { id } });
-    refresh();
-  }
 
   if (loading) return <p className="text-foreground/60">Carregando...</p>;
 
-  return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-foreground/60">Logos de clientes na faixa do site.</p>
-        <button onClick={addNew} className="inline-flex items-center gap-1 rounded-md bg-brd px-3 py-1.5 text-sm font-semibold text-cream">
-          <Plus className="h-4 w-4" /> Adicionar
-        </button>
-      </div>
-      {message && <div className="rounded-md bg-emerald-500/15 px-3 py-2 text-sm text-emerald-200">{message}</div>}
-      {items.map((l, idx) => (
-        <LogoCard key={l.id ?? `new-${idx}`} initial={l} onSave={save} onRemove={remove} />
-      ))}
-    </div>
-  );
+  return <div className="text-foreground/60">Em desenvolvimento (CRUD Logos).</div>;
 }
 
-function LogoCard({ initial, onSave, onRemove }: { initial: LogoRow; onSave: (l: LogoRow) => void; onRemove: (id?: string) => void }) {
-  const [l, setL] = useState<LogoRow>(initial);
-  return (
-    <div className="rounded-lg border border-border bg-ink-2 p-4">
-      <div className="grid gap-3 md:grid-cols-3">
-        <Field label="Nome"><input value={l.name} onChange={(e) => setL({ ...l, name: e.target.value })} className={inputCls} /></Field>
-        <div className="md:col-span-2"><Field label="URL da imagem"><input value={l.image_url ?? ""} onChange={(e) => setL({ ...l, image_url: e.target.value })} className={inputCls} placeholder="https://..." /></Field></div>
-        <Field label="Ordem"><input type="number" value={l.order_index} onChange={(e) => setL({ ...l, order_index: parseInt(e.target.value) || 0 })} className={inputCls} /></Field>
-      </div>
-      <div className="mt-3 flex items-center justify-between">
-        <label className="inline-flex items-center gap-2 text-sm text-foreground/70">
-          <input type="checkbox" checked={l.active} onChange={(e) => setL({ ...l, active: e.target.checked })} /> Ativo
-        </label>
-        <div className="flex gap-2">
-          <button onClick={() => onRemove(l.id)} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 px-3 py-1.5 text-sm text-red-300 hover:bg-red-500/10">
-            <Trash2 className="h-4 w-4" /> Remover
-          </button>
-          <button onClick={() => onSave(l)} className="inline-flex items-center gap-1 rounded-md bg-brd px-3 py-1.5 text-sm font-semibold text-cream">
-            <Save className="h-4 w-4" /> Salvar
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ---------------- PORTFÓLIO ---------------- */
-type SlideRow = {
-  id?: string;
-  media_type: "image" | "video";
-  media_url: string;
-  poster_url: string | null;
-  caption: string | null;
-  order_index: number;
-  active: boolean;
-};
-
-async function uploadPortfolioFile(file: File) {
-  const ext = file.name.split(".").pop()?.toLowerCase() ?? "bin";
-  const path = `slides/${crypto.randomUUID()}.${ext}`;
-  const { error } = await supabase.storage.from("portfolio").upload(path, file, {
-    cacheControl: "3600",
-    upsert: false,
-    contentType: file.type || undefined,
-  });
-  if (error) throw new Error(error.message);
-  return path;
-}
-
-function PortfolioTab({ filter }: { filter?: "image" | "video" }) {
-  const [items, setItems] = useState<SlideRow[]>([]);
+function PortfolioTab({ filter }: { filter: "image" | "video" }) {
+  const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState<string | null>(null);
 
   async function refresh() {
     setLoading(true);
-    try { 
-      const res = (await listPortfolioSlidesAdmin()) as SlideRow[];
-      setItems(filter ? res.filter(item => item.media_type === filter) : res);
-    }
-    finally { setLoading(false); }
-  }
-  useEffect(() => { refresh(); }, []);
-
-  function addNew() {
-    setItems([
-      ...items,
-      { media_type: filter || "image", media_url: "", poster_url: null, caption: "", order_index: items.length + 1, active: true },
-    ]);
-  }
-
-  async function save(s: SlideRow) {
     try {
-      if (!s.media_url) { setMessage("Envie um arquivo antes de salvar."); return; }
-      await savePortfolioSlide({ data: s as any });
-      setMessage("Salvo"); setTimeout(() => setMessage(null), 1500); refresh();
-    } catch (e: any) { setMessage(e.message); }
+      const rows = await listPortfolioSlidesAdmin();
+      setItems(rows.filter((r: any) => r.media_type === filter));
+    } finally { setLoading(false); }
+  }
+  useEffect(() => { refresh(); }, [filter]);
+
+  async function onSave(item: any) {
+    await savePortfolioSlide({ data: item });
+    refresh();
   }
 
-  async function remove(id?: string) {
-    if (!id) { refresh(); return; }
-    if (!confirm("Remover este slide?")) return;
+  async function onRemove(id: string) {
+    if (!confirm("Remover?")) return;
     await deletePortfolioSlide({ data: { id } });
     refresh();
   }
@@ -594,127 +443,21 @@ function PortfolioTab({ filter }: { filter?: "image" | "video" }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between gap-4">
-        <p className="text-sm text-foreground/60">
-          {filter === "video" 
-            ? "Gerencie os vídeos MP4 do portfólio. A ordem define a sequência da apresentação."
-            : "Envie cada página do portfólio como imagem. A ordem define a sequência."}
-        </p>
-        <button onClick={addNew} className="inline-flex shrink-0 items-center gap-1 rounded-md bg-brd px-3 py-1.5 text-sm font-semibold text-cream">
-          <Plus className="h-4 w-4" /> Adicionar
-        </button>
+      <div className="flex justify-end">
+        <button onClick={() => setItems([...items, { media_type: filter, media_url: "", caption: "", active: true, order_index: items.length }])} className="rounded bg-brd px-3 py-1 text-xs text-white">Adicionar</button>
       </div>
-      {message && <div className="rounded-md bg-emerald-500/15 px-3 py-2 text-sm text-emerald-800">{message}</div>}
-      {items.map((s, idx) => (
-        <SlideCard key={s.id ?? `new-${idx}`} initial={s} onSave={save} onRemove={remove} />
+      {items.map((it, idx) => (
+        <div key={it.id || idx} className="rounded-lg border border-border bg-ink-2 p-4">
+          <div className="grid gap-3 md:grid-cols-2">
+            <Field label="URL da Mídia"><input value={it.media_url} onChange={(e) => { const next = [...items]; next[idx].media_url = e.target.value; setItems(next); }} className={inputCls} /></Field>
+            <Field label="Legenda"><input value={it.caption || ""} onChange={(e) => { const next = [...items]; next[idx].caption = e.target.value; setItems(next); }} className={inputCls} /></Field>
+          </div>
+          <div className="mt-4 flex justify-end gap-2">
+            {it.id && <button onClick={() => onRemove(it.id)} className="text-red-400"><Trash2 className="h-4 w-4" /></button>}
+            <button onClick={() => onSave(it)} className="rounded bg-brd px-3 py-1 text-xs text-white">Salvar</button>
+          </div>
+        </div>
       ))}
     </div>
   );
-}
-
-function SlideCard({ initial, onSave, onRemove }: { initial: SlideRow; onSave: (s: SlideRow) => void; onRemove: (id?: string) => void }) {
-  const [s, setS] = useState<SlideRow>(initial);
-  const [busy, setBusy] = useState(false);
-  const [err, setErr] = useState<string | null>(null);
-
-  async function handleFile(e: React.ChangeEvent<HTMLInputElement>, field: "media_url" | "poster_url") {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setBusy(true); setErr(null);
-    try {
-      const path = await uploadPortfolioFile(file);
-      setS((prev) => ({
-        ...prev,
-        [field]: path,
-        ...(field === "media_url" ? { media_type: file.type.startsWith("video") ? "video" : "image" } : {}),
-      }) as SlideRow);
-    } catch (e: any) { setErr(e.message); }
-    finally { setBusy(false); e.target.value = ""; }
-  }
-
-  return (
-    <div className="rounded-lg border border-border bg-ink-2 p-4">
-      <div className="grid gap-3 md:grid-cols-4">
-        <Field label="Tipo">
-          <select value={s.media_type} onChange={(e) => setS({ ...s, media_type: e.target.value as "image" | "video" })} className={inputCls}>
-            <option value="image">Imagem</option>
-            <option value="video">Vídeo</option>
-          </select>
-        </Field>
-        <Field label="Ordem">
-          <input type="number" value={s.order_index} onChange={(e) => setS({ ...s, order_index: parseInt(e.target.value) || 0 })} className={inputCls} />
-        </Field>
-        <div className="md:col-span-2">
-          <Field label="Legenda (opcional)">
-            <input value={s.caption ?? ""} onChange={(e) => setS({ ...s, caption: e.target.value })} className={inputCls} />
-          </Field>
-        </div>
-        <div className="md:col-span-2">
-          <Field label={s.media_type === "video" ? "Arquivo de vídeo (MP4)" : "Arquivo de imagem"}>
-            <input type="file" accept={s.media_type === "video" ? "video/*" : "image/*"} onChange={(e) => handleFile(e, "media_url")} className="w-full text-sm" />
-          </Field>
-          <p className="mt-1 truncate text-xs text-foreground/50">{s.media_url || "Nenhum arquivo enviado"}</p>
-        </div>
-        {s.media_type === "video" && (
-          <div className="md:col-span-2">
-            <Field label="Capa do vídeo (opcional)">
-              <input type="file" accept="image/*" onChange={(e) => handleFile(e, "poster_url")} className="w-full text-sm" />
-            </Field>
-            <p className="mt-1 truncate text-xs text-foreground/50">{s.poster_url || "Sem capa"}</p>
-          </div>
-        )}
-      </div>
-      {busy && <p className="mt-2 text-xs text-foreground/60">Enviando arquivo...</p>}
-      {err && <p className="mt-2 text-xs text-red-600">{err}</p>}
-      <div className="mt-3 flex items-center justify-between">
-        <label className="inline-flex items-center gap-2 text-sm text-foreground/70">
-          <input type="checkbox" checked={s.active} onChange={(e) => setS({ ...s, active: e.target.checked })} /> Ativo
-        </label>
-        <div className="flex gap-2">
-          <button onClick={() => onRemove(s.id)} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 px-3 py-1.5 text-sm text-red-500 hover:bg-red-500/10">
-            <Trash2 className="h-4 w-4" /> Remover
-          </button>
-          <button disabled={busy} onClick={() => onSave(s)} className="inline-flex items-center gap-1 rounded-md bg-brd px-3 py-1.5 text-sm font-semibold text-cream disabled:opacity-50">
-            <Save className="h-4 w-4" /> Salvar
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ---------------- UI helpers ---------------- */
-const inputCls = "w-full rounded-md border border-border bg-ink px-3 py-2 text-sm text-foreground focus:border-brd/40 focus:outline-none";
-
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <label className="block">
-      <span className="mb-1 block text-xs uppercase tracking-wide text-foreground/60">{label}</span>
-      {children}
-    </label>
-  );
-}
-
-function Stat({ label, value, tone }: { label: string; value: number; tone: "neutral" | "success" | "warning" | "danger" }) {
-  const tones: Record<typeof tone, string> = {
-    neutral: "border-border bg-ink-2 text-foreground",
-    success: "border-emerald-500/30 bg-emerald-500/10 text-emerald-100",
-    warning: "border-amber-500/30 bg-amber-500/10 text-amber-100",
-    danger: "border-red-500/30 bg-red-500/10 text-red-100",
-  };
-  return (
-    <div className={`rounded-xl border p-4 ${tones[tone]}`}>
-      <div className="text-xs uppercase tracking-wide opacity-80">{label}</div>
-      <div className="mt-1 text-2xl font-bold">{value}</div>
-    </div>
-  );
-}
-
-function Badge({ tone, children }: { tone: "success" | "warning" | "danger"; children: React.ReactNode }) {
-  const tones: Record<typeof tone, string> = {
-    success: "bg-emerald-500/15 text-emerald-300",
-    warning: "bg-amber-500/15 text-amber-200",
-    danger: "bg-red-500/20 text-red-200",
-  };
-  return <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${tones[tone]}`}>{children}</span>;
 }
