@@ -16,6 +16,9 @@ import {
   listLogosAdmin,
   saveLogo,
   deleteLogo,
+  listSettings,
+  updateSetting,
+  uploadAsset,
 } from "@/lib/admin.functions";
 import {
   listPortfolioSlidesAdmin,
@@ -40,7 +43,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-type Tab = "leads" | "textos" | "servicos" | "depoimentos" | "logos" | "portfolio" | "videos";
+type Tab = "leads" | "config" | "textos" | "servicos" | "depoimentos" | "logos" | "portfolio" | "videos";
 
 const inputCls = "w-full rounded-md border border-border bg-ink px-3 py-2 text-sm text-foreground focus:border-brd/40 focus:outline-none";
 
@@ -116,6 +119,7 @@ function AdminPage() {
 
   const tabs: { key: Tab; label: string }[] = [
     { key: "leads", label: "Leads" },
+    { key: "config", label: "Configurações" },
     { key: "textos", label: "Textos" },
     { key: "servicos", label: "Serviços" },
     { key: "depoimentos", label: "Depoimentos" },
@@ -156,6 +160,7 @@ function AdminPage() {
       </div>
 
       {tab === "leads" && <LeadsTab />}
+      {tab === "config" && <ConfigTab />}
       {tab === "textos" && <TextsTab />}
       {tab === "servicos" && <ServicesTab />}
       {tab === "depoimentos" && <TestimonialsTab />}
@@ -263,7 +268,91 @@ function LeadsTab() {
   );
 }
 
+function ConfigTab() {
+  const [settings, setSettings] = useState<{ key: string; value: string }[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState<string | null>(null);
+
+  async function refresh() {
+    setLoading(true);
+    try { setSettings(await listSettings()); }
+    finally { setLoading(false); }
+  }
+  useEffect(() => { refresh(); }, []);
+
+  async function handleUpload(key: string, e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(key);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("bucket", "assets");
+      
+      const { url } = await uploadAsset({ data: formData as any });
+      await updateSetting({ data: { key, value: url } });
+      refresh();
+    } catch (err: any) {
+      alert(err.message);
+    } finally {
+      setUploading(null);
+    }
+  }
+
+  if (loading) return <p className="text-foreground/60">Carregando configurações...</p>;
+
+  const logoUrl = settings.find(s => s.key === "site_logo_url")?.value;
+  const faviconUrl = settings.find(s => s.key === "site_favicon_url")?.value;
+
+  return (
+    <div className="grid gap-6 md:grid-cols-2">
+      <div className="rounded-xl border border-border bg-ink-2 p-6">
+        <h3 className="mb-4 text-lg font-bold">Identidade Visual</h3>
+        <div className="space-y-6">
+          <Field label="Logo Principal">
+            <div className="flex items-center gap-4">
+              <div className="h-16 w-16 overflow-hidden rounded border border-border bg-ink flex items-center justify-center">
+                {logoUrl ? <img src={logoUrl} alt="Logo" className="max-h-full max-w-full object-contain" /> : <span className="text-[10px] text-foreground/30">Sem logo</span>}
+              </div>
+              <div className="flex-1">
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={(e) => handleUpload("site_logo_url", e)}
+                  disabled={uploading === "site_logo_url"}
+                  className="w-full text-xs text-foreground/60 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-brd file:text-cream hover:file:bg-brd-light transition cursor-pointer"
+                />
+                {uploading === "site_logo_url" && <p className="mt-1 text-[10px] text-gold animate-pulse">Enviando...</p>}
+              </div>
+            </div>
+          </Field>
+
+          <Field label="Favicon">
+            <div className="flex items-center gap-4">
+              <div className="h-10 w-10 overflow-hidden rounded border border-border bg-ink flex items-center justify-center">
+                {faviconUrl ? <img src={faviconUrl} alt="Favicon" className="h-6 w-6 object-contain" /> : <span className="text-[10px] text-foreground/30">ICO</span>}
+              </div>
+              <div className="flex-1">
+                <input 
+                  type="file" 
+                  accept=".ico,.png" 
+                  onChange={(e) => handleUpload("site_favicon_url", e)}
+                  disabled={uploading === "site_favicon_url"}
+                  className="w-full text-xs text-foreground/60 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-brd file:text-cream hover:file:bg-brd-light transition cursor-pointer"
+                />
+                {uploading === "site_favicon_url" && <p className="mt-1 text-[10px] text-gold animate-pulse">Enviando...</p>}
+              </div>
+            </div>
+          </Field>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function TextsTab() {
+
   const [items, setItems] = useState<{ key: string; value: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
