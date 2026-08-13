@@ -263,6 +263,7 @@ export const grupo = [
     to: "/buskiache" as const,
     description:
       "Guia comercial e aplicativo que conecta empresas locais a novos clientes, ampliando a visibilidade da sua marca na região onde ela mais vende.",
+    site: "https://www.buskiache.com.br",
     bullets: [
       "Perfil comercial destacado no guia",
       "Presença no aplicativo Buskiache",
@@ -277,7 +278,7 @@ export const grupo = [
     color: "from-violet-500/20 to-transparent",
     icon: Tv,
     to: "/midia-ooh-360" as const,
-    site: "https://midiaooh360.lovable.app",
+    site: "https://midiaooh360.com.br",
     description:
       "Sistema de TV e rádio indoor para comércios: sua programação, seus anúncios e os de parceiros rodando na tela do ponto de venda, com gestão remota e opção de revenda.",
     bullets: [
@@ -296,6 +297,7 @@ export const grupo = [
     to: "/venda-no-link" as const,
     description:
       "Plataforma para vender direto pelo link: catálogo digital, checkout rápido e pedidos que caem no WhatsApp — ideal para quem vende por redes sociais.",
+    site: "https://www.vendanolink.com.br",
     bullets: [
       "Catálogo digital pronto para compartilhar",
       "Link único para bio, stories e WhatsApp",
