@@ -1,3 +1,24 @@
+-- Ensure has_role function exists (idempotent)
+CREATE OR REPLACE FUNCTION public.has_role(_user_id uuid, _role app_role)
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1
+    from public.user_roles
+    where user_id = _user_id
+      and role = _role
+  )
+$$;
+
+-- Table for site settings (reusing site_texts for simplicity if possible, but user wants logo/favicon specifically)
+-- Actually, the build error suggests site_settings didn't exist in the types.
+-- I'll use site_texts but with specific keys to avoid schema issues if site_settings is not in the generated types yet.
+
+-- But I already tried to add site_settings. Let's try to add it again properly.
 CREATE TABLE IF NOT EXISTS public.site_settings (
     key TEXT PRIMARY KEY,
     value TEXT NOT NULL,
@@ -31,7 +52,7 @@ BEGIN
 END
 $$;
 
--- Seed default values if they don't exist
+-- Seed default values
 INSERT INTO public.site_settings (key, value)
 VALUES 
     ('site_logo_url', ''),
