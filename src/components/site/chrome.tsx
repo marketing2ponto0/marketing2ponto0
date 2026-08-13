@@ -71,6 +71,25 @@ export function SiteHeader() {
       {menuOpen && (
         <div className="md:hidden border-t border-border/60 bg-ink/95 backdrop-blur-xl">
           <nav className="mx-auto max-w-7xl px-6 py-4 flex flex-col gap-1 text-sm">
+            {NAV_LINKS.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                onClick={() => setMenuOpen(false)}
+                activeProps={{ className: "text-foreground bg-ink-2/60" }}
+                className="rounded-lg px-3 py-3 text-muted-foreground hover:bg-ink-2/60 hover:text-foreground transition"
+              >
+                {l.label}
+              </Link>
+            ))}
+            <Link
+              to="/contato"
+              onClick={() => setMenuOpen(false)}
+              className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-brd px-5 py-3 text-sm font-semibold text-cream hover:bg-brd-light transition"
+            >
+              Falar agora
+              <ArrowRight className="h-4 w-4" />
+            </Link>
             <div className="flex items-center gap-4 mt-4 px-3 py-3 border-t border-border/60">
               <a href="https://www.instagram.com/marketing2ponto0" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-gold transition"><Instagram className="h-5 w-5" /></a>
               <a href="https://www.facebook.com/marketing2ponto0" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-gold transition">
@@ -83,15 +102,6 @@ export function SiteHeader() {
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1 .05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/></svg>
               </a>
             </div>
-          </nav>
-            <Link
-              to="/contato"
-              onClick={() => setMenuOpen(false)}
-              className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-brd px-5 py-3 text-sm font-semibold text-cream hover:bg-brd-light transition"
-            >
-              Falar agora
-              <ArrowRight className="h-4 w-4" />
-            </Link>
           </nav>
         </div>
       )}
