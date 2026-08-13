@@ -262,7 +262,8 @@ export const updateSetting = createServerFn({ method: "POST" })
 
 export const uploadAsset = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .handler(async ({ request, context }) => {
+  .handler(async (args) => {
+    const { request, context } = args as any;
     const ctx = context as any;
     await assertAdmin(ctx.supabase, ctx.userId);
     const formData = await request.formData();
@@ -288,4 +289,5 @@ export const uploadAsset = createServerFn({ method: "POST" })
 
     return { url: publicUrl };
   });
+
 
