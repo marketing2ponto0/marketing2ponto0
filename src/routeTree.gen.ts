@@ -23,9 +23,10 @@ import { Route as DepoimentosRouteImport } from './routes/depoimentos'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as BuskiacheRouteImport } from './routes/buskiache'
 import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AdminRouteImport } from './routes/admin'
 import { Route as A3hPrintRouteImport } from './routes/a3h-print'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
 const VendaNoLinkRoute = VendaNoLinkRouteImport.update({
   id: '/venda-no-link',
@@ -97,14 +98,13 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const A3hPrintRoute = A3hPrintRouteImport.update({
   id: '/a3h-print',
   path: '/a3h-print',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -112,11 +112,15 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a3h-print': typeof A3hPrintRoute
-  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/buskiache': typeof BuskiacheRoute
   '/contato': typeof ContatoRoute
@@ -131,11 +135,11 @@ export interface FileRoutesByFullPath {
   '/trinity-tecnologias': typeof TrinityTecnologiasRoute
   '/up-fotos': typeof UpFotosRoute
   '/venda-no-link': typeof VendaNoLinkRoute
+  '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/a3h-print': typeof A3hPrintRoute
-  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/buskiache': typeof BuskiacheRoute
   '/contato': typeof ContatoRoute
@@ -150,12 +154,13 @@ export interface FileRoutesByTo {
   '/trinity-tecnologias': typeof TrinityTecnologiasRoute
   '/up-fotos': typeof UpFotosRoute
   '/venda-no-link': typeof VendaNoLinkRoute
+  '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/a3h-print': typeof A3hPrintRoute
-  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/buskiache': typeof BuskiacheRoute
   '/contato': typeof ContatoRoute
@@ -170,13 +175,13 @@ export interface FileRoutesById {
   '/trinity-tecnologias': typeof TrinityTecnologiasRoute
   '/up-fotos': typeof UpFotosRoute
   '/venda-no-link': typeof VendaNoLinkRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/a3h-print'
-    | '/admin'
     | '/auth'
     | '/buskiache'
     | '/contato'
@@ -191,11 +196,11 @@ export interface FileRouteTypes {
     | '/trinity-tecnologias'
     | '/up-fotos'
     | '/venda-no-link'
+    | '/admin'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/a3h-print'
-    | '/admin'
     | '/auth'
     | '/buskiache'
     | '/contato'
@@ -210,11 +215,12 @@ export interface FileRouteTypes {
     | '/trinity-tecnologias'
     | '/up-fotos'
     | '/venda-no-link'
+    | '/admin'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/a3h-print'
-    | '/admin'
     | '/auth'
     | '/buskiache'
     | '/contato'
@@ -229,12 +235,13 @@ export interface FileRouteTypes {
     | '/trinity-tecnologias'
     | '/up-fotos'
     | '/venda-no-link'
+    | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   A3hPrintRoute: typeof A3hPrintRoute
-  AdminRoute: typeof AdminRoute
   AuthRoute: typeof AuthRoute
   BuskiacheRoute: typeof BuskiacheRoute
   ContatoRoute: typeof ContatoRoute
@@ -351,18 +358,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/a3h-print': {
       id: '/a3h-print'
       path: '/a3h-print'
       fullPath: '/a3h-print'
       preLoaderRoute: typeof A3hPrintRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -372,13 +379,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   A3hPrintRoute: A3hPrintRoute,
-  AdminRoute: AdminRoute,
   AuthRoute: AuthRoute,
   BuskiacheRoute: BuskiacheRoute,
   ContatoRoute: ContatoRoute,
