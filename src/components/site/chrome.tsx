@@ -19,23 +19,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border/60 backdrop-blur-xl bg-ink/85">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
         <Link to="/" className="flex items-center gap-3">
-          {logoUrl ? (
-            <img src={logoUrl} alt="Marketing 2.0" className="h-11 w-auto" />
-          ) : (
-            <>
-              <span className="grid h-11 w-11 place-items-center rounded-lg bg-gradient-to-br from-brd to-brd-dark text-cream font-display font-extrabold brand-shadow">
-                M
-              </span>
-              <span className="flex flex-col leading-tight">
-                <span className="font-display font-bold text-sm tracking-tight">
-                  Marketing <span className="gold-text">2.0</span>
-                </span>
-                <span className="text-[10px] italic text-muted-foreground">
-                  muito mais que uma agência
-                </span>
-              </span>
-            </>
-          )}
+          <img src="/logo.png" alt="Marketing 2.0" className="h-14 w-auto" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
