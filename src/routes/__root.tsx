@@ -126,6 +126,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootComponent() {
+  const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RootInner />
+    </QueryClientProvider>
+  );
+}
+
+function RootInner() {
   const router = useRouter();
 
   const { data: settings } = useSuspenseQuery({
