@@ -267,7 +267,7 @@ export const uploadAsset = createServerFn({ method: "POST" })
     
     if (!file) throw new Error("Arquivo não fornecido.");
 
-    const fileName = \`\${Date.now()}-\${file.name.replace(/[^a-zA-Z0-9.]/g, "_")}\`;
+    const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.]/g, "_")}`;
     
     const { data, error } = await context.supabase.storage
       .from(bucket)
@@ -284,4 +284,3 @@ export const uploadAsset = createServerFn({ method: "POST" })
 
     return { url: publicUrl };
   });
-
