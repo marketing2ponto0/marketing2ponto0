@@ -251,7 +251,7 @@ function ContatoPage() {
               setSubmitting(false);
               setSent(true);
             }}
-            className="glass rounded-2xl p-8 space-y-4"
+            className="glass rounded-2xl p-6 md:p-8 space-y-4 w-full"
           >
             {sent ? (
               <div className="text-center py-10">
