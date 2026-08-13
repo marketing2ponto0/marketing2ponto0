@@ -1,26 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { NAV_LINKS, WhatsAppIcon, WHATSAPP } from "./shared";
+import { getPublicSettings } from "@/lib/settings.functions";
+import { useQuery } from "@tanstack/react-query";
+
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { data: settings } = useQuery({
+    queryKey: ["site-settings"],
+    queryFn: () => getPublicSettings(),
+  });
+
+  const logoUrl = settings?.find((s: any) => s.key === "site_logo_url")?.value;
+
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 backdrop-blur-xl bg-ink/85">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
         <Link to="/" className="flex items-center gap-3">
-          <span className="grid h-11 w-11 place-items-center rounded-lg bg-gradient-to-br from-brd to-brd-dark text-cream font-display font-extrabold brand-shadow">
-            M
-          </span>
-          <span className="flex flex-col leading-tight">
-            <span className="font-display font-bold text-sm tracking-tight">
-              Marketing <span className="gold-text">2.0</span>
-            </span>
-            <span className="text-[10px] italic text-muted-foreground">
-              muito mais que uma agência
-            </span>
-          </span>
+          {logoUrl ? (
+            <img src={logoUrl} alt="Marketing 2.0" className="h-11 w-auto" />
+          ) : (
+            <>
+              <span className="grid h-11 w-11 place-items-center rounded-lg bg-gradient-to-br from-brd to-brd-dark text-cream font-display font-extrabold brand-shadow">
+                M
+              </span>
+              <span className="flex flex-col leading-tight">
+                <span className="font-display font-bold text-sm tracking-tight">
+                  Marketing <span className="gold-text">2.0</span>
+                </span>
+                <span className="text-[10px] italic text-muted-foreground">
+                  muito mais que uma agência
+                </span>
+              </span>
+            </>
+          )}
         </Link>
+
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
           {NAV_LINKS.map((l) => (
             <Link
