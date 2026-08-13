@@ -486,13 +486,13 @@ function LogosTab() {
     refresh();
   }
 
-  if (loading) return <p className="text-black/60">Carregando...</p>;
+  if (loading) return <p className="text-foreground/60">Carregando...</p>;
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <p className="text-sm text-black/60">Logos de clientes na faixa do site.</p>
-        <button onClick={addNew} className="inline-flex items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white">
+        <p className="text-sm text-foreground/60">Logos de clientes na faixa do site.</p>
+        <button onClick={addNew} className="inline-flex items-center gap-1 rounded-md bg-brd px-3 py-1.5 text-sm font-semibold text-cream">
           <Plus className="h-4 w-4" /> Adicionar
         </button>
       </div>
@@ -507,21 +507,21 @@ function LogosTab() {
 function LogoCard({ initial, onSave, onRemove }: { initial: LogoRow; onSave: (l: LogoRow) => void; onRemove: (id?: string) => void }) {
   const [l, setL] = useState<LogoRow>(initial);
   return (
-    <div className="rounded-lg border border-black/10 bg-black/5 p-4">
+    <div className="rounded-lg border border-border bg-ink-2 p-4">
       <div className="grid gap-3 md:grid-cols-3">
         <Field label="Nome"><input value={l.name} onChange={(e) => setL({ ...l, name: e.target.value })} className={inputCls} /></Field>
         <div className="md:col-span-2"><Field label="URL da imagem"><input value={l.image_url ?? ""} onChange={(e) => setL({ ...l, image_url: e.target.value })} className={inputCls} placeholder="https://..." /></Field></div>
         <Field label="Ordem"><input type="number" value={l.order_index} onChange={(e) => setL({ ...l, order_index: parseInt(e.target.value) || 0 })} className={inputCls} /></Field>
       </div>
       <div className="mt-3 flex items-center justify-between">
-        <label className="inline-flex items-center gap-2 text-sm text-black/70">
+        <label className="inline-flex items-center gap-2 text-sm text-foreground/70">
           <input type="checkbox" checked={l.active} onChange={(e) => setL({ ...l, active: e.target.checked })} /> Ativo
         </label>
         <div className="flex gap-2">
           <button onClick={() => onRemove(l.id)} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 px-3 py-1.5 text-sm text-red-300 hover:bg-red-500/10">
             <Trash2 className="h-4 w-4" /> Remover
           </button>
-          <button onClick={() => onSave(l)} className="inline-flex items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white">
+          <button onClick={() => onSave(l)} className="inline-flex items-center gap-1 rounded-md bg-brd px-3 py-1.5 text-sm font-semibold text-cream">
             <Save className="h-4 w-4" /> Salvar
           </button>
         </div>
@@ -590,17 +590,17 @@ function PortfolioTab({ filter }: { filter?: "image" | "video" }) {
     refresh();
   }
 
-  if (loading) return <p className="text-black/60">Carregando...</p>;
+  if (loading) return <p className="text-foreground/60">Carregando...</p>;
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-4">
-        <p className="text-sm text-black/60">
+        <p className="text-sm text-foreground/60">
           {filter === "video" 
             ? "Gerencie os vídeos MP4 do portfólio. A ordem define a sequência da apresentação."
             : "Envie cada página do portfólio como imagem. A ordem define a sequência."}
         </p>
-        <button onClick={addNew} className="inline-flex shrink-0 items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white">
+        <button onClick={addNew} className="inline-flex shrink-0 items-center gap-1 rounded-md bg-brd px-3 py-1.5 text-sm font-semibold text-cream">
           <Plus className="h-4 w-4" /> Adicionar
         </button>
       </div>
@@ -633,7 +633,7 @@ function SlideCard({ initial, onSave, onRemove }: { initial: SlideRow; onSave: (
   }
 
   return (
-    <div className="rounded-lg border border-black/10 bg-black/5 p-4">
+    <div className="rounded-lg border border-border bg-ink-2 p-4">
       <div className="grid gap-3 md:grid-cols-4">
         <Field label="Tipo">
           <select value={s.media_type} onChange={(e) => setS({ ...s, media_type: e.target.value as "image" | "video" })} className={inputCls}>
@@ -653,28 +653,28 @@ function SlideCard({ initial, onSave, onRemove }: { initial: SlideRow; onSave: (
           <Field label={s.media_type === "video" ? "Arquivo de vídeo (MP4)" : "Arquivo de imagem"}>
             <input type="file" accept={s.media_type === "video" ? "video/*" : "image/*"} onChange={(e) => handleFile(e, "media_url")} className="w-full text-sm" />
           </Field>
-          <p className="mt-1 truncate text-xs text-black/50">{s.media_url || "Nenhum arquivo enviado"}</p>
+          <p className="mt-1 truncate text-xs text-foreground/50">{s.media_url || "Nenhum arquivo enviado"}</p>
         </div>
         {s.media_type === "video" && (
           <div className="md:col-span-2">
             <Field label="Capa do vídeo (opcional)">
               <input type="file" accept="image/*" onChange={(e) => handleFile(e, "poster_url")} className="w-full text-sm" />
             </Field>
-            <p className="mt-1 truncate text-xs text-black/50">{s.poster_url || "Sem capa"}</p>
+            <p className="mt-1 truncate text-xs text-foreground/50">{s.poster_url || "Sem capa"}</p>
           </div>
         )}
       </div>
-      {busy && <p className="mt-2 text-xs text-black/60">Enviando arquivo...</p>}
+      {busy && <p className="mt-2 text-xs text-foreground/60">Enviando arquivo...</p>}
       {err && <p className="mt-2 text-xs text-red-600">{err}</p>}
       <div className="mt-3 flex items-center justify-between">
-        <label className="inline-flex items-center gap-2 text-sm text-black/70">
+        <label className="inline-flex items-center gap-2 text-sm text-foreground/70">
           <input type="checkbox" checked={s.active} onChange={(e) => setS({ ...s, active: e.target.checked })} /> Ativo
         </label>
         <div className="flex gap-2">
           <button onClick={() => onRemove(s.id)} className="inline-flex items-center gap-1 rounded-md border border-red-500/40 px-3 py-1.5 text-sm text-red-500 hover:bg-red-500/10">
             <Trash2 className="h-4 w-4" /> Remover
           </button>
-          <button disabled={busy} onClick={() => onSave(s)} className="inline-flex items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white disabled:opacity-50">
+          <button disabled={busy} onClick={() => onSave(s)} className="inline-flex items-center gap-1 rounded-md bg-brd px-3 py-1.5 text-sm font-semibold text-cream disabled:opacity-50">
             <Save className="h-4 w-4" /> Salvar
           </button>
         </div>
@@ -684,7 +684,7 @@ function SlideCard({ initial, onSave, onRemove }: { initial: SlideRow; onSave: (
 }
 
 /* ---------------- UI helpers ---------------- */
-const inputCls = "w-full rounded-md border border-black/10 bg-white/30 px-3 py-2 text-sm text-black focus:border-black/40 focus:outline-none";
+const inputCls = "w-full rounded-md border border-border bg-ink px-3 py-2 text-sm text-foreground focus:border-brd/40 focus:outline-none";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
