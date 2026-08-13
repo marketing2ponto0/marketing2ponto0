@@ -81,13 +81,49 @@ function ContatoPage() {
                   <div className="font-semibold">{CONTACT_EMAIL}</div>
                 </div>
               </a>
-              <div className="group flex items-center gap-4 rounded-2xl border border-border bg-ink-2 p-4 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition">
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
-                  <Instagram className="h-5 w-5" />
-                </span>
-                <div>
-                  <div className="text-xs text-muted-foreground">Redes sociais</div>
-                  <div className="font-semibold">@marketing2ponto0</div>
+              <div className="group flex flex-col gap-4 rounded-2xl border border-border bg-ink-2 p-4 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition">
+                <div className="flex items-center gap-4">
+                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-brd text-gold">
+                    <Instagram className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <div className="text-xs text-muted-foreground">Redes sociais</div>
+                    <div className="font-semibold">@marketing2ponto0</div>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  <a 
+                    href="https://www.instagram.com/marketing2ponto0" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="px-3 py-1.5 rounded-lg bg-ink text-[10px] font-bold uppercase tracking-wider text-gold hover:bg-gold hover:text-foreground transition"
+                  >
+                    Instagram
+                  </a>
+                  <a 
+                    href="https://www.facebook.com/marketing2ponto0" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="px-3 py-1.5 rounded-lg bg-ink text-[10px] font-bold uppercase tracking-wider text-gold hover:bg-gold hover:text-foreground transition"
+                  >
+                    Facebook
+                  </a>
+                  <a 
+                    href="https://www.linkedin.com/company/marketing2ponto0" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="px-3 py-1.5 rounded-lg bg-ink text-[10px] font-bold uppercase tracking-wider text-gold hover:bg-gold hover:text-foreground transition"
+                  >
+                    LinkedIn
+                  </a>
+                  <a 
+                    href="https://www.tiktok.com/@marketing2ponto0" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="px-3 py-1.5 rounded-lg bg-ink text-[10px] font-bold uppercase tracking-wider text-gold hover:bg-gold hover:text-foreground transition"
+                  >
+                    TikTok
+                  </a>
                 </div>
               </div>
               <div className="group flex items-center gap-4 rounded-2xl border border-border bg-ink-2 p-4 hover:border-brd hover:shadow-xl hover:-translate-y-0.5 transition">
