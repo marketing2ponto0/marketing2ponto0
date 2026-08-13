@@ -235,12 +235,14 @@ export const getAdminStatus = createServerFn({ method: "GET" })
 export const listSettings = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context.supabase, context.userId);
-    const { data, error } = await context.supabase
-      .from("site_settings")
-      .select("key, value");
+    const ctx = context as any;
+    await assertAdmin(ctx.supabase, ctx.userId);
+    const { data, error } = await ctx.supabase
+      .from("site_texts")
+      .select("key, value")
+      .ilike("key", "site_%");
     if (error) throw new Error(error.message);
-    return data ?? [];
+    return (data as any[]) ?? [];
   });
 
 export const updateSetting = createServerFn({ method: "POST" })
@@ -249,9 +251,10 @@ export const updateSetting = createServerFn({ method: "POST" })
     z.object({ key: z.string().min(1), value: z.string() }).parse(input),
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.supabase, context.userId);
-    const { error } = await context.supabase
-      .from("site_settings")
+    const ctx = context as any;
+    await assertAdmin(ctx.supabase, ctx.userId);
+    const { error } = await ctx.supabase
+      .from("site_texts")
       .upsert({ key: data.key, value: data.value });
     if (error) throw new Error(error.message);
     return { ok: true };
@@ -260,27 +263,29 @@ export const updateSetting = createServerFn({ method: "POST" })
 export const uploadAsset = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ request, context }) => {
-    await assertAdmin(context.supabase, context.userId);
+    const ctx = context as any;
+    await assertAdmin(ctx.supabase, ctx.userId);
     const formData = await request.formData();
     const file = formData.get("file") as File;
-    const bucket = formData.get("bucket") as string || "assets";
-    
+    const bucket = (formData.get("bucket") as string) || "assets";
+
     if (!file) throw new Error("Arquivo não fornecido.");
 
     const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.]/g, "_")}`;
-    
-    const { data, error } = await context.supabase.storage
+
+    const { data, error } = await ctx.supabase.storage
       .from(bucket)
       .upload(fileName, file, {
         cacheControl: "3600",
-        upsert: false
+        upsert: false,
       });
 
     if (error) throw new Error(error.message);
 
-    const { data: { publicUrl } } = context.supabase.storage
-      .from(bucket)
-      .getPublicUrl(data.path);
+    const {
+      data: { publicUrl },
+    } = ctx.supabase.storage.from(bucket).getPublicUrl(data.path);
 
     return { url: publicUrl };
   });
+
