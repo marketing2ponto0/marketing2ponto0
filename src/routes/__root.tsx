@@ -126,24 +126,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
-  
-  return (
-    <html lang="pt-BR">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <QueryClientProvider client={queryClient}>
-          <RootContent />
-        </QueryClientProvider>
-        <Scripts />
-      </body>
-    </html>
-  );
-}
-
-function RootContent() {
   const router = useRouter();
 
   const { data: settings } = useSuspenseQuery({
@@ -176,14 +158,20 @@ function RootContent() {
                      router.state.location.pathname === "/admin";
 
   return (
-    <div className="min-h-screen flex flex-col text-foreground">
-      {!isAuthPage && <SiteHeader />}
-      <div className="flex-1">
-        <Outlet />
-      </div>
-      {!isAuthPage && <SiteFooter />}
-      {!isAuthPage && <WhatsAppFloat />}
-    </div>
+    <html lang="pt-BR">
+      <head>
+        <HeadContent />
+      </head>
+      <body className="min-h-screen flex flex-col text-foreground">
+        {!isAuthPage && <SiteHeader />}
+        <main className="flex-1">
+          <Outlet />
+        </main>
+        {!isAuthPage && <SiteFooter />}
+        {!isAuthPage && <WhatsAppFloat />}
+        <Scripts />
+      </body>
+    </html>
   );
 }
 
