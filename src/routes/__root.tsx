@@ -120,15 +120,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
     ],
   }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
 
-function RootShell({ children }: { children: ReactNode }) {
+function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-
+  
   return (
     <html lang="pt-BR">
       <head>
@@ -136,7 +135,7 @@ function RootShell({ children }: { children: ReactNode }) {
       </head>
       <body>
         <QueryClientProvider client={queryClient}>
-          {children}
+          <RootContent />
         </QueryClientProvider>
         <Scripts />
       </body>
@@ -144,7 +143,7 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
-function RootComponent() {
+function RootContent() {
   const router = useRouter();
 
   const { data: settings } = useSuspenseQuery({
