@@ -96,7 +96,7 @@ function ContatoPage() {
                 </span>
                 <div>
                   <div className="text-xs text-muted-foreground">Atendimento</div>
-                  <div className="font-semibold">Seg a Sex · 9h às 18h</div>
+                  <div className="font-semibold">Seg a Sex · 8h às 17h</div>
                 </div>
               </div>
             </div>
