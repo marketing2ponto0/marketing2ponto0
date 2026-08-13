@@ -455,15 +455,19 @@ function Index() {
                 className={`group relative flex flex-col overflow-hidden rounded-2xl border border-gold/30 bg-gold/5 p-8 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition`}
               >
                 <div className="flex items-start justify-between mb-8">
-                  <div className="flex gap-3">
-                    <div className="grid h-12 w-12 place-items-center rounded-xl bg-brd text-gold shadow-lg">
-                      <g.icon className="h-6 w-6" />
-                    </div>
-                    {/* Placeholder for Logo */}
-                    <div className="grid h-12 w-12 place-items-center rounded-xl border border-brd/20 bg-ink-2/50 text-[10px] text-brd/40 font-bold uppercase tracking-tighter text-center leading-none px-1">
-                      Logo
-                    </div>
+                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-brd text-gold shadow-lg">
+                    <g.icon className="h-6 w-6" />
                   </div>
+                  {/* Placeholder for Logo - moved to top right and larger */}
+                  <div className="grid h-20 w-20 place-items-center rounded-xl border border-brd/20 bg-ink-2/50 text-[10px] text-brd/40 font-bold uppercase tracking-tighter text-center leading-none px-1 shadow-inner">
+                    Logo
+                  </div>
+                </div>
+                
+                <div className="mt-8 flex items-center justify-between border-t border-brd/10 pt-6">
+                  <h3 className="font-display text-xl font-bold text-foreground group-hover:text-brd transition">
+                    {g.name}
+                  </h3>
                   <Link 
                     to={g.to}
                     className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-brd hover:text-gold transition"
@@ -471,10 +475,6 @@ function Index() {
                     Detalhes <ArrowRight className="h-3 w-3" />
                   </Link>
                 </div>
-                
-                <h3 className="font-display text-xl font-bold text-foreground group-hover:text-brd transition">
-                  {g.name}
-                </h3>
                 <p className="mt-2 text-[10px] font-bold text-foreground/70 uppercase tracking-widest group-hover:text-gold transition">
                   {g.tag}
                 </p>
