@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+// Adicione um fluxo para eu enviar e organizar vídeos (título, descrição e ordem) e atualizar a página automaticamente.
 import { ArrowRight, Award, Check } from "lucide-react";
 import {
   WhatsAppIcon,

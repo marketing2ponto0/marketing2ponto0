@@ -40,7 +40,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-type Tab = "leads" | "textos" | "servicos" | "depoimentos" | "logos" | "portfolio";
+type Tab = "leads" | "textos" | "servicos" | "depoimentos" | "logos" | "portfolio" | "videos";
 
 function AdminPage() {
   const navigate = useNavigate();
@@ -80,7 +80,8 @@ function AdminPage() {
     { key: "servicos", label: "Serviços" },
     { key: "depoimentos", label: "Depoimentos" },
     { key: "logos", label: "Logos" },
-    { key: "portfolio", label: "Portfólio" },
+    { key: "portfolio", label: "Portfólio (Imagens)" },
+    { key: "videos", label: "Vídeos do Portfólio" },
   ];
 
   return (
@@ -114,7 +115,8 @@ function AdminPage() {
       {tab === "servicos" && <ServicesTab />}
       {tab === "depoimentos" && <TestimonialsTab />}
       {tab === "logos" && <LogosTab />}
-      {tab === "portfolio" && <PortfolioTab />}
+      {tab === "portfolio" && <PortfolioTab filter="image" />}
+      {tab === "videos" && <PortfolioTab filter="video" />}
     </div>
   );
 }
@@ -546,14 +548,17 @@ async function uploadPortfolioFile(file: File) {
   return path;
 }
 
-function PortfolioTab() {
+function PortfolioTab({ filter }: { filter?: "image" | "video" }) {
   const [items, setItems] = useState<SlideRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState<string | null>(null);
 
   async function refresh() {
     setLoading(true);
-    try { setItems((await listPortfolioSlidesAdmin()) as SlideRow[]); }
+    try { 
+      const res = (await listPortfolioSlidesAdmin()) as SlideRow[];
+      setItems(filter ? res.filter(item => item.media_type === filter) : res);
+    }
     finally { setLoading(false); }
   }
   useEffect(() => { refresh(); }, []);
@@ -561,7 +566,7 @@ function PortfolioTab() {
   function addNew() {
     setItems([
       ...items,
-      { media_type: "image", media_url: "", poster_url: null, caption: "", order_index: items.length + 1, active: true },
+      { media_type: filter || "image", media_url: "", poster_url: null, caption: "", order_index: items.length + 1, active: true },
     ]);
   }
 
@@ -586,8 +591,9 @@ function PortfolioTab() {
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-4">
         <p className="text-sm text-black/60">
-          Envie cada página do portfólio como imagem — e a página 7 (ou qualquer outra) como vídeo MP4.
-          A ordem define a sequência da apresentação. Sem slides cadastrados, o site usa a apresentação atual.
+          {filter === "video" 
+            ? "Gerencie os vídeos MP4 do portfólio. A ordem define a sequência da apresentação."
+            : "Envie cada página do portfólio como imagem. A ordem define a sequência."}
         </p>
         <button onClick={addNew} className="inline-flex shrink-0 items-center gap-1 rounded-md bg-black px-3 py-1.5 text-sm font-semibold text-white">
           <Plus className="h-4 w-4" /> Adicionar
