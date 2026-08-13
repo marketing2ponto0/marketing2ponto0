@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -147,10 +147,8 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const router = useRouter();
 
-  const { data: settings } = useQuery({
-    queryKey: ["site-settings"],
-    queryFn: () => getPublicSettings(),
-  });
+  // Moved settings to local components or index route to avoid root suspense issues
+  const settings: any[] = [];
   
   // Lógica para lidar com redirecionamento de hash legados (#admin -> /admin)
   useEffect(() => {
