@@ -19,23 +19,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border/60 backdrop-blur-xl bg-ink/85">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
         <Link to="/" className="flex items-center gap-3">
-          {logoUrl ? (
-            <img src={logoUrl} alt="Marketing 2.0" className="h-11 w-auto" />
-          ) : (
-            <>
-              <span className="grid h-11 w-11 place-items-center rounded-lg bg-gradient-to-br from-brd to-brd-dark text-cream font-display font-extrabold brand-shadow">
-                M
-              </span>
-              <span className="flex flex-col leading-tight">
-                <span className="font-display font-bold text-sm tracking-tight">
-                  Marketing <span className="gold-text">2.0</span>
-                </span>
-                <span className="text-[10px] italic text-muted-foreground">
-                  muito mais que uma agência
-                </span>
-              </span>
-            </>
-          )}
+          <img src="/logo.png" alt="Marketing 2.0" className="h-14 w-auto" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
@@ -119,10 +103,8 @@ export function SiteFooter() {
     <footer className="py-10 border-t border-border/60">
       <div className="mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
         <div className="flex items-center gap-2">
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-brd text-cream text-xs font-bold">
-            M
-          </span>
-          © {new Date().getFullYear()} Marketing 2.0. Todos os direitos reservados.
+          <img src="/logo.png" alt="Marketing 2.0" className="h-8 w-auto" />
+          <span className="text-xs">© {new Date().getFullYear()} Marketing 2.0. Todos os direitos reservados.</span>
         </div>
         <div className="flex gap-6">
           <Link to="/servicos" className="hover:text-foreground transition">Serviços</Link>
