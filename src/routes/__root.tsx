@@ -127,13 +127,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const { queryClient } = Route.useRouteContext();
+
   return (
     <html lang="pt-BR">
       <head>
         <HeadContent />
       </head>
       <body>
-        {children}
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
         <Scripts />
       </body>
     </html>
@@ -141,7 +145,6 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
   const router = useRouter();
 
   const { data: settings } = useSuspenseQuery({
@@ -151,14 +154,14 @@ function RootComponent() {
   
   // Lógica para lidar com redirecionamento de hash legados (#admin -> /admin)
   useEffect(() => {
-    if (window.location.hash === "#admin") {
+    if (typeof window !== 'undefined' && window.location.hash === "#admin") {
       router.navigate({ to: "/admin" });
     }
   }, [router]);
 
   useEffect(() => {
     const faviconUrl = settings?.find((s: any) => s.key === "site_favicon_url")?.value;
-    if (faviconUrl) {
+    if (faviconUrl && typeof document !== 'undefined') {
       let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
       if (!link) {
         link = document.createElement('link');
@@ -174,16 +177,14 @@ function RootComponent() {
                      router.state.location.pathname === "/admin";
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col text-foreground">
-        {!isAuthPage && <SiteHeader />}
-        <div className="flex-1">
-          <Outlet />
-        </div>
-        {!isAuthPage && <SiteFooter />}
-        {!isAuthPage && <WhatsAppFloat />}
+    <div className="min-h-screen flex flex-col text-foreground">
+      {!isAuthPage && <SiteHeader />}
+      <div className="flex-1">
+        <Outlet />
       </div>
-    </QueryClientProvider>
+      {!isAuthPage && <SiteFooter />}
+      {!isAuthPage && <WhatsAppFloat />}
+    </div>
   );
 }
 
