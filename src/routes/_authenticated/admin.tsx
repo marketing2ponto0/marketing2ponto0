@@ -556,6 +556,7 @@ function LogosTab() {
 function PortfolioTab({ filter }: { filter: "image" | "video" }) {
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
 
   async function refresh() {
     setLoading(true);
@@ -565,6 +566,27 @@ function PortfolioTab({ filter }: { filter: "image" | "video" }) {
     } finally { setLoading(false); }
   }
   useEffect(() => { refresh(); }, [filter]);
+
+  async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("bucket", "portfolio");
+      const { url } = await uploadAsset({ data: formData as any }) as { url: string };
+      await savePortfolioSlide({ data: { 
+        media_type: filter, 
+        media_url: url, 
+        active: true, 
+        order_index: items.length,
+        caption: file.name.split('.')[0]
+      } });
+      refresh();
+    } catch (err: any) { alert(err.message); }
+    finally { setUploading(false); }
+  }
 
   async function onSave(item: any) {
     await savePortfolioSlide({ data: item });
@@ -580,22 +602,46 @@ function PortfolioTab({ filter }: { filter: "image" | "video" }) {
   if (loading) return <p className="text-foreground/60">Carregando...</p>;
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-end">
-        <button onClick={() => setItems([...items, { media_type: filter, media_url: "", caption: "", active: true, order_index: items.length }])} className="rounded bg-brd px-3 py-1 text-xs text-white">Adicionar</button>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-bold">{filter === "image" ? "Imagens" : "Vídeos"} do Portfólio</h3>
+        <label className="cursor-pointer rounded-md bg-brd px-4 py-2 text-sm font-semibold text-cream hover:bg-brd-light transition">
+          {uploading ? "Enviando..." : filter === "image" ? "Subir Imagem" : "Subir Vídeo"}
+          <input type="file" accept={filter === "image" ? "image/*" : "video/*"} onChange={handleUpload} className="hidden" disabled={uploading} />
+        </label>
       </div>
-      {items.map((it, idx) => (
-        <div key={it.id || idx} className="rounded-lg border border-border bg-ink-2 p-4">
-          <div className="grid gap-3 md:grid-cols-2">
-            <Field label="URL da Mídia"><input value={it.media_url} onChange={(e) => { const next = [...items]; next[idx].media_url = e.target.value; setItems(next); }} className={inputCls} /></Field>
-            <Field label="Legenda"><input value={it.caption || ""} onChange={(e) => { const next = [...items]; next[idx].caption = e.target.value; setItems(next); }} className={inputCls} /></Field>
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((it, idx) => (
+          <div key={it.id || idx} className="rounded-lg border border-border bg-ink-2 p-4">
+            <div className="mb-3 aspect-video overflow-hidden rounded bg-ink flex items-center justify-center border border-border">
+              {filter === "image" ? (
+                <img src={it.media_url} alt={it.caption} className="h-full w-full object-cover" />
+              ) : (
+                <video src={it.media_url} className="h-full w-full object-cover" controls />
+              )}
+            </div>
+            <div className="space-y-3">
+              <Field label="Legenda">
+                <input 
+                  value={it.caption || ""} 
+                  onChange={(e) => { 
+                    const next = [...items]; 
+                    next[idx].caption = e.target.value; 
+                    setItems(next); 
+                  }} 
+                  className={inputCls} 
+                />
+              </Field>
+              <div className="flex justify-end gap-2">
+                <button onClick={() => onRemove(it.id)} className="text-red-400 p-1 hover:bg-red-500/10 rounded"><Trash2 className="h-4 w-4" /></button>
+                <button onClick={() => onSave(it)} className="rounded bg-brd px-4 py-1 text-xs text-white hover:bg-brd-light transition">Salvar</button>
+              </div>
+            </div>
           </div>
-          <div className="mt-4 flex justify-end gap-2">
-            {it.id && <button onClick={() => onRemove(it.id)} className="text-red-400"><Trash2 className="h-4 w-4" /></button>}
-            <button onClick={() => onSave(it)} className="rounded bg-brd px-3 py-1 text-xs text-white">Salvar</button>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
+
