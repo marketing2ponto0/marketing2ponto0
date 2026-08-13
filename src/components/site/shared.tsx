@@ -98,8 +98,8 @@ export const mvv = [
   {
     icon: Eye,
     label: "Visão",
-    title: "Referência em marketing digital no Brasil",
-    desc: "Ser referência em marketing digital no Brasil, reconhecida pela inovação e resultados consistentes.",
+    title: "Referência em marketing no Brasil",
+    desc: "Ser referência em marketing no Brasil, reconhecida pela inovação e resultados consistentes.",
   },
   {
     icon: Heart,
