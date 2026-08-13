@@ -308,15 +308,15 @@ function Index() {
 
       <section className="py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
-            <div className="lg:sticky lg:top-24">
-              <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-xs font-medium text-gold uppercase tracking-wider">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+            <div>
+              <span className="text-gold font-bold text-xs uppercase tracking-[0.2em]">
                 Nosso maior diferencial
               </span>
-              <h2 className="mt-6 font-display text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1]">
-                Diferente dos demais que fazem <span className="gradient-gold">pacotes</span>
+              <h2 className="mt-6 font-display text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] text-foreground">
+                Diferente dos demais <br /> que fazem pacotes
               </h2>
-              <div className="mt-8 space-y-6 text-lg text-muted-foreground leading-relaxed">
+              <div className="mt-8 space-y-6 text-base text-foreground/80 leading-relaxed max-w-lg">
                 <p>
                   Diferente dos demais que fazem pacotes por publicações, <b className="text-foreground">nós focamos na movimentação e engajamento</b>, movimentando diariamente e várias vezes por dia!
                 </p>
@@ -333,28 +333,24 @@ function Index() {
                 </Link>
               </div>
             </div>
-            <div className="grid sm:grid-cols-2 gap-4 lg:gap-6">
+
+            <div className="space-y-3">
               {diferenciais.map((d) => (
                 <div
                   key={d.title}
-                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-ink-2 p-7 hover:border-brd hover:shadow-xl hover:-translate-y-1 transition"
+                  className="group relative flex items-center gap-4 rounded-xl border border-border bg-ink-2 p-5 hover:border-brd/50 transition-all duration-300"
                 >
-                  <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-brd to-brd-dark text-cream group-hover:from-gold group-hover:to-gold-soft group-hover:text-foreground transition">
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-brd rounded-l-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brd/10 text-brd group-hover:bg-brd group-hover:text-cream transition-colors">
                     <d.icon className="h-5 w-5" />
                   </div>
-                  <div className="mt-6">
-                    <h3 className="font-display text-lg font-bold group-hover:text-brd transition">{d.title}</h3>
-                    <p className="mt-3 text-sm text-foreground/70 leading-relaxed">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-display text-base font-bold text-foreground">
+                      {d.title}
+                    </h3>
+                    <p className="mt-1 text-sm text-foreground/60 line-clamp-1 group-hover:line-clamp-none transition-all">
                       {d.desc}
                     </p>
-                    <ul className="mt-4 space-y-2">
-                      {d.bullets.map((b) => (
-                        <li key={b} className="flex items-center gap-2 text-[10px] text-foreground/60">
-                          <Check className="h-3 w-3 text-gold" />
-                          {b}
-                        </li>
-                      ))}
-                    </ul>
                   </div>
                 </div>
               ))}
