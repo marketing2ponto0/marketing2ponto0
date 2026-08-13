@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { ArrowRight, Instagram, Menu, X } from "lucide-react";
 import { NAV_LINKS, WhatsAppIcon, WHATSAPP } from "./shared";
 import { getPublicSettings } from "@/lib/settings.functions";
 import { useQuery } from "@tanstack/react-query";
