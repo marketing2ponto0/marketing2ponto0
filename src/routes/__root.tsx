@@ -128,16 +128,28 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  
+  // Lógica para lidar com redirecionamento de hash legados (#admin -> /admin)
+  useEffect(() => {
+    if (window.location.hash === "#admin") {
+      router.navigate({ to: "/admin" });
+    }
+  }, [router]);
+
+  const isAuthPage = router.state.location.pathname.startsWith("/auth") || 
+                     router.state.location.pathname.startsWith("/_authenticated") ||
+                     router.state.location.pathname === "/admin";
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen flex flex-col text-foreground">
-        <SiteHeader />
+        {!isAuthPage && <SiteHeader />}
         <div className="flex-1">
           <Outlet />
         </div>
-        <SiteFooter />
-        <WhatsAppFloat />
+        {!isAuthPage && <SiteFooter />}
+        {!isAuthPage && <WhatsAppFloat />}
       </div>
     </QueryClientProvider>
   );
