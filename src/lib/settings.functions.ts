@@ -18,11 +18,11 @@ async function assertAdmin(supabase: any, userId: string) {
 }
 
 export const listSettings = createServerFn({ method: "GET" })
-  .middleware([]) // We check auth inside handler via supabaseAdmin if needed, or just requireSupabaseAuth
   .handler(async ({ context }: any) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const userId = context.userId;
-    if (userId) await assertAdmin(supabaseAdmin, userId);
+    if (!userId) throw new Error("Unauthorized");
+    await assertAdmin(supabaseAdmin, userId);
 
     const { data, error } = await supabaseAdmin
       .from("site_texts")
