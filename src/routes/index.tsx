@@ -21,16 +21,22 @@ import {
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
-    await Promise.all([
-      context.queryClient.ensureQueryData({
-        queryKey: ["portfolio-slides-public"],
-        queryFn: () => listPortfolioSlidesPublic(),
-      }),
-      context.queryClient.ensureQueryData({
-        queryKey: ["site-settings"],
-        queryFn: () => getPublicSettings(),
-      }),
-    ]);
+    try {
+      await Promise.all([
+        context.queryClient.ensureQueryData({
+          queryKey: ["portfolio-slides-public"],
+          queryFn: () => listPortfolioSlidesPublic(),
+        }),
+        context.queryClient.ensureQueryData({
+          queryKey: ["site-settings"],
+          queryFn: () => getPublicSettings(),
+        }),
+      ]);
+    } catch (err) {
+      console.error("[IndexRoute] Loader failed:", err);
+      // We don't rethrow here to allow the component to render with fallback/empty data if possible
+      // or handled by suspense boundaries if they exist.
+    }
   },
   head: () => ({
     meta: [
