@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider, useSuspenseQuery } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -129,41 +129,6 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <RootInner />
-    </QueryClientProvider>
-  );
-}
-
-function RootInner() {
-  const router = useRouter();
-
-  const { data: settings } = useSuspenseQuery({
-    queryKey: ["site-settings"],
-    queryFn: () => getPublicSettings(),
-  });
-  
-  // Lógica para lidar com redirecionamento de hash legados (#admin -> /admin)
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.location.hash === "#admin") {
-      router.navigate({ to: "/admin" });
-    }
-  }, [router]);
-
-  useEffect(() => {
-    const faviconUrl = settings?.find((s: any) => s.key === "site_favicon_url")?.value;
-    if (faviconUrl && typeof document !== 'undefined') {
-      let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
-      if (!link) {
-        link = document.createElement('link');
-        link.rel = 'icon';
-        document.getElementsByTagName('head')[0].appendChild(link);
-      }
-      link.href = faviconUrl;
-    }
-  }, [settings]);
-
   const isAuthPage = router.state.location.pathname.startsWith("/auth") || 
                      router.state.location.pathname.startsWith("/_authenticated") ||
                      router.state.location.pathname === "/admin";
@@ -174,13 +139,15 @@ function RootInner() {
         <HeadContent />
       </head>
       <body className="min-h-screen flex flex-col text-foreground">
-        {!isAuthPage && <SiteHeader />}
-        <main className="flex-1">
-          <Outlet />
-        </main>
-        {!isAuthPage && <SiteFooter />}
-        {!isAuthPage && <WhatsAppFloat />}
-        <Scripts />
+        <QueryClientProvider client={queryClient}>
+          {!isAuthPage && <SiteHeader />}
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          {!isAuthPage && <SiteFooter />}
+          {!isAuthPage && <WhatsAppFloat />}
+          <Scripts />
+        </QueryClientProvider>
       </body>
     </html>
   );
