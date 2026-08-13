@@ -76,10 +76,17 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  loader: ({ context }) => context.queryClient.ensureQueryData({
-    queryKey: ["site-settings"],
-    queryFn: () => getPublicSettings(),
-  }),
+  loader: async ({ context }) => {
+    try {
+      return await context.queryClient.ensureQueryData({
+        queryKey: ["site-settings"],
+        queryFn: () => getPublicSettings(),
+      });
+    } catch (err) {
+      console.error("[RootRoute] Loader failed:", err);
+      return [];
+    }
+  },
   head: () => ({
 
     meta: [
