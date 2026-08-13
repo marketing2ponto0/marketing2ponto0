@@ -16,10 +16,8 @@ import {
   listLogosAdmin,
   saveLogo,
   deleteLogo,
-  listSettings,
-  updateSetting,
-  uploadAsset,
 } from "@/lib/admin.functions";
+import { listSettings, updateSetting, uploadAsset } from "@/lib/settings.functions";
 import {
   listPortfolioSlidesAdmin,
   savePortfolioSlide,
