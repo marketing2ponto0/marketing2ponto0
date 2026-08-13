@@ -273,7 +273,7 @@ function ConfigTab() {
 
   async function refresh() {
     setLoading(true);
-    try { setSettings(await listSettings()); }
+    try { setSettings((await listSettings()) as { key: string; value: string }[]); }
     finally { setLoading(false); }
   }
   useEffect(() => { refresh(); }, []);
@@ -288,7 +288,7 @@ function ConfigTab() {
       formData.append("file", file);
       formData.append("bucket", "assets");
       
-      const { url } = await uploadAsset({ data: formData as any });
+      const { url } = await uploadAsset({ data: formData as any }) as { url: string };
       await updateSetting({ data: { key, value: url } });
       refresh();
     } catch (err: any) {
