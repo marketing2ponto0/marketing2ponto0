@@ -272,7 +272,7 @@ function Index() {
                     <m.icon className="h-5 w-5" />
                   </div>
                   <div>
-                    <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-gold">
+                    <div className="text-[9px] font-bold uppercase tracking-[0.2em] text-gold">
                       {m.label}
                     </div>
                     <h3 className="font-display text-lg font-bold group-hover:text-brd transition">{m.title}</h3>
