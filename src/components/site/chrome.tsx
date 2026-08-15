@@ -19,7 +19,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border/60 backdrop-blur-xl bg-ink/85">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
         <Link to="/" className="flex items-center gap-3">
-          <img src="/logo.png" alt="Marketing 2.0" className="h-10 md:h-12 w-auto object-contain" />
+          <img src={logoUrl || "/logo.png"} alt="Marketing 2.0" className="h-10 md:h-12 w-auto object-contain notranslate" translate="no" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
