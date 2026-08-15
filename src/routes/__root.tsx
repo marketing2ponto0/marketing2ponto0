@@ -130,7 +130,7 @@ function RootShell({ children }: { children: ReactNode }) {
   const { queryClient } = Route.useRouteContext();
 
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" translate="no" className="notranslate">
       <head>
         <HeadContent />
       </head>
