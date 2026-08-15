@@ -321,7 +321,8 @@ function ContatoPage() {
                   <select
                     name="servico"
                     defaultValue=""
-                    className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition"
+                    translate="no"
+                    className="mt-2 w-full rounded-lg border border-border/80 bg-ink/60 px-4 py-3 text-sm focus:border-gold focus:outline-none transition notranslate"
                   >
                     <option value="" disabled>Selecione...</option>
                     {servicoOptions.map((o) => (

@@ -247,7 +247,7 @@ function Index() {
             Marcas que crescem com a Marketing 2.0
           </p>
         </div>
-        <div className="relative space-y-4">
+        <div className="relative space-y-4 notranslate" translate="no">
           <div className="flex overflow-hidden">
             <div className="flex shrink-0 gap-10 animate-marquee-left">
               {[...clientLogos.slice(0, 8), ...clientLogos.slice(0, 8)].map((l, i) => (
