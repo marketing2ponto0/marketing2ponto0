@@ -133,7 +133,7 @@ function Index() {
             <p className="mt-6 text-lg text-muted-foreground max-w-xl">
               Especializados em <b className="text-foreground">mídias sociais</b> e
               crescimento digital. Criatividade, dados e{" "}
-              <b className="text-foreground">Serviço de tráfego pago já incluso</b> para
+              <b className="text-foreground">serviço de tráfego pago já incluso</b> para
               resultados reais.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
